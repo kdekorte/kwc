@@ -65,7 +65,7 @@ html,body {
     min-height: 225px;
     box-sizing: border-box;
     font-family: LCD;
-    text-shadow: 3px 3px 1px #7779;
+    text-shadow: 3px 3px 1px rgba(112, 112, 112, 0.5);
     background: rgba(203,203,203,.66);
     color: #333;
 }
