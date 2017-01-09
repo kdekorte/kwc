@@ -1,3 +1,8 @@
+@font-face {
+    font-family:"LED";
+    src: url('/static/fonts/LCD-N___.TTF');
+}
+
 html,body {
     background-color: #343434;
     color: #cbcbcb;
