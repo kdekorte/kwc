@@ -59,7 +59,7 @@ function updateCurrent() {
             result += "<div class='currentperiod'>";
             
             result += "<div class='header'>";
-            result += "<span class='high'>" + data.current_observation.temp_f + "&deg;F</span><span class='low'><span style='font-size:10px'>WC </span>";
+            result += "<span class='high'>" + data.current_observation.temp_f + "&deg;F</span><span class='low'><span style='font-size:10px'>FL </span>";
             result += data.current_observation.feelslike_f + "&deg;F</span>";
             result += "</div>";
             

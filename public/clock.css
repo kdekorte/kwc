@@ -66,7 +66,7 @@ html,body {
     box-sizing: border-box;
     font-family: LCD;
     text-shadow: 3px 3px 1px rgba(112, 112, 112, 0.5);
-    background: rgba(203,203,203,.66);
+    background: rgba(203,203,203,.50);
     color: #333;
 }
 
@@ -117,12 +117,20 @@ html,body {
     background-color: rgba(238,238,238,.25);;
 }
 
+.forecastperiod:first-child {
+    padding-left:0;
+}
+.forecastperiod:last-child {
+    padding-right:10px;
+}
+
 .currentperiod {
     width: 100%;
 }
 
 .forecastperiod {
     width: 25%;
+    padding: 10px 5px;
 }
 
 .forecast {
@@ -149,7 +157,7 @@ html,body {
 .high {
     text-align:left;
     font-size: 1em;
-    padding-left: 10px;
+    padding-left: 5px;
 }
 
 .low {
@@ -157,7 +165,7 @@ html,body {
     font-size: 1em;
     color: #bbb;
     float:right;
-    padding-right:10px
+    padding-right:5px
 }
 
 .currentperiod .footer,
