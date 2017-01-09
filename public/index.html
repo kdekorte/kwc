@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script type="text/javascript" src="http://www.datejs.com/build/date.js"></script>
+    <script type="text/javascript" src="/static/config.js" ></script>
+    <script type="text/javascript" src="/static/clock.js" ></script>
+    <link rel="stylesheet" type="text/css" href="/static/clock.css">
+</head>
+<body onload="javascript:init();">
+    <div class="header">Kevin's Weather Clock</div>
+    <div class="content">
+        <div class="clock">
+            <div class="digits"><span id="clock"></span><span class="ampm" id="ampm"></span></div>
+            <div class="day" id="day"></div>
+        </div>
+        <div class="map">
+            <img src="" id="wumap" />
+        </div>
+        <div class="clear">
+        </div>
+        <div class='location'>Weather for <span id='location'></span></div>
+        <div id="current" class="current">
+        </div>
+        <div id="forecast" class="forecast">
+        </div>
+         <div class="clear">
+        </div>
+       
+    </div>
+    <div class="footer">Data provided by Weather Underground</div>
+</body>
+</html>

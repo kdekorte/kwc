@@ -1,0 +1,180 @@
+html,body {
+    background-color: #343434;
+    color: #cbcbcb;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    max-width: 800px;
+    background: url('/static/background.jpeg');
+    background-color: #000;
+    background-repeat: repeat-y;
+    background-attachment: fixed;
+    background-position: right top;
+    background-size: cover;
+}
+
+.hidden {
+    display: none;
+}
+
+.clear {
+    clear: both;
+}
+
+.header {
+    width: 100%;
+    background-color: #007aac;
+    color: #eee;
+    padding: 2px 5px;
+    box-sizing: border-box;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    max-width: 800px;
+    background-color: #007aac;
+    color: #eee;
+    font-size: 0.75em;
+    vertical-align: bottom;
+    display: inline-block;
+    padding: 4px 5px;
+    box-sizing: border-box;
+    text-align: right;
+}
+
+.content {
+    box-sizing: border-box;
+    min-height: 430px;
+}
+
+.clock {
+    float: left;
+    border: 1px solid #cbcbcb;
+    width: 480px;
+    min-height: 225px;
+    box-sizing: border-box;
+    font-family: LCD;
+    text-shadow: 3px 3px 1px #7779;
+    background: #cbcbcbaa;
+    color: #333;
+}
+
+.digits {
+    font-size: 11em;
+    padding: 20px 50px 0 0;
+    text-align: right;
+}
+
+.ampm {
+    font-size: 32px;
+}
+
+.day {
+    font-size: 2em;
+    padding: 0 50px 0 0;
+    text-align: right;
+}
+
+
+.map {
+    float: left;
+    overflow: hidden;
+    width: 320px;
+    min-height: 40px;
+    box-sizing: border-box;
+}
+
+.location {
+    padding-top: 5px;
+    padding-left: 10px;
+    color: #333;
+    font-weight: 700;
+}
+
+.current {
+    float: left;
+    width: 20%;
+    min-height: 160px;
+    box-sizing: border-box;
+    padding-top:10px;
+}
+
+.currentperiod, .forecastperiod {
+    float: left;
+    box-sizing: border-box;
+    padding: 10px;
+    background-color: #eeeeee44;
+}
+
+.currentperiod {
+    width: 100%;
+}
+
+.forecastperiod {
+    width: 25%;
+}
+
+.forecast {
+    float: left;
+    width: 80%;
+    min-height: 160px;
+    box-sizing: border-box;
+    padding-top:10px;
+}
+
+
+.currentperiod .header,
+.forecastperiod .header {
+    position: initial;
+    background-color: #007aac;
+    color: #eee;
+    font-weight: 700;
+    font-size: 1em;
+    display: inline-block;
+    padding: 4px 5px;
+    box-sizing: border-box;
+}
+
+.high {
+    text-align:left;
+    font-size: 1em;
+    padding-left: 10px;
+}
+
+.low {
+    text-align: right;
+    font-size: 1em;
+    color: #bbb;
+    float:right;
+    padding-right:10px
+}
+
+.currentperiod .footer,
+.forecastperiod .footer {
+    position: initial;
+    text-align: center;
+    background-color: goldenrod;
+    color: black;
+    font-weight: 700;
+    font-size: 1em;
+    display: inline-block;
+    padding: 4px 5px;
+    box-sizing: border-box;
+}
+
+.conditions {
+    min-height: 100px;
+    text-align: center;
+    background-color: #cbcbcbaa;
+    color: black;
+}
+
+.wind {
+    font-size: .75em;
+}
