@@ -40,7 +40,7 @@ function updateMap() {
     }
     var today = new Date();
     var map = document.getElementById("wumap");
-    map.src = wuurlbase + wukey + "/radar/q/" + state + "/" + city + ".gif?radius=75&width=320&height=225&newmaps=1&timelabel=1&timelabel.y=225&noclutter=1&smooth=1&ts=" + today.toString("hhmmss");
+    map.src = wuurlbase + wukey + "/radar/q/" + state + "/" + city + ".gif?radius=75&width=320&height=225&rainsnow=1&newmaps=1&timelabel=1&timelabel.y=225&noclutter=1&smooth=1&ts=" + today.toString("hhmmss");
     var t = setTimeout(updateMap, 1000 * 60 * 10);
 }
 
