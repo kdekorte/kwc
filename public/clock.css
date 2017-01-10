@@ -181,8 +181,12 @@ html,body {
     box-sizing: border-box;
 }
 
+.label {
+    padding-bottom: 2px;
+}
+
 .conditions {
-    min-height: 100px;
+    height: 110px;
     text-align: center;
     background-color: rgba(203,203,203,.66);
     color: black;

@@ -65,7 +65,7 @@ function updateCurrent() {
             
             result += "<div class='conditions'>";
             result += "<img src='" + data.current_observation.icon_url + "'/>";
-            result += "<div>" + data.current_observation.weather + "</div>"
+            result += "<div class='label'>" + data.current_observation.weather + "</div>"
             if (data.current_observation.wind_mph > 0) {
                 result += "<div class='wind'>" + data.current_observation.wind_mph + "mph wind from " + data.current_observation.wind_dir + "</div>";
             }
