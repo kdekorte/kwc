@@ -64,7 +64,7 @@ function updateCurrent() {
             result += "</div>";
             
             result += "<div class='conditions'>";
-            result += "<img src='" + data.current_observation.icon_url + "'/>";
+            result += "<img src='" + data.current_observation.icon_url.replace("\/c\/k","/c/i") + "'/>";
             result += "<div class='label'>" + data.current_observation.weather + "</div>"
             if (data.current_observation.wind_mph > 0) {
                 result += "<div class='wind'>" + data.current_observation.wind_mph + "mph wind from " + data.current_observation.wind_dir + "</div>";
@@ -114,7 +114,7 @@ function updateForecast() {
                 result += "</div>";
                 
                 result += "<div class='conditions'>";
-                result += "<img src='" + simpleperiod.icon_url + "'/>";
+                result += "<img src='" + simpleperiod.icon_url.replace("\/c\/k","/c/i") + "'/>";
                 result += "<div>" + simpleperiod.conditions + "</div>"
                 if (simpleperiod.avewind.mph > 0) {
                     result += "<div class='wind'>" + simpleperiod.avewind.mph + "mph wind from the " + simpleperiod.avewind.dir + "</div>";

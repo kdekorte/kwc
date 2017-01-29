@@ -114,7 +114,7 @@ html,body {
     float: left;
     box-sizing: border-box;
     padding: 10px;
-    background-color: rgba(238,238,238,.25);;
+    background-color: rgba(238,238,238,.25);
 }
 
 .forecastperiod:first-child {
