@@ -38,3 +38,8 @@ jspm_packages
 
 # Optional REPL history
 .node_repl_history
+
+#packages
+kwc-darwin-x64
+kwc-linux-x64
+kwc-win32-x64
