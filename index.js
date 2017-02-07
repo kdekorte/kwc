@@ -15,7 +15,14 @@ function createWindow () {
       kioskMode = true;
     }
   })
-  win = new BrowserWindow({width: 800, height: 480, kiosk: kioskMode})
+  win = new BrowserWindow({
+    title: 'Kevin\'s Weather Clock',
+    width: 800, 
+    height: 480, 
+    kiosk: kioskMode, 
+    autoHideMenuBar: true, 
+    useContentSize: true
+  })
 
   // and load the index.html of the app.
   win.loadURL(url.format({
