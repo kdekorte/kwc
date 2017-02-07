@@ -6,6 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "./node_modules/.bin/electron .",
+    "kiosk": "./node_modules/.bin/electron . --kiosk",
     "dev": "webpack -d --watch",
     "build" : "webpack -p",
     "package-osx": "electron-packager . --platform=darwin --overwrite",
