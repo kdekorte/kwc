@@ -8,6 +8,7 @@ function init() {
     updateMap();
     updateCurrent();
     updateForecast();
+    require('web-frame').setVisualZoomLevelLimits(1,1);
 }
 
 

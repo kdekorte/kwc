@@ -20,6 +20,7 @@ html,body {
     background-position: right top;
     background-size: cover;
     overflow: hidden;
+    -webkit-text-size-adjust: none;
 }
 
 .hidden {
