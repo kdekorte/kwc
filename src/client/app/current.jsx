@@ -18,7 +18,7 @@ export class Current extends React.Component {
     }
 
     componentDidMount() {
-        this.setState({ timer: setInterval(this.updateCurrent, 1000 * 60 * 10) });
+        this.setState({ timer: setInterval(() => this.updateCurrent(), 1000 * 60 * 10) });
     }
 
     componentWillUnmount() {
@@ -27,7 +27,11 @@ export class Current extends React.Component {
 
     render() {
         if (WeatherStore.current == null) {
-            return null
+            return (
+                <div className='clock' style={{padding: '20px', minHeight: '211px', width: '398px', marginRight: '2px'}}>
+                    Loading...
+                </div>
+            )
         } else {
             return ( 
                 <div className='clock' style={{padding: '20px', minHeight: '211px', width: '398px', marginRight: '2px'}}>

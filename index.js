@@ -33,7 +33,9 @@ function createWindow() {
 
   // Open the DevTools.
   //  win.webContents.openDevTools()
-
+  win.on('ready-to-show', () => {
+    
+  })
   // Emitted when the window is closed.
   win.on('closed', () => {
     // Dereference the window object, usually you would store windows
@@ -42,6 +44,7 @@ function createWindow() {
     win = null
   })
 }
+
 
 
 app.commandLine.appendSwitch('--enable-viewport-meta', 'true');

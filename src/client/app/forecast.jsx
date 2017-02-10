@@ -59,7 +59,7 @@ export class Forecast extends React.Component {
     }
 
     componentDidMount() {
-        this.setState({ timer: setInterval(this.updateForecast, 1000 * 60 * 30) });
+        this.setState({ timer: setInterval(() => this.updateForecast(), 1000 * 60 * 30) });
     }
 
     componentWillUnmount() {
@@ -68,7 +68,11 @@ export class Forecast extends React.Component {
  
     render() {
         if (WeatherStore.forecast == null) {
-            return null
+            return (
+                <div className='clock' style={{padding: '10px', minHeight: '211px', width: '398px', marginLeft: '2px'}}>
+                Loading...
+                </div>
+            )
         } else {
             return ( 
                 <div className='clock' style={{padding: '10px', minHeight: '211px', width: '398px', marginLeft: '2px'}}>

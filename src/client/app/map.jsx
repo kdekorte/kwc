@@ -18,9 +18,8 @@ export class Map extends React.Component {
     }
 
     componentDidMount() {
-        console.log('mounted map')
-        updateMap()
-        this.setState({ timer: setInterval(updateMap, 1000 * 60 * 10) });
+        this.updateMap()
+        this.setState({ timer: setInterval(() => this.updateMap(), 1000 * 60 * 10) });
     }
 
     componentWillUnmount() {
