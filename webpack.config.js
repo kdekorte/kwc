@@ -15,9 +15,17 @@ var config = {
       {
         test : /\.jsx?/,
         include : APP_DIR,
-        loader : 'babel'
+        loader : 'babel',
+        exclude: /node_modules/,
+        query: {
+          plugins: ['transform-decorators-legacy', 'transform-class-properties', 'transform-object-rest-spread'],
+          presets: ['react', 'es2015', 'stage-1']
+        }
       }
     ]
+  },
+  resolve: {
+    extensions: ['','.js','.jsx']
   }
 };
 

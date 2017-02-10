@@ -43,3 +43,6 @@ jspm_packages
 kwc-darwin-x64
 kwc-linux-x64
 kwc-win32-x64
+
+#VS Code
+.vscode
