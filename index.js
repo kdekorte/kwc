@@ -31,7 +31,6 @@ function createWindow() {
     slashes: true
   }))
 
-  require('web-frame').setVisualZoomLevelLimits(1, 1);
   // Open the DevTools.
   //  win.webContents.openDevTools()
 
