@@ -3,6 +3,35 @@ import { observer } from 'mobx-react'
 import { render } from 'react-dom';
 import WeatherStore from './stores/weather';
 
+export class Wind extends React.Component {
+
+    render() {
+        if (this.props.current.wind_mph > 0) {
+            return (
+                <div class='wind'>{this.props.current.wind_mph} mph wind from the {this.props.current.wind_dir} </div>
+            )
+        } else {
+            return null;
+        }
+
+        
+
+    }
+
+}
+
+export class Precip extends React.Component {
+    render () {
+        if (this.props.current.precip_today_in > 0) {
+            return (
+                <div class='wind'>{this.props.current.precip_today_in}in of precipitation</div>
+            )
+        } else {
+            return null;
+        }
+    }
+}
+
 @observer
 export class Current extends React.Component {
 
@@ -49,9 +78,8 @@ export class Current extends React.Component {
                         </div>
                         <div className='clear'></div>
                         <div style={{float: 'right'}}>
-                            {WeatherStore.current.wind_mph > 0 ? `<div class='wind'>${WeatherStore.current.wind_mph} mph wind from the ${WeatherStore.current.wind_dir} </div>` : "" }
-                            {WeatherStore.current.precip_today_in > 0 ? `<div class='wind'>${WeatherStore.current.precip_today_in}in of precipitation</div>`: '' }
-                            
+                            <Wind current={WeatherStore.current} />
+                            <Precip current={WeatherStore.current} /> 
                         </div>
                         <div className='clear'></div>
                     </div>

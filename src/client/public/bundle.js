@@ -22304,11 +22304,11 @@
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-	exports.Current = undefined;
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	exports.Current = exports.Precip = exports.Wind = undefined;
 	
 	var _class;
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
 	var _react = __webpack_require__(/*! react */ 1);
 	
@@ -22330,18 +22330,76 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var Current = exports.Current = (0, _mobxReact.observer)(_class = function (_React$Component) {
-	    _inherits(Current, _React$Component);
+	var Wind = exports.Wind = function (_React$Component) {
+	    _inherits(Wind, _React$Component);
+	
+	    function Wind() {
+	        _classCallCheck(this, Wind);
+	
+	        return _possibleConstructorReturn(this, (Wind.__proto__ || Object.getPrototypeOf(Wind)).apply(this, arguments));
+	    }
+	
+	    _createClass(Wind, [{
+	        key: 'render',
+	        value: function render() {
+	            if (this.props.current.wind_mph > 0) {
+	                return _react2.default.createElement(
+	                    'div',
+	                    { 'class': 'wind' },
+	                    this.props.current.wind_mph,
+	                    ' mph wind from the ',
+	                    this.props.current.wind_dir,
+	                    ' '
+	                );
+	            } else {
+	                return null;
+	            }
+	        }
+	    }]);
+	
+	    return Wind;
+	}(_react2.default.Component);
+	
+	var Precip = exports.Precip = function (_React$Component2) {
+	    _inherits(Precip, _React$Component2);
+	
+	    function Precip() {
+	        _classCallCheck(this, Precip);
+	
+	        return _possibleConstructorReturn(this, (Precip.__proto__ || Object.getPrototypeOf(Precip)).apply(this, arguments));
+	    }
+	
+	    _createClass(Precip, [{
+	        key: 'render',
+	        value: function render() {
+	            if (this.props.current.precip_today_in > 0) {
+	                return _react2.default.createElement(
+	                    'div',
+	                    { 'class': 'wind' },
+	                    this.props.current.precip_today_in,
+	                    'in of precipitation'
+	                );
+	            } else {
+	                return null;
+	            }
+	        }
+	    }]);
+	
+	    return Precip;
+	}(_react2.default.Component);
+	
+	var Current = exports.Current = (0, _mobxReact.observer)(_class = function (_React$Component3) {
+	    _inherits(Current, _React$Component3);
 	
 	    function Current(props) {
 	        _classCallCheck(this, Current);
 	
-	        var _this = _possibleConstructorReturn(this, (Current.__proto__ || Object.getPrototypeOf(Current)).call(this, props));
+	        var _this3 = _possibleConstructorReturn(this, (Current.__proto__ || Object.getPrototypeOf(Current)).call(this, props));
 	
-	        _this.state = {
+	        _this3.state = {
 	            timer: null
 	        };
-	        return _this;
+	        return _this3;
 	    }
 	
 	    _createClass(Current, [{
@@ -22352,10 +22410,10 @@
 	    }, {
 	        key: 'componentDidMount',
 	        value: function componentDidMount() {
-	            var _this2 = this;
+	            var _this4 = this;
 	
 	            this.setState({ timer: setInterval(function () {
-	                    return _this2.updateCurrent();
+	                    return _this4.updateCurrent();
 	                }, 1000 * 60 * 10) });
 	        }
 	    }, {
@@ -22412,8 +22470,8 @@
 	                        _react2.default.createElement(
 	                            'div',
 	                            { style: { float: 'right' } },
-	                            _weather2.default.current.wind_mph > 0 ? '<div class=\'wind\'>' + _weather2.default.current.wind_mph + ' mph wind from the ' + _weather2.default.current.wind_dir + ' </div>' : "",
-	                            _weather2.default.current.precip_today_in > 0 ? '<div class=\'wind\'>' + _weather2.default.current.precip_today_in + 'in of precipitation</div>' : ''
+	                            _react2.default.createElement(Wind, { current: _weather2.default.current }),
+	                            _react2.default.createElement(Precip, { current: _weather2.default.current })
 	                        ),
 	                        _react2.default.createElement('div', { className: 'clear' })
 	                    )
