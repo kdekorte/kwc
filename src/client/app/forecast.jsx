@@ -46,26 +46,6 @@ class ForecastDays extends React.Component {
 @observer
 export class Forecast extends React.Component {
 
-    constructor(props) {
-        super(props)
-        this.state = {
-            weather: null,
-            timer: null
-        }
-    }
-
-    updateForecast() {
-        WeatherStore.fetchForecast()
-    }
-
-    componentDidMount() {
-        this.setState({ timer: setInterval(() => this.updateForecast(), 1000 * 60 * 30) });
-    }
-
-    componentWillUnmount() {
-        clearInterval(this.state.timer)
-    }
- 
     render() {
         if (WeatherStore.forecast == null) {
             return (

@@ -13,9 +13,9 @@ class WeatherStore extends Store {
         super()
         console.log('in WeatherStore constructor')
         this.fetchCurrentWeather()
-        this.timerCurrent = setTimeout(this.fetchCurrentWeather, 1000 * 60 * 10) // 10 mins
+        this.timerCurrent = setInterval(() => this.fetchCurrentWeather(), 1000 * 60 * 10) // 10 mins
         this.fetchForecast()
-        this.timerForecast = setTimeout(this.fetchForecast, 1000 * 60 * 30)  // 30 mins
+        this.timerForecast = setInterval(() => this.fetchForecast(), 1000 * 60 * 30)  // 30 mins
     }
 
     

@@ -22141,11 +22141,13 @@
 	        key: 'componentWillUnmount',
 	        value: function componentWillUnmount() {
 	            clearInterval(this.state.timer);
+	            /*
 	            if (this.state.psid != null) {
-	                powerSaveBlocker.stop(this.state.psid);
-	                this.setState({ psid: null });
-	                console.log('unmount: turned off prevent sleep');
+	                powerSaveBlocker.stop(this.state.psid)
+	                this.setState({psid: null})
+	                console.log(('unmount: turned off prevent sleep'))
 	            }
+	            */
 	        }
 	    }, {
 	        key: 'updateClock',
@@ -22183,7 +22185,7 @@
 	        value: function render() {
 	            return _react2.default.createElement(
 	                'div',
-	                { className: 'clock' },
+	                { className: 'clock', style: { marginRight: '4px', width: '476px' } },
 	                _react2.default.createElement(
 	                    'div',
 	                    { className: 'digits' },
@@ -22345,7 +22347,7 @@
 	            if (this.props.current.wind_mph > 0) {
 	                return _react2.default.createElement(
 	                    'div',
-	                    { 'class': 'wind' },
+	                    { className: 'wind' },
 	                    this.props.current.wind_mph,
 	                    ' mph wind from the ',
 	                    this.props.current.wind_dir,
@@ -22375,7 +22377,7 @@
 	            if (this.props.current.precip_today_in > 0) {
 	                return _react2.default.createElement(
 	                    'div',
-	                    { 'class': 'wind' },
+	                    { className: 'wind' },
 	                    this.props.current.precip_today_in,
 	                    'in of precipitation'
 	                );
@@ -22391,37 +22393,13 @@
 	var Current = exports.Current = (0, _mobxReact.observer)(_class = function (_React$Component3) {
 	    _inherits(Current, _React$Component3);
 	
-	    function Current(props) {
+	    function Current() {
 	        _classCallCheck(this, Current);
 	
-	        var _this3 = _possibleConstructorReturn(this, (Current.__proto__ || Object.getPrototypeOf(Current)).call(this, props));
-	
-	        _this3.state = {
-	            timer: null
-	        };
-	        return _this3;
+	        return _possibleConstructorReturn(this, (Current.__proto__ || Object.getPrototypeOf(Current)).apply(this, arguments));
 	    }
 	
 	    _createClass(Current, [{
-	        key: 'updateCurrent',
-	        value: function updateCurrent() {
-	            _weather2.default.fetchCurrentWeather();
-	        }
-	    }, {
-	        key: 'componentDidMount',
-	        value: function componentDidMount() {
-	            var _this4 = this;
-	
-	            this.setState({ timer: setInterval(function () {
-	                    return _this4.updateCurrent();
-	                }, 1000 * 60 * 10) });
-	        }
-	    }, {
-	        key: 'componentWillUnmount',
-	        value: function componentWillUnmount() {
-	            clearInterval(this.state.timer);
-	        }
-	    }, {
 	        key: 'render',
 	        value: function render() {
 	            if (_weather2.default.current == null) {
@@ -26487,9 +26465,13 @@
 	
 	        console.log('in WeatherStore constructor');
 	        _this.fetchCurrentWeather();
-	        _this.timerCurrent = setTimeout(_this.fetchCurrentWeather, 1000 * 60 * 10); // 10 mins
+	        _this.timerCurrent = setInterval(function () {
+	            return _this.fetchCurrentWeather();
+	        }, 1000 * 60 * 10); // 10 mins
 	        _this.fetchForecast();
-	        _this.timerForecast = setTimeout(_this.fetchForecast, 1000 * 60 * 30); // 30 mins
+	        _this.timerForecast = setInterval(function () {
+	            return _this.fetchForecast();
+	        }, 1000 * 60 * 30); // 30 mins
 	        return _this;
 	    }
 	
@@ -26785,38 +26767,13 @@
 	var Forecast = exports.Forecast = (0, _mobxReact.observer)(_class = function (_React$Component3) {
 	    _inherits(Forecast, _React$Component3);
 	
-	    function Forecast(props) {
+	    function Forecast() {
 	        _classCallCheck(this, Forecast);
 	
-	        var _this3 = _possibleConstructorReturn(this, (Forecast.__proto__ || Object.getPrototypeOf(Forecast)).call(this, props));
-	
-	        _this3.state = {
-	            weather: null,
-	            timer: null
-	        };
-	        return _this3;
+	        return _possibleConstructorReturn(this, (Forecast.__proto__ || Object.getPrototypeOf(Forecast)).apply(this, arguments));
 	    }
 	
 	    _createClass(Forecast, [{
-	        key: 'updateForecast',
-	        value: function updateForecast() {
-	            _weather2.default.fetchForecast();
-	        }
-	    }, {
-	        key: 'componentDidMount',
-	        value: function componentDidMount() {
-	            var _this4 = this;
-	
-	            this.setState({ timer: setInterval(function () {
-	                    return _this4.updateForecast();
-	                }, 1000 * 60 * 30) });
-	        }
-	    }, {
-	        key: 'componentWillUnmount',
-	        value: function componentWillUnmount() {
-	            clearInterval(this.state.timer);
-	        }
-	    }, {
 	        key: 'render',
 	        value: function render() {
 	            if (_weather2.default.forecast == null) {

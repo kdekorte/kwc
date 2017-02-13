@@ -8,14 +8,11 @@ export class Wind extends React.Component {
     render() {
         if (this.props.current.wind_mph > 0) {
             return (
-                <div class='wind'>{this.props.current.wind_mph} mph wind from the {this.props.current.wind_dir} </div>
+                <div className='wind'>{this.props.current.wind_mph} mph wind from the {this.props.current.wind_dir} </div>
             )
         } else {
             return null;
         }
-
-        
-
     }
 
 }
@@ -24,7 +21,7 @@ export class Precip extends React.Component {
     render () {
         if (this.props.current.precip_today_in > 0) {
             return (
-                <div class='wind'>{this.props.current.precip_today_in}in of precipitation</div>
+                <div className='wind'>{this.props.current.precip_today_in}in of precipitation</div>
             )
         } else {
             return null;
@@ -34,25 +31,6 @@ export class Precip extends React.Component {
 
 @observer
 export class Current extends React.Component {
-
-    constructor(props) {
-        super(props)
-        this.state = {
-            timer: null
-        }
-    }
-
-    updateCurrent() {
-        WeatherStore.fetchCurrentWeather()
-    }
-
-    componentDidMount() {
-        this.setState({ timer: setInterval(() => this.updateCurrent(), 1000 * 60 * 10) });
-    }
-
-    componentWillUnmount() {
-        clearInterval(this.state.timer)
-    }
 
     render() {
         if (WeatherStore.current == null) {
