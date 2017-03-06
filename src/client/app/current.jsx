@@ -29,6 +29,16 @@ export class Precip extends React.Component {
     }
 }
 
+export class FeelsLike extends React.Component {
+    render () {
+        
+        return (
+            <div className='wind'>Feels Like {this.props.current.feelslike_f}&deg;F</div>
+        )
+    
+    }
+}
+
 @observer
 export class Current extends React.Component {
 
@@ -58,6 +68,7 @@ export class Current extends React.Component {
                         <div style={{float: 'right'}}>
                             <Wind current={WeatherStore.current} />
                             <Precip current={WeatherStore.current} /> 
+                            <FeelsLike current={WeatherStore.current} />
                         </div>
                         <div className='clear'></div>
                     </div>

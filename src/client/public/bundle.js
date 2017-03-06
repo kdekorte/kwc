@@ -59,11 +59,11 @@
 	
 	var _clock = __webpack_require__(/*! ./clock */ 178);
 	
-	var _map = __webpack_require__(/*! ./map */ 181);
+	var _map = __webpack_require__(/*! ./map */ 179);
 	
-	var _current = __webpack_require__(/*! ./current */ 182);
+	var _current = __webpack_require__(/*! ./current */ 180);
 	
-	var _forecast = __webpack_require__(/*! ./forecast */ 187);
+	var _forecast = __webpack_require__(/*! ./forecast */ 185);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -22213,9 +22213,7 @@
 	}(_react2.default.Component);
 
 /***/ },
-/* 179 */,
-/* 180 */,
-/* 181 */
+/* 179 */
 /*!********************************!*\
   !*** ./src/client/app/map.jsx ***!
   \********************************/
@@ -22295,7 +22293,7 @@
 	}(_react2.default.Component);
 
 /***/ },
-/* 182 */
+/* 180 */
 /*!************************************!*\
   !*** ./src/client/app/current.jsx ***!
   \************************************/
@@ -22306,7 +22304,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-	exports.Current = exports.Precip = exports.Wind = undefined;
+	exports.Current = exports.FeelsLike = exports.Precip = exports.Wind = undefined;
 	
 	var _class;
 	
@@ -22316,11 +22314,11 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _mobxReact = __webpack_require__(/*! mobx-react */ 183);
+	var _mobxReact = __webpack_require__(/*! mobx-react */ 181);
 	
 	var _reactDom = __webpack_require__(/*! react-dom */ 32);
 	
-	var _weather = __webpack_require__(/*! ./stores/weather */ 185);
+	var _weather = __webpack_require__(/*! ./stores/weather */ 183);
 	
 	var _weather2 = _interopRequireDefault(_weather);
 	
@@ -22390,8 +22388,34 @@
 	    return Precip;
 	}(_react2.default.Component);
 	
-	var Current = exports.Current = (0, _mobxReact.observer)(_class = function (_React$Component3) {
-	    _inherits(Current, _React$Component3);
+	var FeelsLike = exports.FeelsLike = function (_React$Component3) {
+	    _inherits(FeelsLike, _React$Component3);
+	
+	    function FeelsLike() {
+	        _classCallCheck(this, FeelsLike);
+	
+	        return _possibleConstructorReturn(this, (FeelsLike.__proto__ || Object.getPrototypeOf(FeelsLike)).apply(this, arguments));
+	    }
+	
+	    _createClass(FeelsLike, [{
+	        key: 'render',
+	        value: function render() {
+	
+	            return _react2.default.createElement(
+	                'div',
+	                { className: 'wind' },
+	                'Feels Like ',
+	                this.props.current.feelslike_f,
+	                '\xB0F'
+	            );
+	        }
+	    }]);
+	
+	    return FeelsLike;
+	}(_react2.default.Component);
+	
+	var Current = exports.Current = (0, _mobxReact.observer)(_class = function (_React$Component4) {
+	    _inherits(Current, _React$Component4);
 	
 	    function Current() {
 	        _classCallCheck(this, Current);
@@ -22449,7 +22473,8 @@
 	                            'div',
 	                            { style: { float: 'right' } },
 	                            _react2.default.createElement(Wind, { current: _weather2.default.current }),
-	                            _react2.default.createElement(Precip, { current: _weather2.default.current })
+	                            _react2.default.createElement(Precip, { current: _weather2.default.current }),
+	                            _react2.default.createElement(FeelsLike, { current: _weather2.default.current })
 	                        ),
 	                        _react2.default.createElement('div', { className: 'clear' })
 	                    )
@@ -22462,7 +22487,7 @@
 	}(_react2.default.Component)) || _class;
 
 /***/ },
-/* 183 */
+/* 181 */
 /*!*******************************!*\
   !*** ./~/mobx-react/index.js ***!
   \*******************************/
@@ -22470,7 +22495,7 @@
 
 	(function webpackUniversalModuleDefinition(root, factory) {
 		if(true)
-			module.exports = factory(__webpack_require__(/*! mobx */ 184), __webpack_require__(/*! react */ 1), __webpack_require__(/*! react-dom */ 32));
+			module.exports = factory(__webpack_require__(/*! mobx */ 182), __webpack_require__(/*! react */ 1), __webpack_require__(/*! react-dom */ 32));
 		else if(typeof define === 'function' && define.amd)
 			define(["mobx", "react", "react-dom"], factory);
 		else if(typeof exports === 'object')
@@ -23475,7 +23500,7 @@
 	;
 
 /***/ },
-/* 184 */
+/* 182 */
 /*!****************************!*\
   !*** ./~/mobx/lib/mobx.js ***!
   \****************************/
@@ -26375,7 +26400,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 185 */
+/* 183 */
 /*!******************************************!*\
   !*** ./src/client/app/stores/weather.js ***!
   \******************************************/
@@ -26391,9 +26416,9 @@
 	
 	var _desc, _value, _class, _descriptor, _descriptor2;
 	
-	var _mobx = __webpack_require__(/*! mobx */ 184);
+	var _mobx = __webpack_require__(/*! mobx */ 182);
 	
-	var _store = __webpack_require__(/*! ./store */ 186);
+	var _store = __webpack_require__(/*! ./store */ 184);
 	
 	var _store2 = _interopRequireDefault(_store);
 	
@@ -26525,7 +26550,7 @@
 	exports.default = new WeatherStore();
 
 /***/ },
-/* 186 */
+/* 184 */
 /*!****************************************!*\
   !*** ./src/client/app/stores/store.js ***!
   \****************************************/
@@ -26542,7 +26567,7 @@
 	
 	var _desc, _value, _class, _descriptor, _descriptor2, _descriptor3;
 	
-	var _mobx = __webpack_require__(/*! mobx */ 184);
+	var _mobx = __webpack_require__(/*! mobx */ 182);
 	
 	function _initDefineProp(target, property, descriptor, context) {
 	  if (!descriptor) return;
@@ -26645,7 +26670,7 @@
 	exports.default = Store;
 
 /***/ },
-/* 187 */
+/* 185 */
 /*!*************************************!*\
   !*** ./src/client/app/forecast.jsx ***!
   \*************************************/
@@ -26666,11 +26691,11 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _mobxReact = __webpack_require__(/*! mobx-react */ 183);
+	var _mobxReact = __webpack_require__(/*! mobx-react */ 181);
 	
 	var _reactDom = __webpack_require__(/*! react-dom */ 32);
 	
-	var _weather = __webpack_require__(/*! ./stores/weather */ 185);
+	var _weather = __webpack_require__(/*! ./stores/weather */ 183);
 	
 	var _weather2 = _interopRequireDefault(_weather);
 	
