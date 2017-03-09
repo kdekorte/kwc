@@ -22400,14 +22400,17 @@
 	    _createClass(FeelsLike, [{
 	        key: 'render',
 	        value: function render() {
-	
-	            return _react2.default.createElement(
-	                'div',
-	                { className: 'wind' },
-	                'Feels Like ',
-	                this.props.current.feelslike_f,
-	                '\xB0F'
-	            );
+	            if (this.props.current.feelslike_f + 5 < this.props.current.temp_f || this.props.current.feelslike_f > this.props.current.temp_f + 5) {
+	                return _react2.default.createElement(
+	                    'div',
+	                    { className: 'wind' },
+	                    'Feels Like ',
+	                    this.props.current.feelslike_f,
+	                    '\xB0F'
+	                );
+	            } else {
+	                return null;
+	            }
 	        }
 	    }]);
 	

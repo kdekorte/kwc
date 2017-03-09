@@ -31,11 +31,13 @@ export class Precip extends React.Component {
 
 export class FeelsLike extends React.Component {
     render () {
-        
-        return (
-            <div className='wind'>Feels Like {this.props.current.feelslike_f}&deg;F</div>
-        )
-    
+        if (this.props.current.feelslike_f + 5 < this.props.current.temp_f || this.props.current.feelslike_f > this.props.current.temp_f + 5) {
+            return (
+                <div className='wind'>Feels Like {this.props.current.feelslike_f}&deg;F</div>
+            )
+        } else {
+            return null;
+        }
     }
 }
 
