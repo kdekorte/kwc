@@ -13,7 +13,7 @@ export class Map extends React.Component {
 
     updateMap() {
         var today = new Date();
-        this.setState({ mapsrc: wuurlbase + wukey + "/radar/q/" + state + "/" + city + ".gif?radius=75&width=320&height=225&rainsnow=1&newmaps=1&timelabel=1&timelabel.y=220&noclutter=1&smooth=1&ts=" + today.toString("hhmmss") })
+        this.setState({ mapsrc: wuurlbase + wukey + "/radar/q/" + state + "/" + city + ".gif?radius=75&width=320&height=225&rainsnow=1&newmaps=1&timelabel=1&timelabel.y=220&noclutter=1&smooth=1"})
     
     }
 
