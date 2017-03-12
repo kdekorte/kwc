@@ -22261,7 +22261,11 @@
 	        key: 'updateMap',
 	        value: function updateMap() {
 	            var today = new Date();
+<<<<<<< HEAD
 	            this.setState({ mapsrc: wuurlbase + wukey + "/radar/q/" + state + "/" + city + ".gif?radius=75&width=320&height=225&rainsnow=1&newmaps=1&timelabel=1&timelabel.y=220&noclutter=1&smooth=1&timestamp=" + today.toString("hhmmss") });
+=======
+	            this.setState({ mapsrc: wuurlbase + wukey + "/radar/q/" + state + "/" + city + ".gif?radius=75&width=320&height=225&rainsnow=1&newmaps=1&timelabel=1&timelabel.y=220&noclutter=1&smooth=1" });
+>>>>>>> 5f878380711ba742da2c524d3e3c7ccea5e45917
 	        }
 	    }, {
 	        key: 'componentDidMount',
