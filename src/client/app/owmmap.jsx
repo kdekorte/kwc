@@ -10,14 +10,13 @@ export class OWMMap extends React.Component {
         super(props)
         this.state = {
             mapsrc: '',
-            timer: null
+            timer: null,
+            precipitation: null
         }
     }
 
-    updateMap() {
+    createMap() {
         if (OWMStore.current != null) {
-            console.log(OWMStore.current.coord.lon)
-            console.log(OWMStore.current.coord.lat)
             var map = new ol.Map({
                 controls: [],
                 target: 'map',
@@ -34,13 +33,7 @@ export class OWMMap extends React.Component {
                         })
                     }),*/
 
-                    new ol.layer.Tile({
-                        title: 'Precipitation',
-                        opacity: .25,
-                        source: new ol.source.XYZ({
-                            url: "http://tile.openweathermap.org/map/precipitation/{z}/{x}/{y}.png&appid=" + owmappid
-                        })
-                    })
+                    this.state.precipitation
                 ],
                 view: new ol.View({
                     center: ol.proj.fromLonLat([OWMStore.current.coord.lon, OWMStore.current.coord.lat]),
@@ -50,8 +43,25 @@ export class OWMMap extends React.Component {
         }
     }
 
+    updateMap() {
+        if (this.state.precipitation != null) {
+            console.log("updating precipitation source")
+            let now = new Date()
+            this.state.precipitation.getSource().setUrl("http://tile.openweathermap.org/map/precipitation/{z}/{x}/{y}.png&appid=" + owmappid + "&t=" + now.getTime())
+            this.state.precipitation.getSource().refresh()
+        }
+    }
+
     componentDidMount() {
-        this.updateMap()
+        var precipitation = new ol.layer.Tile({
+            title: 'Precipitation',
+            opacity: .25,
+            source: new ol.source.XYZ({
+                url: "http://tile.openweathermap.org/map/precipitation/{z}/{x}/{y}.png&appid=" + owmappid
+            })
+        })
+        this.setState({ precipitation: precipitation});
+
         this.setState({ timer: setInterval(() => this.updateMap(), 1000 * 60 * 10) });
     }
 
@@ -61,7 +71,7 @@ export class OWMMap extends React.Component {
 
     render() {
         if (OWMStore.current != null) {
-            this.updateMap()
+            this.createMap()
         }
         return null
     }

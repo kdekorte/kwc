@@ -22361,7 +22361,7 @@
 	                        _react2.default.createElement(
 	                            'div',
 	                            { style: { float: 'right' } },
-	                            _react2.default.createElement('i', { className: "wi wi-owm-" + _owm2.default.current.weather[0].id, style: { width: '72px', height: '72px', fontSize: '62px', padding: '5px 0' } })
+	                            _react2.default.createElement('i', { className: "wi wi-owm-" + _owm2.default.current.weather[0].id, style: { width: '72px', height: '72px', fontSize: '62px', padding: '5px 5px' } })
 	                        ),
 	                        _react2.default.createElement('div', { className: 'clear' }),
 	                        _react2.default.createElement(
@@ -26405,8 +26405,9 @@
 	            var _this2 = this;
 	
 	            console.log('updating current weather');
+	            var now = new Date();
 	            return this.performOperation(function () {
-	                return fetch(owmurlbase + "weather?q=" + state + "," + city + "&units=imperial&appid=" + owmappid, { method: 'GET' }).then(function (response) {
+	                return fetch(owmurlbase + "weather?q=" + state + "," + city + "&units=imperial&appid=" + owmappid + "&t=" + now.getTime(), { method: 'GET' }).then(function (response) {
 	                    return response.json();
 	                }).then(function (result) {
 	                    return _this2.current = result;
@@ -26419,8 +26420,9 @@
 	            var _this3 = this;
 	
 	            console.log('updating forecast');
+	            var now = new Date();
 	            return this.performOperation(function () {
-	                return fetch(owmurlbase + "forecast/daily?q=" + state + "," + city + "&cnt=4&units=imperial&appid=" + owmappid, { method: 'GET' }).then(function (response) {
+	                return fetch(owmurlbase + "forecast/daily?q=" + state + "," + city + "&cnt=4&units=imperial&appid=" + owmappid + "&t=" + now.getTime(), { method: 'GET' }).then(function (response) {
 	                    return response.json();
 	                }).then(function (result) {
 	                    return _this3.forecast = result;
@@ -26763,17 +26765,16 @@
 	
 	        _this.state = {
 	            mapsrc: '',
-	            timer: null
+	            timer: null,
+	            precipitation: null
 	        };
 	        return _this;
 	    }
 	
 	    _createClass(OWMMap, [{
-	        key: 'updateMap',
-	        value: function updateMap() {
+	        key: 'createMap',
+	        value: function createMap() {
 	            if (_owm2.default.current != null) {
-	                console.log(_owm2.default.current.coord.lon);
-	                console.log(_owm2.default.current.coord.lat);
 	                var map = new ol.Map({
 	                    controls: [],
 	                    target: 'map',
@@ -26789,13 +26790,7 @@
 	                        })
 	                    }),*/
 	
-	                    new ol.layer.Tile({
-	                        title: 'Precipitation',
-	                        opacity: .25,
-	                        source: new ol.source.XYZ({
-	                            url: "http://tile.openweathermap.org/map/precipitation/{z}/{x}/{y}.png&appid=" + owmappid
-	                        })
-	                    })],
+	                    this.state.precipitation],
 	                    view: new ol.View({
 	                        center: ol.proj.fromLonLat([_owm2.default.current.coord.lon, _owm2.default.current.coord.lat]),
 	                        zoom: 7
@@ -26804,11 +26799,29 @@
 	            }
 	        }
 	    }, {
+	        key: 'updateMap',
+	        value: function updateMap() {
+	            if (this.state.precipitation != null) {
+	                console.log("updating precipitation source");
+	                var now = new Date();
+	                this.state.precipitation.getSource().setUrl("http://tile.openweathermap.org/map/precipitation/{z}/{x}/{y}.png&appid=" + owmappid + "&t=" + now.getTime());
+	                this.state.precipitation.getSource().refresh();
+	            }
+	        }
+	    }, {
 	        key: 'componentDidMount',
 	        value: function componentDidMount() {
 	            var _this2 = this;
 	
-	            this.updateMap();
+	            var precipitation = new ol.layer.Tile({
+	                title: 'Precipitation',
+	                opacity: .25,
+	                source: new ol.source.XYZ({
+	                    url: "http://tile.openweathermap.org/map/precipitation/{z}/{x}/{y}.png&appid=" + owmappid
+	                })
+	            });
+	            this.setState({ precipitation: precipitation });
+	
 	            this.setState({ timer: setInterval(function () {
 	                    return _this2.updateMap();
 	                }, 1000 * 60 * 10) });
@@ -26822,7 +26835,7 @@
 	        key: 'render',
 	        value: function render() {
 	            if (_owm2.default.current != null) {
-	                this.updateMap();
+	                this.createMap();
 	            }
 	            return null;
 	        }

@@ -53,7 +53,7 @@ export class OWMCurrent extends React.Component {
                             <span style={{fontSize: '20px', verticalAlign: 'top', paddingLeft: '5px'}}>&deg;F</span>
                         </div>  
                         <div style={{float: 'right'}}>
-                            <i className={"wi wi-owm-"  + OWMStore.current.weather[0].id} style={{width:'72px', height: '72px', fontSize:'62px', padding:'5px 0'}} />
+                            <i className={"wi wi-owm-"  + OWMStore.current.weather[0].id} style={{width:'72px', height: '72px', fontSize:'62px', padding:'5px 5px'}} />
                         </div>
                         <div className='clear'></div>
                         <div style={{float: 'right'}}>
