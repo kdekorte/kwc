@@ -61,9 +61,9 @@
 	
 	var _map = __webpack_require__(/*! ./map */ 179);
 	
-	var _current = __webpack_require__(/*! ./current */ 180);
+	var _owmcurrent = __webpack_require__(/*! ./owmcurrent */ 188);
 	
-	var _forecast = __webpack_require__(/*! ./forecast */ 185);
+	var _owmforecast = __webpack_require__(/*! ./owmforecast */ 186);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -99,8 +99,8 @@
 	          _react2.default.createElement(_clock.Clock, null),
 	          _react2.default.createElement(_map.Map, null),
 	          _react2.default.createElement('div', { className: 'clear' }),
-	          _react2.default.createElement(_current.Current, null),
-	          _react2.default.createElement(_forecast.Forecast, null)
+	          _react2.default.createElement(_owmcurrent.OWMCurrent, null),
+	          _react2.default.createElement(_owmforecast.OWMForecast, null)
 	        ),
 	        _react2.default.createElement(
 	          'div',
@@ -22293,203 +22293,7 @@
 	}(_react2.default.Component);
 
 /***/ },
-/* 180 */
-/*!************************************!*\
-  !*** ./src/client/app/current.jsx ***!
-  \************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	exports.Current = exports.FeelsLike = exports.Precip = exports.Wind = undefined;
-	
-	var _class;
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _react = __webpack_require__(/*! react */ 1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _mobxReact = __webpack_require__(/*! mobx-react */ 181);
-	
-	var _reactDom = __webpack_require__(/*! react-dom */ 32);
-	
-	var _weather = __webpack_require__(/*! ./stores/weather */ 183);
-	
-	var _weather2 = _interopRequireDefault(_weather);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var Wind = exports.Wind = function (_React$Component) {
-	    _inherits(Wind, _React$Component);
-	
-	    function Wind() {
-	        _classCallCheck(this, Wind);
-	
-	        return _possibleConstructorReturn(this, (Wind.__proto__ || Object.getPrototypeOf(Wind)).apply(this, arguments));
-	    }
-	
-	    _createClass(Wind, [{
-	        key: 'render',
-	        value: function render() {
-	            if (this.props.current.wind_mph > 0) {
-	                return _react2.default.createElement(
-	                    'div',
-	                    { className: 'wind' },
-	                    this.props.current.wind_mph,
-	                    ' mph wind from the ',
-	                    this.props.current.wind_dir,
-	                    ' '
-	                );
-	            } else {
-	                return null;
-	            }
-	        }
-	    }]);
-	
-	    return Wind;
-	}(_react2.default.Component);
-	
-	var Precip = exports.Precip = function (_React$Component2) {
-	    _inherits(Precip, _React$Component2);
-	
-	    function Precip() {
-	        _classCallCheck(this, Precip);
-	
-	        return _possibleConstructorReturn(this, (Precip.__proto__ || Object.getPrototypeOf(Precip)).apply(this, arguments));
-	    }
-	
-	    _createClass(Precip, [{
-	        key: 'render',
-	        value: function render() {
-	            if (this.props.current.precip_today_in > 0) {
-	                return _react2.default.createElement(
-	                    'div',
-	                    { className: 'wind' },
-	                    this.props.current.precip_today_in,
-	                    'in of precipitation'
-	                );
-	            } else {
-	                return null;
-	            }
-	        }
-	    }]);
-	
-	    return Precip;
-	}(_react2.default.Component);
-	
-	var FeelsLike = exports.FeelsLike = function (_React$Component3) {
-	    _inherits(FeelsLike, _React$Component3);
-	
-	    function FeelsLike() {
-	        _classCallCheck(this, FeelsLike);
-	
-	        return _possibleConstructorReturn(this, (FeelsLike.__proto__ || Object.getPrototypeOf(FeelsLike)).apply(this, arguments));
-	    }
-	
-	    _createClass(FeelsLike, [{
-	        key: 'render',
-	        value: function render() {
-	            if (this.props.current.feelslike_f + 5 < this.props.current.temp_f || this.props.current.feelslike_f > this.props.current.temp_f + 5) {
-	                return _react2.default.createElement(
-	                    'div',
-	                    { className: 'wind' },
-	                    'Feels Like ',
-	                    this.props.current.feelslike_f,
-	                    '\xB0F'
-	                );
-	            } else {
-	                return null;
-	            }
-	        }
-	    }]);
-	
-	    return FeelsLike;
-	}(_react2.default.Component);
-	
-	var Current = exports.Current = (0, _mobxReact.observer)(_class = function (_React$Component4) {
-	    _inherits(Current, _React$Component4);
-	
-	    function Current() {
-	        _classCallCheck(this, Current);
-	
-	        return _possibleConstructorReturn(this, (Current.__proto__ || Object.getPrototypeOf(Current)).apply(this, arguments));
-	    }
-	
-	    _createClass(Current, [{
-	        key: 'render',
-	        value: function render() {
-	            if (_weather2.default.current == null) {
-	                return _react2.default.createElement(
-	                    'div',
-	                    { className: 'clock', style: { padding: '20px', minHeight: '211px', width: '398px', marginRight: '2px' } },
-	                    'Loading...'
-	                );
-	            } else {
-	                return _react2.default.createElement(
-	                    'div',
-	                    { className: 'clock', style: { padding: '20px', minHeight: '211px', width: '398px', marginRight: '2px' } },
-	                    _react2.default.createElement(
-	                        'div',
-	                        { style: { width: '100%', fontSize: '20px' } },
-	                        _weather2.default.current.display_location.full
-	                    ),
-	                    _react2.default.createElement(
-	                        'div',
-	                        { style: { paddingTop: '20px' } },
-	                        _react2.default.createElement(
-	                            'div',
-	                            { style: { float: 'right', fontSize: '20px', padding: '10px', width: '80px' } },
-	                            _weather2.default.current.weather
-	                        ),
-	                        _react2.default.createElement(
-	                            'div',
-	                            { style: { float: 'right', paddingTop: '4px' } },
-	                            _react2.default.createElement(
-	                                'span',
-	                                { style: { fontSize: '72px' } },
-	                                _weather2.default.current.temp_f
-	                            ),
-	                            _react2.default.createElement(
-	                                'span',
-	                                { style: { fontSize: '20px', verticalAlign: 'top', paddingLeft: '5px' } },
-	                                '\xB0F'
-	                            )
-	                        ),
-	                        _react2.default.createElement(
-	                            'div',
-	                            { style: { float: 'right' } },
-	                            _react2.default.createElement('img', { src: _weather2.default.current.icon_url.replace('/c/k/', '/c/i/'), style: { width: '72px', height: '72px' } })
-	                        ),
-	                        _react2.default.createElement('div', { className: 'clear' }),
-	                        _react2.default.createElement(
-	                            'div',
-	                            { style: { float: 'right' } },
-	                            _react2.default.createElement(Wind, { current: _weather2.default.current }),
-	                            _react2.default.createElement(Precip, { current: _weather2.default.current }),
-	                            _react2.default.createElement(FeelsLike, { current: _weather2.default.current })
-	                        ),
-	                        _react2.default.createElement('div', { className: 'clear' })
-	                    )
-	                );
-	            }
-	        }
-	    }]);
-	
-	    return Current;
-	}(_react2.default.Component)) || _class;
-
-/***/ },
+/* 180 */,
 /* 181 */
 /*!*******************************!*\
   !*** ./~/mobx-react/index.js ***!
@@ -26403,156 +26207,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 183 */
-/*!******************************************!*\
-  !*** ./src/client/app/stores/weather.js ***!
-  \******************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _desc, _value, _class, _descriptor, _descriptor2;
-	
-	var _mobx = __webpack_require__(/*! mobx */ 182);
-	
-	var _store = __webpack_require__(/*! ./store */ 184);
-	
-	var _store2 = _interopRequireDefault(_store);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _initDefineProp(target, property, descriptor, context) {
-	    if (!descriptor) return;
-	    Object.defineProperty(target, property, {
-	        enumerable: descriptor.enumerable,
-	        configurable: descriptor.configurable,
-	        writable: descriptor.writable,
-	        value: descriptor.initializer ? descriptor.initializer.call(context) : void 0
-	    });
-	}
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	function _applyDecoratedDescriptor(target, property, decorators, descriptor, context) {
-	    var desc = {};
-	    Object['ke' + 'ys'](descriptor).forEach(function (key) {
-	        desc[key] = descriptor[key];
-	    });
-	    desc.enumerable = !!desc.enumerable;
-	    desc.configurable = !!desc.configurable;
-	
-	    if ('value' in desc || desc.initializer) {
-	        desc.writable = true;
-	    }
-	
-	    desc = decorators.slice().reverse().reduce(function (desc, decorator) {
-	        return decorator(target, property, desc) || desc;
-	    }, desc);
-	
-	    if (context && desc.initializer !== void 0) {
-	        desc.value = desc.initializer ? desc.initializer.call(context) : void 0;
-	        desc.initializer = undefined;
-	    }
-	
-	    if (desc.initializer === void 0) {
-	        Object['define' + 'Property'](target, property, desc);
-	        desc = null;
-	    }
-	
-	    return desc;
-	}
-	
-	function _initializerWarningHelper(descriptor, context) {
-	    throw new Error('Decorating class property failed. Please ensure that transform-class-properties is enabled.');
-	}
-	
-	var WeatherStore = (_class = function (_Store) {
-	    _inherits(WeatherStore, _Store);
-	
-	    function WeatherStore() {
-	        _classCallCheck(this, WeatherStore);
-	
-	        var _this = _possibleConstructorReturn(this, (WeatherStore.__proto__ || Object.getPrototypeOf(WeatherStore)).call(this));
-	
-	        _initDefineProp(_this, 'current', _descriptor, _this);
-	
-	        _initDefineProp(_this, 'forecast', _descriptor2, _this);
-	
-	        _this.timerCurrent = null;
-	        _this.timerForecast = null;
-	
-	        console.log('in WeatherStore constructor');
-	        _this.fetchCurrentWeather();
-	        _this.timerCurrent = setInterval(function () {
-	            return _this.fetchCurrentWeather();
-	        }, 1000 * 60 * 10); // 10 mins
-	        _this.fetchForecast();
-	        _this.timerForecast = setInterval(function () {
-	            return _this.fetchForecast();
-	        }, 1000 * 60 * 30); // 30 mins
-	        return _this;
-	    }
-	
-	    _createClass(WeatherStore, [{
-	        key: 'init',
-	        value: function init() {
-	            console.log('running weather.init');
-	        }
-	    }, {
-	        key: 'fetchCurrentWeather',
-	        value: function fetchCurrentWeather() {
-	            var _this2 = this;
-	
-	            console.log('updating current weather');
-	            return this.performOperation(function () {
-	                return fetch(wuurlbase + wukey + "/conditions/q/" + state + "/" + city + ".json", { method: 'GET' }).then(function (response) {
-	                    return response.json();
-	                }).then(function (result) {
-	                    return _this2.current = result.current_observation;
-	                });
-	            });
-	        }
-	    }, {
-	        key: 'fetchForecast',
-	        value: function fetchForecast() {
-	            var _this3 = this;
-	
-	            console.log('updating forecast');
-	            return this.performOperation(function () {
-	                return fetch(wuurlbase + wukey + "/forecast/q/" + state + "/" + city + ".json", { method: 'GET' }).then(function (response) {
-	                    return response.json();
-	                }).then(function (result) {
-	                    return _this3.forecast = result.forecast;
-	                });
-	            });
-	        }
-	    }]);
-	
-	    return WeatherStore;
-	}(_store2.default), (_descriptor = _applyDecoratedDescriptor(_class.prototype, 'current', [_mobx.observable], {
-	    enumerable: true,
-	    initializer: function initializer() {
-	        return null;
-	    }
-	}), _descriptor2 = _applyDecoratedDescriptor(_class.prototype, 'forecast', [_mobx.observable], {
-	    enumerable: true,
-	    initializer: function initializer() {
-	        return null;
-	    }
-	})), _class);
-	exports.default = new WeatherStore();
-
-/***/ },
+/* 183 */,
 /* 184 */
 /*!****************************************!*\
   !*** ./src/client/app/stores/store.js ***!
@@ -26673,10 +26328,11 @@
 	exports.default = Store;
 
 /***/ },
-/* 185 */
-/*!*************************************!*\
-  !*** ./src/client/app/forecast.jsx ***!
-  \*************************************/
+/* 185 */,
+/* 186 */
+/*!****************************************!*\
+  !*** ./src/client/app/owmforecast.jsx ***!
+  \****************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -26684,7 +26340,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-	exports.Forecast = undefined;
+	exports.OWMForecast = undefined;
 	
 	var _class;
 	
@@ -26698,9 +26354,9 @@
 	
 	var _reactDom = __webpack_require__(/*! react-dom */ 32);
 	
-	var _weather = __webpack_require__(/*! ./stores/weather */ 183);
+	var _owm = __webpack_require__(/*! ./stores/owm */ 187);
 	
-	var _weather2 = _interopRequireDefault(_weather);
+	var _owm2 = _interopRequireDefault(_owm);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -26722,23 +26378,24 @@
 	    _createClass(ForecastDay, [{
 	        key: 'render',
 	        value: function render() {
+	            var dt = new Date(this.props.day.dt * 1000);
 	            return _react2.default.createElement(
 	                'div',
 	                { style: { float: 'left', height: '150px', textAlign: 'center', width: '70px', margin: '10px 5px', padding: '10px 5px', background: '#ccc' } },
 	                _react2.default.createElement(
 	                    'div',
 	                    { style: { paddingBottom: '5px', borderBottom: '1px solid #aaa' } },
-	                    this.props.day.date.weekday_short
+	                    dt.toString("ddd")
 	                ),
 	                _react2.default.createElement(
 	                    'div',
 	                    { style: { padding: '5px 0' } },
-	                    _react2.default.createElement('img', { src: this.props.day.icon_url.replace('/c/k/', '/c/i/'), style: { width: '50px', height: '50px' } })
+	                    _react2.default.createElement('i', { className: "wi wi-owm-" + this.props.day.weather[0].id, style: { width: '50px', height: '50px', fontSize: '50px', padding: '5px 0' } })
 	                ),
 	                _react2.default.createElement(
 	                    'div',
 	                    { style: { fontSize: '20px', padding: '5px 0' } },
-	                    this.props.day.high.fahrenheit,
+	                    this.props.day.temp.max.toFixed(0),
 	                    _react2.default.createElement(
 	                        'sup',
 	                        null,
@@ -26748,7 +26405,7 @@
 	                _react2.default.createElement(
 	                    'div',
 	                    { style: { fontSize: '20px', padding: '5px 0', color: '#666' } },
-	                    this.props.day.low.fahrenheit,
+	                    this.props.day.temp.min.toFixed(0),
 	                    _react2.default.createElement(
 	                        'sup',
 	                        null,
@@ -26781,7 +26438,7 @@
 	                    'div',
 	                    null,
 	                    this.props.days.map(function (day) {
-	                        return _react2.default.createElement(ForecastDay, { key: day.date.weekday, day: day });
+	                        return _react2.default.createElement(ForecastDay, { key: day.dt, day: day });
 	                    })
 	                ),
 	                _react2.default.createElement('div', { className: 'clear' })
@@ -26792,19 +26449,19 @@
 	    return ForecastDays;
 	}(_react2.default.Component);
 	
-	var Forecast = exports.Forecast = (0, _mobxReact.observer)(_class = function (_React$Component3) {
-	    _inherits(Forecast, _React$Component3);
+	var OWMForecast = exports.OWMForecast = (0, _mobxReact.observer)(_class = function (_React$Component3) {
+	    _inherits(OWMForecast, _React$Component3);
 	
-	    function Forecast() {
-	        _classCallCheck(this, Forecast);
+	    function OWMForecast() {
+	        _classCallCheck(this, OWMForecast);
 	
-	        return _possibleConstructorReturn(this, (Forecast.__proto__ || Object.getPrototypeOf(Forecast)).apply(this, arguments));
+	        return _possibleConstructorReturn(this, (OWMForecast.__proto__ || Object.getPrototypeOf(OWMForecast)).apply(this, arguments));
 	    }
 	
-	    _createClass(Forecast, [{
+	    _createClass(OWMForecast, [{
 	        key: 'render',
 	        value: function render() {
-	            if (_weather2.default.forecast == null) {
+	            if (_owm2.default.forecast == null) {
 	                return _react2.default.createElement(
 	                    'div',
 	                    { className: 'clock', style: { padding: '10px', minHeight: '211px', width: '398px', marginLeft: '2px' } },
@@ -26814,13 +26471,329 @@
 	                return _react2.default.createElement(
 	                    'div',
 	                    { className: 'clock', style: { padding: '10px', minHeight: '211px', width: '398px', marginLeft: '2px' } },
-	                    _react2.default.createElement(ForecastDays, { days: _weather2.default.forecast.simpleforecast.forecastday })
+	                    _react2.default.createElement(ForecastDays, { days: _owm2.default.forecast.list })
 	                );
 	            }
 	        }
 	    }]);
 	
-	    return Forecast;
+	    return OWMForecast;
+	}(_react2.default.Component)) || _class;
+
+/***/ },
+/* 187 */
+/*!**************************************!*\
+  !*** ./src/client/app/stores/owm.js ***!
+  \**************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _desc, _value, _class, _descriptor, _descriptor2;
+	
+	var _mobx = __webpack_require__(/*! mobx */ 182);
+	
+	var _store = __webpack_require__(/*! ./store */ 184);
+	
+	var _store2 = _interopRequireDefault(_store);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _initDefineProp(target, property, descriptor, context) {
+	    if (!descriptor) return;
+	    Object.defineProperty(target, property, {
+	        enumerable: descriptor.enumerable,
+	        configurable: descriptor.configurable,
+	        writable: descriptor.writable,
+	        value: descriptor.initializer ? descriptor.initializer.call(context) : void 0
+	    });
+	}
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	function _applyDecoratedDescriptor(target, property, decorators, descriptor, context) {
+	    var desc = {};
+	    Object['ke' + 'ys'](descriptor).forEach(function (key) {
+	        desc[key] = descriptor[key];
+	    });
+	    desc.enumerable = !!desc.enumerable;
+	    desc.configurable = !!desc.configurable;
+	
+	    if ('value' in desc || desc.initializer) {
+	        desc.writable = true;
+	    }
+	
+	    desc = decorators.slice().reverse().reduce(function (desc, decorator) {
+	        return decorator(target, property, desc) || desc;
+	    }, desc);
+	
+	    if (context && desc.initializer !== void 0) {
+	        desc.value = desc.initializer ? desc.initializer.call(context) : void 0;
+	        desc.initializer = undefined;
+	    }
+	
+	    if (desc.initializer === void 0) {
+	        Object['define' + 'Property'](target, property, desc);
+	        desc = null;
+	    }
+	
+	    return desc;
+	}
+	
+	function _initializerWarningHelper(descriptor, context) {
+	    throw new Error('Decorating class property failed. Please ensure that transform-class-properties is enabled.');
+	}
+	
+	var OWMStore = (_class = function (_Store) {
+	    _inherits(OWMStore, _Store);
+	
+	    function OWMStore() {
+	        _classCallCheck(this, OWMStore);
+	
+	        var _this = _possibleConstructorReturn(this, (OWMStore.__proto__ || Object.getPrototypeOf(OWMStore)).call(this));
+	
+	        _initDefineProp(_this, 'current', _descriptor, _this);
+	
+	        _initDefineProp(_this, 'forecast', _descriptor2, _this);
+	
+	        _this.timerCurrent = null;
+	        _this.timerForecast = null;
+	
+	        console.log('in OWMStore constructor');
+	        _this.fetchCurrentWeather();
+	        _this.timerCurrent = setInterval(function () {
+	            return _this.fetchCurrentWeather();
+	        }, 1000 * 60 * 10); // 10 mins
+	        _this.fetchForecast();
+	        _this.timerForecast = setInterval(function () {
+	            return _this.fetchForecast();
+	        }, 1000 * 60 * 30); // 30 mins
+	        return _this;
+	    }
+	
+	    _createClass(OWMStore, [{
+	        key: 'init',
+	        value: function init() {
+	            console.log('running owmstore.init');
+	        }
+	    }, {
+	        key: 'fetchCurrentWeather',
+	        value: function fetchCurrentWeather() {
+	            var _this2 = this;
+	
+	            console.log('updating current weather');
+	            return this.performOperation(function () {
+	                return fetch(owmurlbase + "weather?q=" + state + "," + city + "&units=imperial&appid=" + owmappid, { method: 'GET' }).then(function (response) {
+	                    return response.json();
+	                }).then(function (result) {
+	                    return _this2.current = result;
+	                });
+	            });
+	        }
+	    }, {
+	        key: 'fetchForecast',
+	        value: function fetchForecast() {
+	            var _this3 = this;
+	
+	            console.log('updating forecast');
+	            return this.performOperation(function () {
+	                return fetch(owmurlbase + "forecast/daily?q=" + state + "," + city + "&cnt=4&units=imperial&appid=" + owmappid, { method: 'GET' }).then(function (response) {
+	                    return response.json();
+	                }).then(function (result) {
+	                    return _this3.forecast = result;
+	                });
+	            });
+	        }
+	    }]);
+	
+	    return OWMStore;
+	}(_store2.default), (_descriptor = _applyDecoratedDescriptor(_class.prototype, 'current', [_mobx.observable], {
+	    enumerable: true,
+	    initializer: function initializer() {
+	        return null;
+	    }
+	}), _descriptor2 = _applyDecoratedDescriptor(_class.prototype, 'forecast', [_mobx.observable], {
+	    enumerable: true,
+	    initializer: function initializer() {
+	        return null;
+	    }
+	})), _class);
+	exports.default = new OWMStore();
+
+/***/ },
+/* 188 */
+/*!***************************************!*\
+  !*** ./src/client/app/owmcurrent.jsx ***!
+  \***************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.OWMCurrent = exports.Precip = exports.Wind = undefined;
+	
+	var _class;
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _mobxReact = __webpack_require__(/*! mobx-react */ 181);
+	
+	var _reactDom = __webpack_require__(/*! react-dom */ 32);
+	
+	var _owm = __webpack_require__(/*! ./stores/owm */ 187);
+	
+	var _owm2 = _interopRequireDefault(_owm);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var Wind = exports.Wind = function (_React$Component) {
+	    _inherits(Wind, _React$Component);
+	
+	    function Wind() {
+	        _classCallCheck(this, Wind);
+	
+	        return _possibleConstructorReturn(this, (Wind.__proto__ || Object.getPrototypeOf(Wind)).apply(this, arguments));
+	    }
+	
+	    _createClass(Wind, [{
+	        key: 'render',
+	        value: function render() {
+	            if (this.props.current.wind.speed > 0) {
+	                return _react2.default.createElement(
+	                    'div',
+	                    { className: 'wind' },
+	                    this.props.current.wind.speed,
+	                    ' mph wind ',
+	                    _react2.default.createElement('i', { style: { fontSize: '36px', verticalAlign: 'middle' }, className: "wi wi-wind from-" + this.props.current.wind.deg + "-deg" })
+	                );
+	            } else {
+	                return null;
+	            }
+	        }
+	    }]);
+	
+	    return Wind;
+	}(_react2.default.Component);
+	
+	var Precip = exports.Precip = function (_React$Component2) {
+	    _inherits(Precip, _React$Component2);
+	
+	    function Precip() {
+	        _classCallCheck(this, Precip);
+	
+	        return _possibleConstructorReturn(this, (Precip.__proto__ || Object.getPrototypeOf(Precip)).apply(this, arguments));
+	    }
+	
+	    _createClass(Precip, [{
+	        key: 'render',
+	        value: function render() {
+	            if (this.props.current.rain != undefined) {
+	                return _react2.default.createElement(
+	                    'div',
+	                    { className: 'wind' },
+	                    this.props.current.rain['3h'],
+	                    'in of precipitation'
+	                );
+	            } else {
+	                return null;
+	            }
+	        }
+	    }]);
+	
+	    return Precip;
+	}(_react2.default.Component);
+	
+	var OWMCurrent = exports.OWMCurrent = (0, _mobxReact.observer)(_class = function (_React$Component3) {
+	    _inherits(OWMCurrent, _React$Component3);
+	
+	    function OWMCurrent() {
+	        _classCallCheck(this, OWMCurrent);
+	
+	        return _possibleConstructorReturn(this, (OWMCurrent.__proto__ || Object.getPrototypeOf(OWMCurrent)).apply(this, arguments));
+	    }
+	
+	    _createClass(OWMCurrent, [{
+	        key: 'render',
+	        value: function render() {
+	            if (_owm2.default.current == null) {
+	                return _react2.default.createElement(
+	                    'div',
+	                    { className: 'clock', style: { padding: '20px', minHeight: '211px', width: '398px', marginRight: '2px' } },
+	                    'Loading...'
+	                );
+	            } else {
+	                return _react2.default.createElement(
+	                    'div',
+	                    { className: 'clock', style: { padding: '20px', minHeight: '211px', width: '398px', marginRight: '2px' } },
+	                    _react2.default.createElement(
+	                        'div',
+	                        { style: { width: '100%', fontSize: '20px' } },
+	                        _owm2.default.current.name
+	                    ),
+	                    _react2.default.createElement(
+	                        'div',
+	                        { style: { paddingTop: '20px' } },
+	                        _react2.default.createElement(
+	                            'div',
+	                            { style: { float: 'right', fontSize: '20px', padding: '10px', width: '80px' } },
+	                            _owm2.default.current.weather[0].main
+	                        ),
+	                        _react2.default.createElement(
+	                            'div',
+	                            { style: { float: 'right', paddingTop: '4px' } },
+	                            _react2.default.createElement(
+	                                'span',
+	                                { style: { fontSize: '72px' } },
+	                                _owm2.default.current.main.temp.toFixed(1)
+	                            ),
+	                            _react2.default.createElement(
+	                                'span',
+	                                { style: { fontSize: '20px', verticalAlign: 'top', paddingLeft: '5px' } },
+	                                '\xB0F'
+	                            )
+	                        ),
+	                        _react2.default.createElement(
+	                            'div',
+	                            { style: { float: 'right' } },
+	                            _react2.default.createElement('i', { className: "wi wi-owm-" + _owm2.default.current.weather[0].id, style: { width: '72px', height: '72px', fontSize: '62px', padding: '5px 0' } })
+	                        ),
+	                        _react2.default.createElement('div', { className: 'clear' }),
+	                        _react2.default.createElement(
+	                            'div',
+	                            { style: { float: 'right' } },
+	                            _react2.default.createElement(Wind, { current: _owm2.default.current }),
+	                            _react2.default.createElement(Precip, { current: _owm2.default.current })
+	                        ),
+	                        _react2.default.createElement('div', { className: 'clear' })
+	                    )
+	                );
+	            }
+	        }
+	    }]);
+	
+	    return OWMCurrent;
 	}(_react2.default.Component)) || _class;
 
 /***/ }

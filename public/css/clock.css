@@ -1,6 +1,6 @@
 @font-face {
     font-family:"LCD";
-    src: url('fonts/LCD-N___.TTF');
+    src: url('../font/LCD-N___.TTF');
 }
 
 html,body {
@@ -13,7 +13,7 @@ html,body {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 14px;
     max-width: 800px;
-    background: url('blue-bubbles.jpg');
+    background: url('../blue-bubbles.jpg');
     background-color: #000;
     background-repeat: repeat-y;
     background-attachment: fixed;
