@@ -94,6 +94,7 @@ html,body {
     overflow: hidden;
     width: 320px;
     min-height: 40px;
+    height: 225px;
     box-sizing: border-box;
 }
 

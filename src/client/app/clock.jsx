@@ -61,7 +61,7 @@ export class Clock extends React.Component {
 
     render() {
         return (
-            <div className="clock" style={{marginRight:'4px', width: '476px'}}>
+            <div className="clock" style={{marginRight:'4px', marginBottom: '4px', width: '476px'}}>
                 <div className="digits"><span id="clock">{this.state.time}</span><span className="ampm" id="ampm">{this.state.ampm}</span></div>
                 <div className="day" id="day">{this.state.day}</div>
             </div>
