@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { Clock } from './clock';
-import { OWMMap } from './owmmap';
+import { Map } from './map';
 import { OWMCurrent } from './owmcurrent'
 import { OWMForecast }  from "./owmforecast"
 
@@ -12,9 +12,7 @@ class App extends React.Component {
         <div className="header">Kevin's Weather Clock</div>
         <div className="content">
           <Clock />
-          <div id='map' className='map'>
-          </div>
-          <OWMMap />
+          <Map />
           <div className="clear"></div>
           <OWMCurrent />
           <OWMForecast />

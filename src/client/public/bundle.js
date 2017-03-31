@@ -59,7 +59,7 @@
 	
 	var _clock = __webpack_require__(/*! ./clock */ 178);
 	
-	var _owmmap = __webpack_require__(/*! ./owmmap */ 186);
+	var _map = __webpack_require__(/*! ./map */ 179);
 	
 	var _owmcurrent = __webpack_require__(/*! ./owmcurrent */ 180);
 	
@@ -97,8 +97,7 @@
 	          'div',
 	          { className: 'content' },
 	          _react2.default.createElement(_clock.Clock, null),
-	          _react2.default.createElement('div', { id: 'map', className: 'map' }),
-	          _react2.default.createElement(_owmmap.OWMMap, null),
+	          _react2.default.createElement(_map.Map, null),
 	          _react2.default.createElement('div', { className: 'clear' }),
 	          _react2.default.createElement(_owmcurrent.OWMCurrent, null),
 	          _react2.default.createElement(_owmforecast.OWMForecast, null)
@@ -22214,7 +22213,86 @@
 	}(_react2.default.Component);
 
 /***/ },
-/* 179 */,
+/* 179 */
+/*!********************************!*\
+  !*** ./src/client/app/map.jsx ***!
+  \********************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.Map = undefined;
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactDom = __webpack_require__(/*! react-dom */ 32);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var Map = exports.Map = function (_React$Component) {
+	    _inherits(Map, _React$Component);
+	
+	    function Map(props) {
+	        _classCallCheck(this, Map);
+	
+	        var _this = _possibleConstructorReturn(this, (Map.__proto__ || Object.getPrototypeOf(Map)).call(this, props));
+	
+	        _this.state = {
+	            mapsrc: '',
+	            timer: null
+	        };
+	        return _this;
+	    }
+	
+	    _createClass(Map, [{
+	        key: 'updateMap',
+	        value: function updateMap() {
+	            var today = new Date();
+	            this.setState({ mapsrc: wuurlbase + wukey + "/radar/q/" + state + "/" + city + ".gif?radius=75&width=320&height=225&rainsnow=1&newmaps=1&timelabel=1&timelabel.y=220&noclutter=1&smooth=1&timestamp=" + today.toString("hhmmss") });
+	        }
+	    }, {
+	        key: 'componentDidMount',
+	        value: function componentDidMount() {
+	            var _this2 = this;
+	
+	            this.updateMap();
+	            this.setState({ timer: setInterval(function () {
+	                    return _this2.updateMap();
+	                }, 1000 * 60 * 10) });
+	        }
+	    }, {
+	        key: 'componentWillUnmount',
+	        value: function componentWillUnmount() {
+	            clearInterval(this.state.timer);
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            return _react2.default.createElement(
+	                'div',
+	                { className: 'map' },
+	                _react2.default.createElement('img', { src: this.state.mapsrc, id: 'wumap' })
+	            );
+	        }
+	    }]);
+	
+	    return Map;
+	}(_react2.default.Component);
+
+/***/ },
 /* 180 */
 /*!***************************************!*\
   !*** ./src/client/app/owmcurrent.jsx ***!
@@ -26715,133 +26793,6 @@
 	    }]);
 	
 	    return OWMForecast;
-	}(_react2.default.Component)) || _class;
-
-/***/ },
-/* 186 */
-/*!***********************************!*\
-  !*** ./src/client/app/owmmap.jsx ***!
-  \***********************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	exports.OWMMap = undefined;
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _class;
-	
-	var _react = __webpack_require__(/*! react */ 1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _mobxReact = __webpack_require__(/*! mobx-react */ 181);
-	
-	var _reactDom = __webpack_require__(/*! react-dom */ 32);
-	
-	var _owm = __webpack_require__(/*! ./stores/owm */ 183);
-	
-	var _owm2 = _interopRequireDefault(_owm);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var OWMMap = exports.OWMMap = (0, _mobxReact.observer)(_class = function (_React$Component) {
-	    _inherits(OWMMap, _React$Component);
-	
-	    function OWMMap(props) {
-	        _classCallCheck(this, OWMMap);
-	
-	        var _this = _possibleConstructorReturn(this, (OWMMap.__proto__ || Object.getPrototypeOf(OWMMap)).call(this, props));
-	
-	        _this.state = {
-	            mapsrc: '',
-	            timer: null,
-	            precipitation: null
-	        };
-	        return _this;
-	    }
-	
-	    _createClass(OWMMap, [{
-	        key: 'createMap',
-	        value: function createMap() {
-	            if (_owm2.default.current != null) {
-	                var map = new ol.Map({
-	                    controls: [],
-	                    target: 'map',
-	                    layers: [new ol.layer.Tile({
-	                        source: new ol.source.OSM()
-	                    }),
-	                    /*
-	                    new ol.layer.Tile({
-	                        title: 'Clouds',
-	                        opacity: 0.4,
-	                        source: new ol.source.XYZ({
-	                            url: "http://tile.openweathermap.org/map/clouds/{z}/{x}/{y}.png&appid=" + owmappid
-	                        })
-	                    }),*/
-	
-	                    this.state.precipitation],
-	                    view: new ol.View({
-	                        center: ol.proj.fromLonLat([_owm2.default.current.coord.lon, _owm2.default.current.coord.lat]),
-	                        zoom: 7
-	                    })
-	                });
-	            }
-	        }
-	    }, {
-	        key: 'updateMap',
-	        value: function updateMap() {
-	            if (this.state.precipitation != null) {
-	                console.log("updating precipitation source");
-	                var now = new Date();
-	                this.state.precipitation.getSource().setUrl("http://tile.openweathermap.org/map/precipitation/{z}/{x}/{y}.png&appid=" + owmappid + "&t=" + now.getTime());
-	                this.state.precipitation.getSource().refresh();
-	            }
-	        }
-	    }, {
-	        key: 'componentDidMount',
-	        value: function componentDidMount() {
-	            var _this2 = this;
-	
-	            var precipitation = new ol.layer.Tile({
-	                title: 'Precipitation',
-	                opacity: .25,
-	                source: new ol.source.XYZ({
-	                    url: "http://tile.openweathermap.org/map/precipitation/{z}/{x}/{y}.png&appid=" + owmappid
-	                })
-	            });
-	            this.setState({ precipitation: precipitation });
-	
-	            this.setState({ timer: setInterval(function () {
-	                    return _this2.updateMap();
-	                }, 1000 * 60 * 10) });
-	        }
-	    }, {
-	        key: 'componentWillUnmount',
-	        value: function componentWillUnmount() {
-	            clearInterval(this.state.timer);
-	        }
-	    }, {
-	        key: 'render',
-	        value: function render() {
-	            if (_owm2.default.current != null) {
-	                this.createMap();
-	            }
-	            return null;
-	        }
-	    }]);
-	
-	    return OWMMap;
 	}(_react2.default.Component)) || _class;
 
 /***/ }
