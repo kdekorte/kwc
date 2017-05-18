@@ -8,7 +8,7 @@ export class Wind extends React.Component {
     render() {
         if (this.props.current.wind.speed > 0) {
             return (
-                <div className='wind'>{this.props.current.wind.speed} mph wind <i style={{fontSize:'36px',verticalAlign:'middle'}} className={"wi wi-wind from-" + this.props.current.wind.deg.toFixed(0) + "-deg"} /></div>
+                <div className='wind'>{this.props.current.wind.speed} mph wind <i style={{fontSize:'36px',verticalAlign:'middle'}} className={"wi wi-wind toward-" + this.props.current.wind.deg.toFixed(0) + "-deg"} /></div>
             )
         } else {
             return null;

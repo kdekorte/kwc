@@ -11,29 +11,36 @@ export class OWMMap extends React.Component {
         this.state = {
             mapsrc: '',
             timer: null,
+            clouds: null,
             precipitation: null
         }
     }
 
     createMap() {
         if (OWMStore.current != null) {
+            var timeStamp = new Date();
+            var scaleControl = new ol.control.ScaleLine({
+                units: 'imperial'
+            })
+            var attributionControl = new ol.control.Attribution({
+                collapsible: false,
+                target: undefined
+            })
+            var attribution = new ol.Attribution({
+                html: 'Updated at <span id="updatetime">' + timeStamp.toString("h:mm tt") + '</span>'
+            })
             var map = new ol.Map({
-                controls: [],
+                controls: [scaleControl, attributionControl],
                 target: 'map',
                 layers: [
                     new ol.layer.Tile({
-                        source: new ol.source.OSM()
-                    }),
-                    /*
-                    new ol.layer.Tile({
-                        title: 'Clouds',
-                        opacity: 0.4,
-                        source: new ol.source.XYZ({
-                            url: "http://tile.openweathermap.org/map/clouds/{z}/{x}/{y}.png&appid=" + owmappid
+                        source: new ol.source.OSM({
+                            attributions: [attribution]
                         })
-                    }),*/
-
+                    }),
+                    /*this.state.clouds,*/
                     this.state.precipitation
+                    
                 ],
                 view: new ol.View({
                     center: ol.proj.fromLonLat([OWMStore.current.coord.lon, OWMStore.current.coord.lat]),
@@ -44,24 +51,39 @@ export class OWMMap extends React.Component {
     }
 
     updateMap() {
+        let now = new Date()
+        if (this.state.clouds != null) {
+            console.log("updating cloud source")
+            this.state.clouds.getSource().setUrl("http://tile.openweathermap.org/map/clouds/{z}/{x}/{y}.png?appid=" + owmappid + "&t=" + now.getTime())
+            this.state.clouds.getSource().refresh()
+        }
         if (this.state.precipitation != null) {
             console.log("updating precipitation source")
-            let now = new Date()
-            this.state.precipitation.getSource().setUrl("http://tile.openweathermap.org/map/precipitation/{z}/{x}/{y}.png&appid=" + owmappid + "&t=" + now.getTime())
+            this.state.precipitation.getSource().setUrl("http://tile.openweathermap.org/map/precipitation/{z}/{x}/{y}.png?appid=" + owmappid + "&t=" + now.getTime())
             this.state.precipitation.getSource().refresh()
+        }
+        let stamp = document.getElementById("updatetime")
+        if (stamp != null) {
+            stamp.innerHTML = now.toString("h:mm tt")
         }
     }
 
     componentDidMount() {
-        var precipitation = new ol.layer.Tile({
-            title: 'Precipitation',
-            opacity: .25,
+        var clouds = new ol.layer.Tile({
+            title: 'Clouds',
+            opacity: 0.25,
             source: new ol.source.XYZ({
-                url: "http://tile.openweathermap.org/map/precipitation/{z}/{x}/{y}.png&appid=" + owmappid
+                url: "http://tile.openweathermap.org/map/clouds/{z}/{x}/{y}.png?appid=" + owmappid
             })
         })
-        this.setState({ precipitation: precipitation});
-
+        var precipitation = new ol.layer.Tile({
+            title: 'Precipitation',
+            opacity: 0.5,
+            source: new ol.source.XYZ({
+                url: "http://tile.openweathermap.org/map/precipitation/{z}/{x}/{y}.png?appid=" + owmappid
+            })
+        })
+        this.setState({ clouds: clouds, precipitation: precipitation});
         this.setState({ timer: setInterval(() => this.updateMap(), 1000 * 60 * 10) });
     }
 

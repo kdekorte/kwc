@@ -90,7 +90,9 @@ html,body {
 
 
 .map {
-    float: left;
+    position: absolute;
+    right: 1px;
+    top: 20px;
     overflow: hidden;
     width: 320px;
     min-height: 40px;
@@ -197,4 +199,21 @@ html,body {
 
 .wind {
     font-size: 20px;
+}
+
+.ol-attribution.ol-uncollapsible.ol-control {
+    bottom: 8px;
+    right: 8px;
+    background: rgba(0,60,136,.3);
+    color: #eee;
+    border-radius: 4px;
+}
+
+.ol-attribution ul li:first-child {
+    display: none;
+}
+
+.ol-attribution ul li {
+    color: #eee;
+    text-shadow: none;
 }

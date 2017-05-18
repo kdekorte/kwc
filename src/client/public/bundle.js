@@ -61,9 +61,11 @@
 	
 	var _map = __webpack_require__(/*! ./map */ 179);
 	
-	var _owmcurrent = __webpack_require__(/*! ./owmcurrent */ 180);
+	var _owmmap = __webpack_require__(/*! ./owmmap */ 180);
 	
-	var _owmforecast = __webpack_require__(/*! ./owmforecast */ 185);
+	var _owmcurrent = __webpack_require__(/*! ./owmcurrent */ 185);
+	
+	var _owmforecast = __webpack_require__(/*! ./owmforecast */ 186);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -97,7 +99,8 @@
 	          'div',
 	          { className: 'content' },
 	          _react2.default.createElement(_clock.Clock, null),
-	          _react2.default.createElement(_map.Map, null),
+	          _react2.default.createElement('div', { id: 'map', className: 'map' }),
+	          _react2.default.createElement(_owmmap.OWMMap, null),
 	          _react2.default.createElement('div', { className: 'clear' }),
 	          _react2.default.createElement(_owmcurrent.OWMCurrent, null),
 	          _react2.default.createElement(_owmforecast.OWMForecast, null)
@@ -105,7 +108,7 @@
 	        _react2.default.createElement(
 	          'div',
 	          { className: 'footer' },
-	          'Data provided by Weather Underground'
+	          'Data provided by OpenWeatherMaps'
 	        )
 	      );
 	    }
@@ -22294,9 +22297,9 @@
 
 /***/ },
 /* 180 */
-/*!***************************************!*\
-  !*** ./src/client/app/owmcurrent.jsx ***!
-  \***************************************/
+/*!***********************************!*\
+  !*** ./src/client/app/owmmap.jsx ***!
+  \***********************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -22304,11 +22307,11 @@
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-	exports.OWMCurrent = exports.Precip = exports.Wind = undefined;
-	
-	var _class;
+	exports.OWMMap = undefined;
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _class;
 	
 	var _react = __webpack_require__(/*! react */ 1);
 	
@@ -22330,132 +22333,114 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var Wind = exports.Wind = function (_React$Component) {
-	    _inherits(Wind, _React$Component);
+	var OWMMap = exports.OWMMap = (0, _mobxReact.observer)(_class = function (_React$Component) {
+	    _inherits(OWMMap, _React$Component);
 	
-	    function Wind() {
-	        _classCallCheck(this, Wind);
+	    function OWMMap(props) {
+	        _classCallCheck(this, OWMMap);
 	
-	        return _possibleConstructorReturn(this, (Wind.__proto__ || Object.getPrototypeOf(Wind)).apply(this, arguments));
+	        var _this = _possibleConstructorReturn(this, (OWMMap.__proto__ || Object.getPrototypeOf(OWMMap)).call(this, props));
+	
+	        _this.state = {
+	            mapsrc: '',
+	            timer: null,
+	            clouds: null,
+	            precipitation: null
+	        };
+	        return _this;
 	    }
 	
-	    _createClass(Wind, [{
+	    _createClass(OWMMap, [{
+	        key: 'createMap',
+	        value: function createMap() {
+	            if (_owm2.default.current != null) {
+	                var timeStamp = new Date();
+	                var scaleControl = new ol.control.ScaleLine({
+	                    units: 'imperial'
+	                });
+	                var attributionControl = new ol.control.Attribution({
+	                    collapsible: false,
+	                    target: undefined
+	                });
+	                var attribution = new ol.Attribution({
+	                    html: 'Updated at <span id="updatetime">' + timeStamp.toString("h:mm tt") + '</span>'
+	                });
+	                var map = new ol.Map({
+	                    controls: [scaleControl, attributionControl],
+	                    target: 'map',
+	                    layers: [new ol.layer.Tile({
+	                        source: new ol.source.OSM({
+	                            attributions: [attribution]
+	                        })
+	                    }),
+	                    /*this.state.clouds,*/
+	                    this.state.precipitation],
+	                    view: new ol.View({
+	                        center: ol.proj.fromLonLat([_owm2.default.current.coord.lon, _owm2.default.current.coord.lat]),
+	                        zoom: 7
+	                    })
+	                });
+	            }
+	        }
+	    }, {
+	        key: 'updateMap',
+	        value: function updateMap() {
+	            var now = new Date();
+	            if (this.state.clouds != null) {
+	                console.log("updating cloud source");
+	                this.state.clouds.getSource().setUrl("http://tile.openweathermap.org/map/clouds/{z}/{x}/{y}.png?appid=" + owmappid + "&t=" + now.getTime());
+	                this.state.clouds.getSource().refresh();
+	            }
+	            if (this.state.precipitation != null) {
+	                console.log("updating precipitation source");
+	                this.state.precipitation.getSource().setUrl("http://tile.openweathermap.org/map/precipitation/{z}/{x}/{y}.png?appid=" + owmappid + "&t=" + now.getTime());
+	                this.state.precipitation.getSource().refresh();
+	            }
+	            var stamp = document.getElementById("updatetime");
+	            if (stamp != null) {
+	                stamp.innerHTML = now.toString("h:mm tt");
+	            }
+	        }
+	    }, {
+	        key: 'componentDidMount',
+	        value: function componentDidMount() {
+	            var _this2 = this;
+	
+	            var clouds = new ol.layer.Tile({
+	                title: 'Clouds',
+	                opacity: 0.25,
+	                source: new ol.source.XYZ({
+	                    url: "http://tile.openweathermap.org/map/clouds/{z}/{x}/{y}.png?appid=" + owmappid
+	                })
+	            });
+	            var precipitation = new ol.layer.Tile({
+	                title: 'Precipitation',
+	                opacity: 0.5,
+	                source: new ol.source.XYZ({
+	                    url: "http://tile.openweathermap.org/map/precipitation/{z}/{x}/{y}.png?appid=" + owmappid
+	                })
+	            });
+	            this.setState({ clouds: clouds, precipitation: precipitation });
+	            this.setState({ timer: setInterval(function () {
+	                    return _this2.updateMap();
+	                }, 1000 * 60 * 10) });
+	        }
+	    }, {
+	        key: 'componentWillUnmount',
+	        value: function componentWillUnmount() {
+	            clearInterval(this.state.timer);
+	        }
+	    }, {
 	        key: 'render',
 	        value: function render() {
-	            if (this.props.current.wind.speed > 0) {
-	                return _react2.default.createElement(
-	                    'div',
-	                    { className: 'wind' },
-	                    this.props.current.wind.speed,
-	                    ' mph wind ',
-	                    _react2.default.createElement('i', { style: { fontSize: '36px', verticalAlign: 'middle' }, className: "wi wi-wind from-" + this.props.current.wind.deg.toFixed(0) + "-deg" })
-	                );
-	            } else {
-	                return null;
+	            if (_owm2.default.current != null) {
+	                this.createMap();
 	            }
+	            return null;
 	        }
 	    }]);
 	
-	    return Wind;
-	}(_react2.default.Component);
-	
-	var Precip = exports.Precip = function (_React$Component2) {
-	    _inherits(Precip, _React$Component2);
-	
-	    function Precip() {
-	        _classCallCheck(this, Precip);
-	
-	        return _possibleConstructorReturn(this, (Precip.__proto__ || Object.getPrototypeOf(Precip)).apply(this, arguments));
-	    }
-	
-	    _createClass(Precip, [{
-	        key: 'render',
-	        value: function render() {
-	            if (this.props.current.rain != undefined) {
-	                return _react2.default.createElement(
-	                    'div',
-	                    { className: 'wind' },
-	                    this.props.current.rain['3h'],
-	                    'in of precipitation'
-	                );
-	            } else {
-	                return null;
-	            }
-	        }
-	    }]);
-	
-	    return Precip;
-	}(_react2.default.Component);
-	
-	var OWMCurrent = exports.OWMCurrent = (0, _mobxReact.observer)(_class = function (_React$Component3) {
-	    _inherits(OWMCurrent, _React$Component3);
-	
-	    function OWMCurrent() {
-	        _classCallCheck(this, OWMCurrent);
-	
-	        return _possibleConstructorReturn(this, (OWMCurrent.__proto__ || Object.getPrototypeOf(OWMCurrent)).apply(this, arguments));
-	    }
-	
-	    _createClass(OWMCurrent, [{
-	        key: 'render',
-	        value: function render() {
-	            if (_owm2.default.current == null) {
-	                return _react2.default.createElement(
-	                    'div',
-	                    { className: 'clock', style: { padding: '20px', minHeight: '211px', width: '398px', marginRight: '2px' } },
-	                    'Loading...'
-	                );
-	            } else {
-	                return _react2.default.createElement(
-	                    'div',
-	                    { className: 'clock', style: { padding: '20px', minHeight: '211px', width: '398px', marginRight: '2px' } },
-	                    _react2.default.createElement(
-	                        'div',
-	                        { style: { width: '100%', fontSize: '20px' } },
-	                        _owm2.default.current.name
-	                    ),
-	                    _react2.default.createElement(
-	                        'div',
-	                        { style: { paddingTop: '20px' } },
-	                        _react2.default.createElement(
-	                            'div',
-	                            { style: { float: 'right', fontSize: '20px', padding: '10px', width: '80px' } },
-	                            _owm2.default.current.weather[0].main
-	                        ),
-	                        _react2.default.createElement(
-	                            'div',
-	                            { style: { float: 'right', paddingTop: '4px' } },
-	                            _react2.default.createElement(
-	                                'span',
-	                                { style: { fontSize: '72px' } },
-	                                _owm2.default.current.main.temp.toFixed(1)
-	                            ),
-	                            _react2.default.createElement(
-	                                'span',
-	                                { style: { fontSize: '20px', verticalAlign: 'top', paddingLeft: '5px' } },
-	                                '\xB0F'
-	                            )
-	                        ),
-	                        _react2.default.createElement(
-	                            'div',
-	                            { style: { float: 'right' } },
-	                            _react2.default.createElement('i', { className: "wi wi-owm-" + _owm2.default.current.weather[0].id, style: { width: '72px', height: '72px', fontSize: '62px', padding: '5px 5px' } })
-	                        ),
-	                        _react2.default.createElement('div', { className: 'clear' }),
-	                        _react2.default.createElement(
-	                            'div',
-	                            { style: { float: 'right' } },
-	                            _react2.default.createElement(Wind, { current: _owm2.default.current }),
-	                            _react2.default.createElement(Precip, { current: _owm2.default.current })
-	                        ),
-	                        _react2.default.createElement('div', { className: 'clear' })
-	                    )
-	                );
-	            }
-	        }
-	    }]);
-	
-	    return OWMCurrent;
+	    return OWMMap;
 	}(_react2.default.Component)) || _class;
 
 /***/ },
@@ -26645,6 +26630,172 @@
 
 /***/ },
 /* 185 */
+/*!***************************************!*\
+  !*** ./src/client/app/owmcurrent.jsx ***!
+  \***************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.OWMCurrent = exports.Precip = exports.Wind = undefined;
+	
+	var _class;
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _mobxReact = __webpack_require__(/*! mobx-react */ 181);
+	
+	var _reactDom = __webpack_require__(/*! react-dom */ 32);
+	
+	var _owm = __webpack_require__(/*! ./stores/owm */ 183);
+	
+	var _owm2 = _interopRequireDefault(_owm);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var Wind = exports.Wind = function (_React$Component) {
+	    _inherits(Wind, _React$Component);
+	
+	    function Wind() {
+	        _classCallCheck(this, Wind);
+	
+	        return _possibleConstructorReturn(this, (Wind.__proto__ || Object.getPrototypeOf(Wind)).apply(this, arguments));
+	    }
+	
+	    _createClass(Wind, [{
+	        key: 'render',
+	        value: function render() {
+	            if (this.props.current.wind.speed > 0) {
+	                return _react2.default.createElement(
+	                    'div',
+	                    { className: 'wind' },
+	                    this.props.current.wind.speed,
+	                    ' mph wind ',
+	                    _react2.default.createElement('i', { style: { fontSize: '36px', verticalAlign: 'middle' }, className: "wi wi-wind toward-" + this.props.current.wind.deg.toFixed(0) + "-deg" })
+	                );
+	            } else {
+	                return null;
+	            }
+	        }
+	    }]);
+	
+	    return Wind;
+	}(_react2.default.Component);
+	
+	var Precip = exports.Precip = function (_React$Component2) {
+	    _inherits(Precip, _React$Component2);
+	
+	    function Precip() {
+	        _classCallCheck(this, Precip);
+	
+	        return _possibleConstructorReturn(this, (Precip.__proto__ || Object.getPrototypeOf(Precip)).apply(this, arguments));
+	    }
+	
+	    _createClass(Precip, [{
+	        key: 'render',
+	        value: function render() {
+	            if (this.props.current.rain != undefined) {
+	                return _react2.default.createElement(
+	                    'div',
+	                    { className: 'wind' },
+	                    this.props.current.rain['3h'],
+	                    'in of precipitation'
+	                );
+	            } else {
+	                return null;
+	            }
+	        }
+	    }]);
+	
+	    return Precip;
+	}(_react2.default.Component);
+	
+	var OWMCurrent = exports.OWMCurrent = (0, _mobxReact.observer)(_class = function (_React$Component3) {
+	    _inherits(OWMCurrent, _React$Component3);
+	
+	    function OWMCurrent() {
+	        _classCallCheck(this, OWMCurrent);
+	
+	        return _possibleConstructorReturn(this, (OWMCurrent.__proto__ || Object.getPrototypeOf(OWMCurrent)).apply(this, arguments));
+	    }
+	
+	    _createClass(OWMCurrent, [{
+	        key: 'render',
+	        value: function render() {
+	            if (_owm2.default.current == null) {
+	                return _react2.default.createElement(
+	                    'div',
+	                    { className: 'clock', style: { padding: '20px', minHeight: '211px', width: '398px', marginRight: '2px' } },
+	                    'Loading...'
+	                );
+	            } else {
+	                return _react2.default.createElement(
+	                    'div',
+	                    { className: 'clock', style: { padding: '20px', minHeight: '211px', width: '398px', marginRight: '2px' } },
+	                    _react2.default.createElement(
+	                        'div',
+	                        { style: { width: '100%', fontSize: '20px' } },
+	                        _owm2.default.current.name
+	                    ),
+	                    _react2.default.createElement(
+	                        'div',
+	                        { style: { paddingTop: '20px' } },
+	                        _react2.default.createElement(
+	                            'div',
+	                            { style: { float: 'right', fontSize: '20px', padding: '10px', width: '80px' } },
+	                            _owm2.default.current.weather[0].main
+	                        ),
+	                        _react2.default.createElement(
+	                            'div',
+	                            { style: { float: 'right', paddingTop: '4px' } },
+	                            _react2.default.createElement(
+	                                'span',
+	                                { style: { fontSize: '72px' } },
+	                                _owm2.default.current.main.temp.toFixed(1)
+	                            ),
+	                            _react2.default.createElement(
+	                                'span',
+	                                { style: { fontSize: '20px', verticalAlign: 'top', paddingLeft: '5px' } },
+	                                '\xB0F'
+	                            )
+	                        ),
+	                        _react2.default.createElement(
+	                            'div',
+	                            { style: { float: 'right' } },
+	                            _react2.default.createElement('i', { className: "wi wi-owm-" + _owm2.default.current.weather[0].id, style: { width: '72px', height: '72px', fontSize: '62px', padding: '5px 5px' } })
+	                        ),
+	                        _react2.default.createElement('div', { className: 'clear' }),
+	                        _react2.default.createElement(
+	                            'div',
+	                            { style: { float: 'right' } },
+	                            _react2.default.createElement(Wind, { current: _owm2.default.current }),
+	                            _react2.default.createElement(Precip, { current: _owm2.default.current })
+	                        ),
+	                        _react2.default.createElement('div', { className: 'clear' })
+	                    )
+	                );
+	            }
+	        }
+	    }]);
+	
+	    return OWMCurrent;
+	}(_react2.default.Component)) || _class;
+
+/***/ },
+/* 186 */
 /*!****************************************!*\
   !*** ./src/client/app/owmforecast.jsx ***!
   \****************************************/
