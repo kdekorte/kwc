@@ -32,7 +32,7 @@ export class Clock extends React.Component {
     updateClock() {
         // console.log('updating clock')
         var today = new Date();
-        this.setState({ time: today.toString("h:mm"), ampm: today.toString("tt"), day: today.toString("dddd, MMM, d, yyyy") });
+        this.setState({ time: today.toString("h:mm"), ampm: today.toString("tt"), day: today.toString("dddd, MMM d, yyyy") });
         /*
         var startTime = new Date();
         var endTime = new Date();

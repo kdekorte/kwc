@@ -1,7 +1,6 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { Clock } from './clock';
-import { Map } from './map';
 import { OWMMap } from './owmmap';
 import { OWMCurrent } from './owmcurrent'
 import { OWMForecast }  from "./owmforecast"
