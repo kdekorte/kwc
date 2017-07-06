@@ -27804,7 +27804,7 @@
 	                return _react2.default.createElement(
 	                    'div',
 	                    { className: 'wind' },
-	                    this.props.current.wind.speed,
+	                    this.props.current.wind.speed.toFixed(1),
 	                    ' mph wind ',
 	                    _react2.default.createElement('i', { style: { fontSize: '36px', verticalAlign: 'middle' }, className: "wi wi-wind toward-" + this.props.current.wind.deg.toFixed(0) + "-deg" })
 	                );
@@ -27833,7 +27833,7 @@
 	                return _react2.default.createElement(
 	                    'div',
 	                    { className: 'wind' },
-	                    this.props.current.rain['3h'],
+	                    this.props.current.rain['3h'].toFixed(1),
 	                    'in of precipitation'
 	                );
 	            } else {
@@ -27878,7 +27878,17 @@
 	                        _react2.default.createElement(
 	                            'div',
 	                            { style: { float: 'right', fontSize: '20px', padding: '10px', width: '80px' } },
-	                            _owm2.default.current.weather[0].main
+	                            _react2.default.createElement(
+	                                'div',
+	                                null,
+	                                _owm2.default.current.weather[0].main
+	                            ),
+	                            _react2.default.createElement(
+	                                'div',
+	                                { style: { paddingTop: '10px' } },
+	                                _owm2.default.current.main.humidity,
+	                                _react2.default.createElement('i', { className: 'wi wi-humidity' })
+	                            )
 	                        ),
 	                        _react2.default.createElement(
 	                            'div',

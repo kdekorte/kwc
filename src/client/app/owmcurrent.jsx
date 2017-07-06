@@ -8,7 +8,7 @@ export class Wind extends React.Component {
     render() {
         if (this.props.current.wind.speed > 0) {
             return (
-                <div className='wind'>{this.props.current.wind.speed} mph wind <i style={{fontSize:'36px',verticalAlign:'middle'}} className={"wi wi-wind toward-" + this.props.current.wind.deg.toFixed(0) + "-deg"} /></div>
+                <div className='wind'>{this.props.current.wind.speed.toFixed(1)} mph wind <i style={{fontSize:'36px',verticalAlign:'middle'}} className={"wi wi-wind toward-" + this.props.current.wind.deg.toFixed(0) + "-deg"} /></div>
             )
         } else {
             return null;
@@ -21,7 +21,7 @@ export class Precip extends React.Component {
     render () {
         if (this.props.current.rain != undefined) {
             return (
-                <div className='wind'>{this.props.current.rain['3h']}in of precipitation</div>
+                <div className='wind'>{this.props.current.rain['3h'].toFixed(1)}in of precipitation</div>
             )
         } else {
             return null;
@@ -46,7 +46,8 @@ export class OWMCurrent extends React.Component {
                     <div style={{width: '100%', fontSize:'20px'}}>{OWMStore.current.name}</div>
                     <div style={{paddingTop:'20px'}}>
                         <div style={{float: 'right', fontSize: '20px', padding: '10px', width: '80px'}}>
-                            {OWMStore.current.weather[0].main}
+                            <div>{OWMStore.current.weather[0].main}</div>
+                            <div style={{paddingTop:'10px'}}>{OWMStore.current.main.humidity}<i className="wi wi-humidity"></i></div>
                         </div>  
                         <div style={{float: 'right', paddingTop: '4px'}}>
                             <span style={{fontSize: '72px'}}>{OWMStore.current.main.temp.toFixed(1)}</span>
