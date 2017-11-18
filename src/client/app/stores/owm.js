@@ -27,7 +27,7 @@ class OWMStore extends Store {
         console.log('updating current weather')
         let now = new Date()
         return this.performOperation(() => {
-            return fetch(owmurlbase + "weather?q=" + state + "," + city + "&units=imperial&appid=" + owmappid + "&t=" + now.getTime(), {method: 'GET'})
+            return fetch(owmurlbase + "weather?q=" + city + "," + country + "&units=imperial&appid=" + owmappid + "&t=" + now.getTime(), {method: 'GET'})
                 .then(response => response.json())
                 .then(result => this.current = result)
         })
@@ -37,7 +37,7 @@ class OWMStore extends Store {
         console.log('updating forecast')
         let now = new Date()
         return this.performOperation(() => {
-            return fetch(owmurlbase + "forecast/daily?q=" + state + "," + city + "&cnt=4&units=imperial&appid=" + owmappid + "&t=" + now.getTime(), {method: 'GET'})
+            return fetch(owmurlbase + "forecast/daily?q=" + city + "," + country + "&cnt=4&units=imperial&appid=" + owmappid + "&t=" + now.getTime(), {method: 'GET'})
                 .then(response => response.json())
                 .then(result => this.forecast = result)
         })

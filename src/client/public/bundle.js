@@ -23007,12 +23007,10 @@
 	                        source: new ol.source.OSM({
 	                            attributions: [attribution]
 	                        })
-	                    }),
-	                    /*this.state.clouds,*/
-	                    this.state.precipitation],
+	                    }), this.state.clouds, this.state.precipitation],
 	                    view: new ol.View({
 	                        center: ol.proj.fromLonLat([_owm2.default.current.coord.lon, _owm2.default.current.coord.lat]),
-	                        zoom: 7
+	                        zoom: 6.5
 	                    })
 	                });
 	            }
@@ -23023,12 +23021,12 @@
 	            var now = new Date();
 	            if (this.state.clouds != null) {
 	                console.log("updating cloud source");
-	                this.state.clouds.getSource().setUrl("http://tile.openweathermap.org/map/clouds/{z}/{x}/{y}.png?appid=" + owmappid + "&t=" + now.getTime());
+	                this.state.clouds.getSource().setUrl("http://tile.openweathermap.org/map/clouds_new/{z}/{x}/{y}.png?appid=" + owmappid + "&t=" + now.getTime());
 	                this.state.clouds.getSource().refresh();
 	            }
 	            if (this.state.precipitation != null) {
 	                console.log("updating precipitation source");
-	                this.state.precipitation.getSource().setUrl("http://tile.openweathermap.org/map/precipitation/{z}/{x}/{y}.png?appid=" + owmappid + "&t=" + now.getTime());
+	                this.state.precipitation.getSource().setUrl("http://tile.openweathermap.org/map/precipitation_new/{z}/{x}/{y}.png?appid=" + owmappid + "&t=" + now.getTime());
 	                this.state.precipitation.getSource().refresh();
 	            }
 	            var stamp = document.getElementById("updatetime");
@@ -23041,18 +23039,19 @@
 	        value: function componentDidMount() {
 	            var _this2 = this;
 	
+	            var now = new Date();
 	            var clouds = new ol.layer.Tile({
 	                title: 'Clouds',
 	                opacity: 0.25,
 	                source: new ol.source.XYZ({
-	                    url: "http://tile.openweathermap.org/map/clouds/{z}/{x}/{y}.png?appid=" + owmappid
+	                    url: "http://tile.openweathermap.org/map/clouds_new/{z}/{x}/{y}.png?appid=" + owmappid + "&t=" + now.getTime()
 	                })
 	            });
 	            var precipitation = new ol.layer.Tile({
 	                title: 'Precipitation',
-	                opacity: 0.5,
+	                opacity: 0.75,
 	                source: new ol.source.XYZ({
-	                    url: "http://tile.openweathermap.org/map/precipitation/{z}/{x}/{y}.png?appid=" + owmappid
+	                    url: "http://tile.openweathermap.org/map/precipitation_new/{z}/{x}/{y}.png?appid=" + owmappid + "&t=" + now.getTime()
 	                })
 	            });
 	            this.setState({ clouds: clouds, precipitation: precipitation });
@@ -27592,7 +27591,7 @@
 	            console.log('updating current weather');
 	            var now = new Date();
 	            return this.performOperation(function () {
-	                return fetch(owmurlbase + "weather?q=" + state + "," + city + "&units=imperial&appid=" + owmappid + "&t=" + now.getTime(), { method: 'GET' }).then(function (response) {
+	                return fetch(owmurlbase + "weather?q=" + city + "," + country + "&units=imperial&appid=" + owmappid + "&t=" + now.getTime(), { method: 'GET' }).then(function (response) {
 	                    return response.json();
 	                }).then(function (result) {
 	                    return _this2.current = result;
@@ -27607,7 +27606,7 @@
 	            console.log('updating forecast');
 	            var now = new Date();
 	            return this.performOperation(function () {
-	                return fetch(owmurlbase + "forecast/daily?q=" + state + "," + city + "&cnt=4&units=imperial&appid=" + owmappid + "&t=" + now.getTime(), { method: 'GET' }).then(function (response) {
+	                return fetch(owmurlbase + "forecast/daily?q=" + city + "," + country + "&cnt=4&units=imperial&appid=" + owmappid + "&t=" + now.getTime(), { method: 'GET' }).then(function (response) {
 	                    return response.json();
 	                }).then(function (result) {
 	                    return _this3.forecast = result;
