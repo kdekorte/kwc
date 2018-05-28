@@ -65,6 +65,8 @@
 	
 	var _owmforecast = __webpack_require__(/*! ./owmforecast */ 191);
 	
+	var _newmap = __webpack_require__(/*! ./newmap */ 192);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -98,7 +100,7 @@
 	          { className: 'content' },
 	          _react2.default.createElement(_clock.Clock, null),
 	          _react2.default.createElement('div', { id: 'map', className: 'map' }),
-	          _react2.default.createElement(_owmmap.OWMMap, null),
+	          _react2.default.createElement(_newmap.NewMap, null),
 	          _react2.default.createElement('div', { className: 'clear' }),
 	          _react2.default.createElement(_owmcurrent.OWMCurrent, null),
 	          _react2.default.createElement(_owmforecast.OWMForecast, null)
@@ -137,12 +139,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 */
 	
@@ -569,12 +569,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 */
 	
@@ -721,11 +719,9 @@
 
 	/**
 	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 * 
 	 */
@@ -766,12 +762,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
-	 * Copyright 2015-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2015-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 */
 	
@@ -869,12 +863,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
-	 * Copyright 2014-2015, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2014-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 */
 	
@@ -892,45 +884,43 @@
 	var warning = emptyFunction;
 	
 	if (process.env.NODE_ENV !== 'production') {
-	  (function () {
-	    var printWarning = function printWarning(format) {
-	      for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
-	        args[_key - 1] = arguments[_key];
+	  var printWarning = function printWarning(format) {
+	    for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+	      args[_key - 1] = arguments[_key];
+	    }
+	
+	    var argIndex = 0;
+	    var message = 'Warning: ' + format.replace(/%s/g, function () {
+	      return args[argIndex++];
+	    });
+	    if (typeof console !== 'undefined') {
+	      console.error(message);
+	    }
+	    try {
+	      // --- Welcome to debugging React ---
+	      // This error was thrown as a convenience so that you can use this stack
+	      // to find the callsite that caused this warning to fire.
+	      throw new Error(message);
+	    } catch (x) {}
+	  };
+	
+	  warning = function warning(condition, format) {
+	    if (format === undefined) {
+	      throw new Error('`warning(condition, format, ...args)` requires a warning ' + 'message argument');
+	    }
+	
+	    if (format.indexOf('Failed Composite propType: ') === 0) {
+	      return; // Ignore CompositeComponent proptype check.
+	    }
+	
+	    if (!condition) {
+	      for (var _len2 = arguments.length, args = Array(_len2 > 2 ? _len2 - 2 : 0), _key2 = 2; _key2 < _len2; _key2++) {
+	        args[_key2 - 2] = arguments[_key2];
 	      }
 	
-	      var argIndex = 0;
-	      var message = 'Warning: ' + format.replace(/%s/g, function () {
-	        return args[argIndex++];
-	      });
-	      if (typeof console !== 'undefined') {
-	        console.error(message);
-	      }
-	      try {
-	        // --- Welcome to debugging React ---
-	        // This error was thrown as a convenience so that you can use this stack
-	        // to find the callsite that caused this warning to fire.
-	        throw new Error(message);
-	      } catch (x) {}
-	    };
-	
-	    warning = function warning(condition, format) {
-	      if (format === undefined) {
-	        throw new Error('`warning(condition, format, ...args)` requires a warning ' + 'message argument');
-	      }
-	
-	      if (format.indexOf('Failed Composite propType: ') === 0) {
-	        return; // Ignore CompositeComponent proptype check.
-	      }
-	
-	      if (!condition) {
-	        for (var _len2 = arguments.length, args = Array(_len2 > 2 ? _len2 - 2 : 0), _key2 = 2; _key2 < _len2; _key2++) {
-	          args[_key2 - 2] = arguments[_key2];
-	        }
-	
-	        printWarning.apply(undefined, [format].concat(args));
-	      }
-	    };
-	  })();
+	      printWarning.apply(undefined, [format].concat(args));
+	    }
+	  };
 	}
 	
 	module.exports = warning;
@@ -947,11 +937,9 @@
 	
 	/**
 	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 * 
 	 */
@@ -990,12 +978,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 * 
 	 */
@@ -1025,11 +1011,9 @@
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
 	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 */
 	
@@ -1053,11 +1037,9 @@
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
 	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 */
 	
@@ -1116,12 +1098,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
-	 * Copyright 2014-2015, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2014-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 */
 	
@@ -1189,12 +1169,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 */
 	
@@ -1387,12 +1365,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 * 
 	 */
@@ -1507,12 +1483,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
-	 * Copyright 2014-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2014-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 */
 	
@@ -1856,12 +1830,10 @@
 /***/ (function(module, exports) {
 
 	/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 * 
 	 */
@@ -1892,12 +1864,10 @@
 /***/ (function(module, exports) {
 
 	/**
-	 * Copyright 2014-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2014-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 * 
 	 */
@@ -1919,12 +1889,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 */
 	
@@ -2103,12 +2071,10 @@
 /***/ (function(module, exports) {
 
 	/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 * 
 	 */
@@ -2151,12 +2117,10 @@
 /***/ (function(module, exports) {
 
 	/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 * 
 	 */
@@ -2217,12 +2181,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 */
 	
@@ -2394,12 +2356,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
-	 * Copyright 2014-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2014-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 */
 	
@@ -2657,12 +2617,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
-	 * Copyright 2016-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2016-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 * 
 	 */
@@ -3044,12 +3002,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 */
 	
@@ -3139,12 +3095,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 * 
 	 */
@@ -3172,12 +3126,10 @@
 /***/ (function(module, exports) {
 
 	/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 * 
 	 */
@@ -3196,12 +3148,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 */
 	
@@ -3222,12 +3172,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 */
 	
 	'use strict';
@@ -3252,12 +3200,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 */
 	
 	'use strict';
@@ -3265,6 +3211,7 @@
 	var emptyFunction = __webpack_require__(/*! fbjs/lib/emptyFunction */ 9);
 	var invariant = __webpack_require__(/*! fbjs/lib/invariant */ 12);
 	var warning = __webpack_require__(/*! fbjs/lib/warning */ 8);
+	var assign = __webpack_require__(/*! object-assign */ 4);
 	
 	var ReactPropTypesSecret = __webpack_require__(/*! ./lib/ReactPropTypesSecret */ 31);
 	var checkPropTypes = __webpack_require__(/*! ./checkPropTypes */ 32);
@@ -3363,7 +3310,8 @@
 	    objectOf: createObjectOfTypeChecker,
 	    oneOf: createEnumTypeChecker,
 	    oneOfType: createUnionTypeChecker,
-	    shape: createShapeTypeChecker
+	    shape: createShapeTypeChecker,
+	    exact: createStrictShapeTypeChecker,
 	  };
 	
 	  /**
@@ -3578,7 +3526,7 @@
 	      if (typeof checker !== 'function') {
 	        warning(
 	          false,
-	          'Invalid argument supplid to oneOfType. Expected an array of check functions, but ' +
+	          'Invalid argument supplied to oneOfType. Expected an array of check functions, but ' +
 	          'received %s at index %s.',
 	          getPostfixForTypeWarning(checker),
 	          i
@@ -3629,6 +3577,36 @@
 	      }
 	      return null;
 	    }
+	    return createChainableTypeChecker(validate);
+	  }
+	
+	  function createStrictShapeTypeChecker(shapeTypes) {
+	    function validate(props, propName, componentName, location, propFullName) {
+	      var propValue = props[propName];
+	      var propType = getPropType(propValue);
+	      if (propType !== 'object') {
+	        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type `' + propType + '` ' + ('supplied to `' + componentName + '`, expected `object`.'));
+	      }
+	      // We need to check all keys in case some are required but missing from
+	      // props.
+	      var allKeys = assign({}, props[propName], shapeTypes);
+	      for (var key in allKeys) {
+	        var checker = shapeTypes[key];
+	        if (!checker) {
+	          return new PropTypeError(
+	            'Invalid ' + location + ' `' + propFullName + '` key `' + key + '` supplied to `' + componentName + '`.' +
+	            '\nBad object: ' + JSON.stringify(props[propName], null, '  ') +
+	            '\nValid keys: ' +  JSON.stringify(Object.keys(shapeTypes), null, '  ')
+	          );
+	        }
+	        var error = checker(propValue, key, componentName, location, propFullName + '.' + key, ReactPropTypesSecret);
+	        if (error) {
+	          return error;
+	        }
+	      }
+	      return null;
+	    }
+	
 	    return createChainableTypeChecker(validate);
 	  }
 	
@@ -3774,12 +3752,10 @@
 /***/ (function(module, exports) {
 
 	/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 */
 	
 	'use strict';
@@ -3797,12 +3773,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 */
 	
 	'use strict';
@@ -3836,7 +3810,7 @@
 	        try {
 	          // This is intentionally an invariant that gets caught. It's the same
 	          // behavior as without this statement except with a better message.
-	          invariant(typeof typeSpecs[typeSpecName] === 'function', '%s: %s type `%s` is invalid; it must be a function, usually from ' + 'React.PropTypes.', componentName || 'React class', location, typeSpecName);
+	          invariant(typeof typeSpecs[typeSpecName] === 'function', '%s: %s type `%s` is invalid; it must be a function, usually from ' + 'the `prop-types` package, but received `%s`.', componentName || 'React class', location, typeSpecName, typeof typeSpecs[typeSpecName]);
 	          error = typeSpecs[typeSpecName](values, typeSpecName, componentName, location, null, ReactPropTypesSecret);
 	        } catch (ex) {
 	          error = ex;
@@ -3868,18 +3842,16 @@
 /***/ (function(module, exports) {
 
 	/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 */
 	
 	'use strict';
 	
-	module.exports = '15.6.1';
+	module.exports = '15.6.2';
 
 /***/ }),
 /* 34 */
@@ -3889,12 +3861,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 */
 	
@@ -3919,12 +3889,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 */
 	
@@ -4192,6 +4160,27 @@
 	     */
 	    componentWillUnmount: 'DEFINE_MANY',
 	
+	    /**
+	     * Replacement for (deprecated) `componentWillMount`.
+	     *
+	     * @optional
+	     */
+	    UNSAFE_componentWillMount: 'DEFINE_MANY',
+	
+	    /**
+	     * Replacement for (deprecated) `componentWillReceiveProps`.
+	     *
+	     * @optional
+	     */
+	    UNSAFE_componentWillReceiveProps: 'DEFINE_MANY',
+	
+	    /**
+	     * Replacement for (deprecated) `componentWillUpdate`.
+	     *
+	     * @optional
+	     */
+	    UNSAFE_componentWillUpdate: 'DEFINE_MANY',
+	
 	    // ==== Advanced methods ====
 	
 	    /**
@@ -4205,6 +4194,23 @@
 	     * @overridable
 	     */
 	    updateComponent: 'OVERRIDE_BASE'
+	  };
+	
+	  /**
+	   * Similar to ReactClassInterface but for static methods.
+	   */
+	  var ReactClassStaticInterface = {
+	    /**
+	     * This method is invoked after a component is instantiated and when it
+	     * receives new props. Return an object to update state in response to
+	     * prop changes. Return null to indicate no change to state.
+	     *
+	     * If an object is returned, its keys will be merged into the existing state.
+	     *
+	     * @return {object || null}
+	     * @optional
+	     */
+	    getDerivedStateFromProps: 'DEFINE_MANY_MERGED'
 	  };
 	
 	  /**
@@ -4441,6 +4447,7 @@
 	    if (!statics) {
 	      return;
 	    }
+	
 	    for (var name in statics) {
 	      var property = statics[name];
 	      if (!statics.hasOwnProperty(name)) {
@@ -4457,14 +4464,25 @@
 	        name
 	      );
 	
-	      var isInherited = name in Constructor;
-	      _invariant(
-	        !isInherited,
-	        'ReactClass: You are attempting to define ' +
-	          '`%s` on your component more than once. This conflict may be ' +
-	          'due to a mixin.',
-	        name
-	      );
+	      var isAlreadyDefined = name in Constructor;
+	      if (isAlreadyDefined) {
+	        var specPolicy = ReactClassStaticInterface.hasOwnProperty(name)
+	          ? ReactClassStaticInterface[name]
+	          : null;
+	
+	        _invariant(
+	          specPolicy === 'DEFINE_MANY_MERGED',
+	          'ReactClass: You are attempting to define ' +
+	            '`%s` on your component more than once. This conflict may be ' +
+	            'due to a mixin.',
+	          name
+	        );
+	
+	        Constructor[name] = createMergedResultFunction(Constructor[name], property);
+	
+	        return;
+	      }
+	
 	      Constructor[name] = property;
 	    }
 	  }
@@ -4774,6 +4792,12 @@
 	          'componentWillRecieveProps(). Did you mean componentWillReceiveProps()?',
 	        spec.displayName || 'A component'
 	      );
+	      warning(
+	        !Constructor.prototype.UNSAFE_componentWillRecieveProps,
+	        '%s has a method called UNSAFE_componentWillRecieveProps(). ' +
+	          'Did you mean UNSAFE_componentWillReceiveProps()?',
+	        spec.displayName || 'A component'
+	      );
 	    }
 	
 	    // Reduce time spent doing lookups by setting these on the prototype.
@@ -4801,12 +4825,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 */
 	'use strict';
@@ -4859,12 +4881,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 */
 	
@@ -4978,12 +4998,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 */
 	
@@ -5182,11 +5200,9 @@
 
 	/**
 	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 * 
 	 */
@@ -5227,12 +5243,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 */
 	
@@ -5444,12 +5458,10 @@
 /***/ (function(module, exports) {
 
 	/**
-	 * Copyright 2015-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2015-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 */
 	
@@ -5469,12 +5481,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 */
 	
@@ -5562,12 +5572,10 @@
 /***/ (function(module, exports) {
 
 	/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 */
 	
@@ -5643,12 +5651,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	/**
-	 * Copyright 2013-present Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 */
 	
@@ -6034,12 +6040,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 */
 	
@@ -6176,12 +6180,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 */
 	
@@ -6458,12 +6460,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 * 
 	 */
@@ -6719,12 +6719,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 */
 	
@@ -6953,12 +6951,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 * 
 	 */
@@ -7015,7 +7011,9 @@
 	  if (typeof window !== 'undefined' && typeof window.dispatchEvent === 'function' && typeof document !== 'undefined' && typeof document.createEvent === 'function') {
 	    var fakeNode = document.createElement('react');
 	    ReactErrorUtils.invokeGuardedCallback = function (name, func, a) {
-	      var boundFunc = func.bind(null, a);
+	      var boundFunc = function () {
+	        func(a);
+	      };
 	      var evtType = 'react-' + name;
 	      fakeNode.addEventListener(evtType, boundFunc, false);
 	      var evt = document.createEvent('Event');
@@ -7037,12 +7035,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
-	 * Copyright 2014-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2014-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 * 
 	 */
@@ -7103,12 +7099,10 @@
 /***/ (function(module, exports) {
 
 	/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 * 
 	 */
@@ -7142,11 +7136,9 @@
 
 	/**
 	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 */
 	
@@ -7184,12 +7176,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 */
 	
@@ -7286,12 +7276,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 * 
 	 */
@@ -7406,12 +7394,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 */
 	
@@ -7446,12 +7432,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 */
 	
@@ -7489,12 +7473,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 */
 	
@@ -7670,6 +7652,33 @@
 	
 	SyntheticEvent.Interface = EventInterface;
 	
+	/**
+	 * Helper to reduce boilerplate when creating subclasses.
+	 *
+	 * @param {function} Class
+	 * @param {?object} Interface
+	 */
+	SyntheticEvent.augmentClass = function (Class, Interface) {
+	  var Super = this;
+	
+	  var E = function () {};
+	  E.prototype = Super.prototype;
+	  var prototype = new E();
+	
+	  _assign(prototype, Class.prototype);
+	  Class.prototype = prototype;
+	  Class.prototype.constructor = Class;
+	
+	  Class.Interface = _assign({}, Super.Interface, Interface);
+	  Class.augmentClass = Super.augmentClass;
+	
+	  PooledClass.addPoolingTo(Class, PooledClass.fourArgumentPooler);
+	};
+	
+	/** Proxying after everything set on SyntheticEvent
+	  * to resolve Proxy issue on some WebKit browsers
+	  * in which some Event properties are set to undefined (GH#10010)
+	  */
 	if (process.env.NODE_ENV !== 'production') {
 	  if (isProxySupported) {
 	    /*eslint-disable no-func-assign */
@@ -7693,28 +7702,6 @@
 	    /*eslint-enable no-func-assign */
 	  }
 	}
-	/**
-	 * Helper to reduce boilerplate when creating subclasses.
-	 *
-	 * @param {function} Class
-	 * @param {?object} Interface
-	 */
-	SyntheticEvent.augmentClass = function (Class, Interface) {
-	  var Super = this;
-	
-	  var E = function () {};
-	  E.prototype = Super.prototype;
-	  var prototype = new E();
-	
-	  _assign(prototype, Class.prototype);
-	  Class.prototype = prototype;
-	  Class.prototype.constructor = Class;
-	
-	  Class.Interface = _assign({}, Super.Interface, Interface);
-	  Class.augmentClass = Super.augmentClass;
-	
-	  PooledClass.addPoolingTo(Class, PooledClass.fourArgumentPooler);
-	};
 	
 	PooledClass.addPoolingTo(SyntheticEvent, PooledClass.fourArgumentPooler);
 	
@@ -7763,12 +7750,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 */
 	
@@ -7807,12 +7792,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 */
 	
@@ -7937,7 +7920,7 @@
 	  // IE9 claims to support the input event but fails to trigger it when
 	  // deleting text, so we ignore its input events.
 	
-	  isInputEventSupported = isEventSupported('input') && (!('documentMode' in document) || document.documentMode > 9);
+	  isInputEventSupported = isEventSupported('input') && (!document.documentMode || document.documentMode > 9);
 	}
 	
 	/**
@@ -8126,12 +8109,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 */
 	
@@ -8339,7 +8320,7 @@
 	 * if no updates are currently being performed.
 	 */
 	function asap(callback, context) {
-	  !batchingStrategy.isBatchingUpdates ? process.env.NODE_ENV !== 'production' ? invariant(false, 'ReactUpdates.asap: Can\'t enqueue an asap callback in a context whereupdates are not being batched.') : _prodInvariant('125') : void 0;
+	  invariant(batchingStrategy.isBatchingUpdates, "ReactUpdates.asap: Can't enqueue an asap callback in a context where" + 'updates are not being batched.');
 	  asapCallbackQueue.enqueue(callback, context);
 	  asapEnqueued = true;
 	}
@@ -8385,12 +8366,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 * 
 	 */
@@ -8512,12 +8491,10 @@
 /***/ (function(module, exports) {
 
 	/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 * 
 	 */
@@ -8541,12 +8518,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 */
 	
@@ -8715,12 +8690,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 * 
 	 */
@@ -8811,12 +8784,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 * 
 	 */
@@ -8912,12 +8883,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
-	 * Copyright 2016-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2016-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 * 
 	 */
@@ -8944,12 +8913,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
-	 * Copyright 2016-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2016-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 * 
 	 */
@@ -9313,12 +9280,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
-	 * Copyright 2016-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2016-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 * 
 	 */
@@ -9358,12 +9323,10 @@
 /***/ (function(module, exports) {
 
 	/**
-	 * Copyright 2016-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2016-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 * 
 	 */
@@ -9402,11 +9365,9 @@
 	
 	/**
 	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 * @typechecks
 	 */
@@ -9441,11 +9402,9 @@
 
 	/**
 	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 * @typechecks
 	 */
@@ -9470,12 +9429,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 * 
 	 */
@@ -9706,12 +9663,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 */
 	
@@ -9734,7 +9689,7 @@
 	}
 	
 	function detachTracker(inst) {
-	  delete inst._wrapperState.valueTracker;
+	  inst._wrapperState.valueTracker = null;
 	}
 	
 	function getValueFromNode(node) {
@@ -9836,12 +9791,10 @@
 /***/ (function(module, exports) {
 
 	/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 */
 	
@@ -9878,12 +9831,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 */
 	
@@ -9945,12 +9896,10 @@
 /***/ (function(module, exports) {
 
 	/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 * 
 	 */
@@ -10003,12 +9952,10 @@
 /***/ (function(module, exports) {
 
 	/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 */
 	
@@ -10036,12 +9983,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 */
 	
@@ -10141,12 +10086,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 */
 	
@@ -10220,12 +10163,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 */
 	
@@ -10286,12 +10227,10 @@
 /***/ (function(module, exports) {
 
 	/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 */
 	
@@ -10318,12 +10257,10 @@
 /***/ (function(module, exports) {
 
 	/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 */
 	
@@ -10368,12 +10305,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 */
 	
@@ -10422,6 +10357,7 @@
 	    contentEditable: 0,
 	    contextMenu: 0,
 	    controls: HAS_BOOLEAN_VALUE,
+	    controlsList: 0,
 	    coords: 0,
 	    crossOrigin: 0,
 	    data: 0, // For `<object />` acts as `src`.
@@ -10611,12 +10547,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 */
 	
@@ -10646,12 +10580,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 */
 	
@@ -10880,12 +10812,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	/**
-	 * Copyright 2015-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2015-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 */
 	
@@ -11005,12 +10935,10 @@
 /***/ (function(module, exports) {
 
 	/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 */
 	
@@ -11032,12 +10960,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 */
 	
@@ -11137,12 +11063,10 @@
 /***/ (function(module, exports) {
 
 	/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 */
 	
@@ -11176,12 +11100,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 */
 	
@@ -11235,12 +11157,10 @@
 /***/ (function(module, exports) {
 
 	/**
-	 * Copyright 2016-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2016-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 * Based on the escape-html library, which is used under the MIT License below:
 	 *
@@ -11364,12 +11284,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 */
 	
@@ -11421,11 +11339,9 @@
 	
 	/**
 	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 * @typechecks
 	 */
@@ -11513,11 +11429,9 @@
 	
 	/**
 	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 * @typechecks
 	 */
@@ -11648,11 +11562,9 @@
 	
 	/**
 	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 */
 	
@@ -11748,12 +11660,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 */
 	
@@ -11788,12 +11698,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 */
 	
@@ -12554,6 +12462,10 @@
 	        // happen after `_updateDOMProperties`. Otherwise HTML5 input validations
 	        // raise warnings and prevent the new value from being assigned.
 	        ReactDOMInput.updateWrapper(this);
+	
+	        // We also check that we haven't missed a value update, such as a
+	        // Radio group shifting the checked value to another named radio input.
+	        inputValueTracking.updateValueIfChanged(this);
 	        break;
 	      case 'textarea':
 	        ReactDOMTextarea.updateWrapper(this);
@@ -12806,12 +12718,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 */
 	
@@ -12838,11 +12748,9 @@
 
 	/**
 	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 */
 	
@@ -12871,12 +12779,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 */
 	
@@ -13094,12 +13000,10 @@
 /***/ (function(module, exports) {
 
 	/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 */
 	
@@ -13118,6 +13022,7 @@
 	  boxFlexGroup: true,
 	  boxOrdinalGroup: true,
 	  columnCount: true,
+	  columns: true,
 	  flex: true,
 	  flexGrow: true,
 	  flexPositive: true,
@@ -13256,11 +13161,9 @@
 
 	/**
 	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 * @typechecks
 	 */
@@ -13305,11 +13208,9 @@
 	
 	/**
 	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 * @typechecks
 	 */
@@ -13341,12 +13242,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 */
 	
@@ -13429,11 +13328,9 @@
 
 	/**
 	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 * @typechecks
 	 */
@@ -13477,11 +13374,9 @@
 	
 	/**
 	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 * @typechecks
 	 */
@@ -13515,11 +13410,9 @@
 
 	/**
 	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 * 
 	 * @typechecks static-only
@@ -13551,12 +13444,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 */
 	
@@ -13794,12 +13685,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 */
 	
@@ -13827,12 +13716,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 */
 	
@@ -14158,12 +14045,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 */
 	
@@ -14197,12 +14082,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 */
 	
@@ -14305,12 +14188,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 */
 	
@@ -14600,12 +14481,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 */
 	
@@ -14746,12 +14625,10 @@
 /***/ (function(module, exports) {
 
 	/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 * 
 	 */
@@ -14770,12 +14647,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 */
 	
@@ -14900,12 +14775,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 */
 	
@@ -15108,12 +14981,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 */
 	
@@ -15276,12 +15147,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 */
 	
@@ -15730,12 +15599,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
-	 * Copyright 2014-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2014-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 * 
 	 */
@@ -15782,12 +15649,10 @@
 /***/ (function(module, exports) {
 
 	/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 */
 	
@@ -15835,12 +15700,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
-	 * Copyright 2014-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2014-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 */
 	
@@ -15996,12 +15859,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 */
 	
@@ -16133,12 +15994,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 */
 	
@@ -16407,7 +16266,7 @@
 	  },
 	
 	  _constructComponent: function (doConstruct, publicProps, publicContext, updateQueue) {
-	    if (process.env.NODE_ENV !== 'production') {
+	    if (process.env.NODE_ENV !== 'production' && !doConstruct) {
 	      ReactCurrentOwner.current = this;
 	      try {
 	        return this._constructComponentWithoutOwner(doConstruct, publicProps, publicContext, updateQueue);
@@ -17041,12 +16900,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 * 
 	 */
@@ -17089,12 +16946,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 */
 	
@@ -17184,12 +17039,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 * 
 	 */
@@ -17218,11 +17071,9 @@
 
 	/**
 	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 * @typechecks
 	 * 
@@ -17292,12 +17143,10 @@
 /***/ (function(module, exports) {
 
 	/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 */
 	
@@ -17341,12 +17190,10 @@
 /***/ (function(module, exports) {
 
 	/**
-	 * Copyright 2014-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2014-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 */
 	
@@ -17378,12 +17225,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
-	 * Copyright 2014-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2014-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 */
 	
@@ -17454,12 +17299,10 @@
 /***/ (function(module, exports) {
 
 	/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 * 
 	 */
@@ -17482,12 +17325,10 @@
 /***/ (function(module, exports) {
 
 	/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 * 
 	 */
@@ -17548,12 +17389,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 */
 	
@@ -17732,12 +17571,10 @@
 /***/ (function(module, exports) {
 
 	/**
-	 * Copyright 2014-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2014-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 * 
 	 */
@@ -17759,12 +17596,10 @@
 /***/ (function(module, exports) {
 
 	/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 * 
 	 */
@@ -17807,12 +17642,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 * 
 	 */
@@ -17891,12 +17724,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
-	 * Copyright 2014-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2014-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 */
 	
@@ -17989,12 +17820,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
-	 * Copyright 2015-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2015-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 * 
 	 */
@@ -18136,12 +17965,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
-	 * Copyright 2015-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2015-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 */
 	
@@ -18378,12 +18205,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
-	 * Copyright 2015-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2015-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 */
 	
@@ -18757,12 +18582,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	/**
-	 * Copyright 2014-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2014-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 */
 	
@@ -18824,12 +18647,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
-	 * Copyright 2015-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2015-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 */
 	
@@ -18968,12 +18789,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 */
 	
@@ -19138,12 +18957,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 */
 	
@@ -19213,12 +19030,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 */
 	
@@ -19379,17 +19194,8 @@
 	/**
 	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * Licensed under the Apache License, Version 2.0 (the "License");
-	 * you may not use this file except in compliance with the License.
-	 * You may obtain a copy of the License at
-	 *
-	 * http://www.apache.org/licenses/LICENSE-2.0
-	 *
-	 * Unless required by applicable law or agreed to in writing, software
-	 * distributed under the License is distributed on an "AS IS" BASIS,
-	 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-	 * See the License for the specific language governing permissions and
-	 * limitations under the License.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 * @typechecks
 	 */
@@ -19468,11 +19274,9 @@
 
 	/**
 	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 * @typechecks
 	 */
@@ -19513,12 +19317,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 */
 	
@@ -19554,12 +19356,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 */
 	
@@ -19740,12 +19540,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 */
 	
@@ -19870,12 +19668,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 */
 	
@@ -20089,12 +19885,10 @@
 /***/ (function(module, exports) {
 
 	/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 */
 	
@@ -20173,11 +19967,9 @@
 	
 	/**
 	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 * 
 	 */
@@ -20220,11 +20012,9 @@
 	
 	/**
 	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 * @typechecks
 	 */
@@ -20252,11 +20042,9 @@
 	
 	/**
 	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 * @typechecks
 	 */
@@ -20284,11 +20072,9 @@
 	
 	/**
 	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 * @typechecks
 	 */
@@ -20327,12 +20113,10 @@
 /***/ (function(module, exports) {
 
 	/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 */
 	
@@ -20636,12 +20420,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 */
 	
@@ -20831,12 +20613,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 * 
 	 */
@@ -21065,12 +20845,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 */
 	
@@ -21111,12 +20889,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 */
 	
@@ -21156,12 +20932,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 */
 	
@@ -21199,12 +20973,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 */
 	
@@ -21290,12 +21062,10 @@
 /***/ (function(module, exports) {
 
 	/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 */
 	
@@ -21347,12 +21117,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 */
 	
@@ -21466,12 +21234,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 */
 	
@@ -21509,12 +21275,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 */
 	
@@ -21561,12 +21325,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 */
 	
@@ -21607,12 +21369,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 */
 	
@@ -21665,12 +21425,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 */
 	
@@ -22211,12 +21969,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 */
 	
@@ -22252,12 +22008,10 @@
 /***/ (function(module, exports) {
 
 	/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 */
 	
@@ -22278,12 +22032,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 */
 	
@@ -22335,12 +22087,10 @@
 /***/ (function(module, exports) {
 
 	/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 * 
 	 */
@@ -22386,18 +22136,16 @@
 /***/ (function(module, exports) {
 
 	/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 */
 	
 	'use strict';
 	
-	module.exports = '15.6.1';
+	module.exports = '15.6.2';
 
 /***/ }),
 /* 178 */
@@ -22407,12 +22155,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 */
 	
@@ -22475,12 +22221,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 */
 	
@@ -22512,12 +22256,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 */
 	
@@ -22535,12 +22277,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 */
 	
@@ -22655,12 +22395,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 */
 	
@@ -22706,12 +22444,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 *
 	 */
 	
@@ -23087,15 +22823,13 @@
 	(function (global, factory) {
 		 true ? factory(exports, __webpack_require__(/*! mobx */ 187), __webpack_require__(/*! react */ 1), __webpack_require__(/*! react-dom */ 37)) :
 		typeof define === 'function' && define.amd ? define(['exports', 'mobx', 'react', 'react-dom'], factory) :
-		(factory((global.mobxReact = global.mobxReact || {}),global.mobx,global.React,global.ReactDOM));
-	}(this, (function (exports,mobx,React,ReactDOM) { 'use strict';
+		(factory((global.mobxReact = {}),global.mobx,global.React,global.ReactDOM));
+	}(this, (function (exports,mobx,React,reactDom) { 'use strict';
 	
 	var React__default = 'default' in React ? React['default'] : React;
-	var ReactDOM__default = 'default' in ReactDOM ? ReactDOM['default'] : ReactDOM;
 	
-	var empty = {};
-	
-	var empty_1 = empty.unstable_batchedUpdates;
+	// These functions can be stubbed out in specific environments
+	var unstable_batchedUpdates$1 = undefined;
 	
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
 	  return typeof obj;
@@ -23107,7 +22841,118 @@
 	
 	
 	
+	var asyncGenerator = function () {
+	  function AwaitValue(value) {
+	    this.value = value;
+	  }
 	
+	  function AsyncGenerator(gen) {
+	    var front, back;
+	
+	    function send(key, arg) {
+	      return new Promise(function (resolve, reject) {
+	        var request = {
+	          key: key,
+	          arg: arg,
+	          resolve: resolve,
+	          reject: reject,
+	          next: null
+	        };
+	
+	        if (back) {
+	          back = back.next = request;
+	        } else {
+	          front = back = request;
+	          resume(key, arg);
+	        }
+	      });
+	    }
+	
+	    function resume(key, arg) {
+	      try {
+	        var result = gen[key](arg);
+	        var value = result.value;
+	
+	        if (value instanceof AwaitValue) {
+	          Promise.resolve(value.value).then(function (arg) {
+	            resume("next", arg);
+	          }, function (arg) {
+	            resume("throw", arg);
+	          });
+	        } else {
+	          settle(result.done ? "return" : "normal", result.value);
+	        }
+	      } catch (err) {
+	        settle("throw", err);
+	      }
+	    }
+	
+	    function settle(type, value) {
+	      switch (type) {
+	        case "return":
+	          front.resolve({
+	            value: value,
+	            done: true
+	          });
+	          break;
+	
+	        case "throw":
+	          front.reject(value);
+	          break;
+	
+	        default:
+	          front.resolve({
+	            value: value,
+	            done: false
+	          });
+	          break;
+	      }
+	
+	      front = front.next;
+	
+	      if (front) {
+	        resume(front.key, front.arg);
+	      } else {
+	        back = null;
+	      }
+	    }
+	
+	    this._invoke = send;
+	
+	    if (typeof gen.return !== "function") {
+	      this.return = undefined;
+	    }
+	  }
+	
+	  if (typeof Symbol === "function" && Symbol.asyncIterator) {
+	    AsyncGenerator.prototype[Symbol.asyncIterator] = function () {
+	      return this;
+	    };
+	  }
+	
+	  AsyncGenerator.prototype.next = function (arg) {
+	    return this._invoke("next", arg);
+	  };
+	
+	  AsyncGenerator.prototype.throw = function (arg) {
+	    return this._invoke("throw", arg);
+	  };
+	
+	  AsyncGenerator.prototype.return = function (arg) {
+	    return this._invoke("return", arg);
+	  };
+	
+	  return {
+	    wrap: function (fn) {
+	      return function () {
+	        return new AsyncGenerator(fn.apply(this, arguments));
+	      };
+	    },
+	    await: function (value) {
+	      return new AwaitValue(value);
+	    }
+	  };
+	}();
 	
 	
 	
@@ -23180,169 +23025,238 @@
 	};
 	
 	var EventEmitter = function () {
-	  function EventEmitter() {
-	    classCallCheck(this, EventEmitter);
-	    this.listeners = [];
-	  }
-	
-	  createClass(EventEmitter, [{
-	    key: "on",
-	    value: function on(cb) {
-	      var _this = this;
-	
-	      this.listeners.push(cb);
-	      return function () {
-	        var index = _this.listeners.indexOf(cb);
-	        if (index !== -1) _this.listeners.splice(index, 1);
-	      };
+	    function EventEmitter() {
+	        classCallCheck(this, EventEmitter);
+	        this.listeners = [];
 	    }
-	  }, {
-	    key: "emit",
-	    value: function emit(data) {
-	      this.listeners.forEach(function (fn) {
-	        return fn(data);
-	      });
-	    }
-	  }]);
-	  return EventEmitter;
+	
+	    createClass(EventEmitter, [{
+	        key: "on",
+	        value: function on(cb) {
+	            var _this = this;
+	
+	            this.listeners.push(cb);
+	            return function () {
+	                var index = _this.listeners.indexOf(cb);
+	                if (index !== -1) _this.listeners.splice(index, 1);
+	            };
+	        }
+	    }, {
+	        key: "emit",
+	        value: function emit(data) {
+	            this.listeners.forEach(function (fn) {
+	                return fn(data);
+	            });
+	        }
+	    }]);
+	    return EventEmitter;
 	}();
+	
+	/**
+	 * Copyright 2015, Yahoo! Inc.
+	 * Copyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.
+	 */
+	'use strict';
+	
+	var REACT_STATICS = {
+	    childContextTypes: true,
+	    contextTypes: true,
+	    defaultProps: true,
+	    displayName: true,
+	    getDefaultProps: true,
+	    mixins: true,
+	    propTypes: true,
+	    type: true
+	};
+	
+	var KNOWN_STATICS = {
+	  name: true,
+	  length: true,
+	  prototype: true,
+	  caller: true,
+	  callee: true,
+	  arguments: true,
+	  arity: true
+	};
+	
+	var defineProperty$1 = Object.defineProperty;
+	var getOwnPropertyNames = Object.getOwnPropertyNames;
+	var getOwnPropertySymbols = Object.getOwnPropertySymbols;
+	var getOwnPropertyDescriptor = Object.getOwnPropertyDescriptor;
+	var getPrototypeOf = Object.getPrototypeOf;
+	var objectPrototype = getPrototypeOf && getPrototypeOf(Object);
+	
+	var hoistNonReactStatics = function hoistNonReactStatics(targetComponent, sourceComponent, blacklist) {
+	    if (typeof sourceComponent !== 'string') { // don't hoist over string (html) components
+	
+	        if (objectPrototype) {
+	            var inheritedComponent = getPrototypeOf(sourceComponent);
+	            if (inheritedComponent && inheritedComponent !== objectPrototype) {
+	                hoistNonReactStatics(targetComponent, inheritedComponent, blacklist);
+	            }
+	        }
+	
+	        var keys = getOwnPropertyNames(sourceComponent);
+	
+	        if (getOwnPropertySymbols) {
+	            keys = keys.concat(getOwnPropertySymbols(sourceComponent));
+	        }
+	
+	        for (var i = 0; i < keys.length; ++i) {
+	            var key = keys[i];
+	            if (!REACT_STATICS[key] && !KNOWN_STATICS[key] && (!blacklist || !blacklist[key])) {
+	                var descriptor = getOwnPropertyDescriptor(sourceComponent, key);
+	                try { // Avoid failures from read-only properties
+	                    defineProperty$1(targetComponent, key, descriptor);
+	                } catch (e) {}
+	            }
+	        }
+	
+	        return targetComponent;
+	    }
+	
+	    return targetComponent;
+	};
 	
 	// Copied from React.PropTypes
 	function createChainableTypeChecker(validate) {
-	  function checkType(isRequired, props, propName, componentName, location, propFullName) {
-	    for (var _len = arguments.length, rest = Array(_len > 6 ? _len - 6 : 0), _key = 6; _key < _len; _key++) {
-	      rest[_key - 6] = arguments[_key];
+	    function checkType(isRequired, props, propName, componentName, location, propFullName) {
+	        for (var _len = arguments.length, rest = Array(_len > 6 ? _len - 6 : 0), _key = 6; _key < _len; _key++) {
+	            rest[_key - 6] = arguments[_key];
+	        }
+	
+	        return mobx.untracked(function () {
+	            componentName = componentName || "<<anonymous>>";
+	            propFullName = propFullName || propName;
+	            if (props[propName] == null) {
+	                if (isRequired) {
+	                    var actual = props[propName] === null ? "null" : "undefined";
+	                    return new Error("The " + location + " `" + propFullName + "` is marked as required " + "in `" + componentName + "`, but its value is `" + actual + "`.");
+	                }
+	                return null;
+	            } else {
+	                return validate.apply(undefined, [props, propName, componentName, location, propFullName].concat(rest));
+	            }
+	        });
 	    }
 	
-	    return mobx.untracked(function () {
-	      componentName = componentName || '<<anonymous>>';
-	      propFullName = propFullName || propName;
-	      if (props[propName] == null) {
-	        if (isRequired) {
-	          var actual = props[propName] === null ? 'null' : 'undefined';
-	          return new Error('The ' + location + ' `' + propFullName + '` is marked as required ' + 'in `' + componentName + '`, but its value is `' + actual + '`.');
-	        }
-	        return null;
-	      } else {
-	        return validate.apply(undefined, [props, propName, componentName, location, propFullName].concat(rest));
-	      }
-	    });
-	  }
-	
-	  var chainedCheckType = checkType.bind(null, false);
-	  chainedCheckType.isRequired = checkType.bind(null, true);
-	  return chainedCheckType;
+	    var chainedCheckType = checkType.bind(null, false);
+	    chainedCheckType.isRequired = checkType.bind(null, true);
+	    return chainedCheckType;
 	}
 	
 	// Copied from React.PropTypes
 	function isSymbol(propType, propValue) {
-	  // Native Symbol.
-	  if (propType === 'symbol') {
-	    return true;
-	  }
+	    // Native Symbol.
+	    if (propType === "symbol") {
+	        return true;
+	    }
 	
-	  // 19.4.3.5 Symbol.prototype[@@toStringTag] === 'Symbol'
-	  if (propValue['@@toStringTag'] === 'Symbol') {
-	    return true;
-	  }
+	    // 19.4.3.5 Symbol.prototype[@@toStringTag] === 'Symbol'
+	    if (propValue["@@toStringTag"] === "Symbol") {
+	        return true;
+	    }
 	
-	  // Fallback for non-spec compliant Symbols which are polyfilled.
-	  if (typeof Symbol === 'function' && propValue instanceof Symbol) {
-	    return true;
-	  }
+	    // Fallback for non-spec compliant Symbols which are polyfilled.
+	    if (typeof Symbol === "function" && propValue instanceof Symbol) {
+	        return true;
+	    }
 	
-	  return false;
+	    return false;
 	}
 	
 	// Copied from React.PropTypes
 	function getPropType(propValue) {
-	  var propType = typeof propValue === 'undefined' ? 'undefined' : _typeof(propValue);
-	  if (Array.isArray(propValue)) {
-	    return 'array';
-	  }
-	  if (propValue instanceof RegExp) {
-	    // Old webkits (at least until Android 4.0) return 'function' rather than
-	    // 'object' for typeof a RegExp. We'll normalize this here so that /bla/
-	    // passes PropTypes.object.
-	    return 'object';
-	  }
-	  if (isSymbol(propType, propValue)) {
-	    return 'symbol';
-	  }
-	  return propType;
+	    var propType = typeof propValue === "undefined" ? "undefined" : _typeof(propValue);
+	    if (Array.isArray(propValue)) {
+	        return "array";
+	    }
+	    if (propValue instanceof RegExp) {
+	        // Old webkits (at least until Android 4.0) return 'function' rather than
+	        // 'object' for typeof a RegExp. We'll normalize this here so that /bla/
+	        // passes PropTypes.object.
+	        return "object";
+	    }
+	    if (isSymbol(propType, propValue)) {
+	        return "symbol";
+	    }
+	    return propType;
 	}
 	
 	// This handles more types than `getPropType`. Only used for error messages.
 	// Copied from React.PropTypes
 	function getPreciseType(propValue) {
-	  var propType = getPropType(propValue);
-	  if (propType === 'object') {
-	    if (propValue instanceof Date) {
-	      return 'date';
-	    } else if (propValue instanceof RegExp) {
-	      return 'regexp';
+	    var propType = getPropType(propValue);
+	    if (propType === "object") {
+	        if (propValue instanceof Date) {
+	            return "date";
+	        } else if (propValue instanceof RegExp) {
+	            return "regexp";
+	        }
 	    }
-	  }
-	  return propType;
+	    return propType;
 	}
 	
 	function createObservableTypeCheckerCreator(allowNativeType, mobxType) {
-	  return createChainableTypeChecker(function (props, propName, componentName, location, propFullName) {
-	    return mobx.untracked(function () {
-	      if (allowNativeType) {
-	        if (getPropType(props[propName]) === mobxType.toLowerCase()) return null;
-	      }
-	      var mobxChecker = void 0;
-	      switch (mobxType) {
-	        case 'Array':
-	          mobxChecker = mobx.isObservableArray;break;
-	        case 'Object':
-	          mobxChecker = mobx.isObservableObject;break;
-	        case 'Map':
-	          mobxChecker = mobx.isObservableMap;break;
-	        default:
-	          throw new Error('Unexpected mobxType: ' + mobxType);
-	      }
-	      var propValue = props[propName];
-	      if (!mobxChecker(propValue)) {
-	        var preciseType = getPreciseType(propValue);
-	        var nativeTypeExpectationMessage = allowNativeType ? ' or javascript `' + mobxType.toLowerCase() + '`' : '';
-	        return new Error('Invalid prop `' + propFullName + '` of type `' + preciseType + '` supplied to' + ' `' + componentName + '`, expected `mobx.Observable' + mobxType + '`' + nativeTypeExpectationMessage + '.');
-	      }
-	      return null;
+	    return createChainableTypeChecker(function (props, propName, componentName, location, propFullName) {
+	        return mobx.untracked(function () {
+	            if (allowNativeType) {
+	                if (getPropType(props[propName]) === mobxType.toLowerCase()) return null;
+	            }
+	            var mobxChecker = void 0;
+	            switch (mobxType) {
+	                case "Array":
+	                    mobxChecker = mobx.isObservableArray;
+	                    break;
+	                case "Object":
+	                    mobxChecker = mobx.isObservableObject;
+	                    break;
+	                case "Map":
+	                    mobxChecker = mobx.isObservableMap;
+	                    break;
+	                default:
+	                    throw new Error("Unexpected mobxType: " + mobxType);
+	            }
+	            var propValue = props[propName];
+	            if (!mobxChecker(propValue)) {
+	                var preciseType = getPreciseType(propValue);
+	                var nativeTypeExpectationMessage = allowNativeType ? " or javascript `" + mobxType.toLowerCase() + "`" : "";
+	                return new Error("Invalid prop `" + propFullName + "` of type `" + preciseType + "` supplied to" + " `" + componentName + "`, expected `mobx.Observable" + mobxType + "`" + nativeTypeExpectationMessage + ".");
+	            }
+	            return null;
+	        });
 	    });
-	  });
 	}
 	
 	function createObservableArrayOfTypeChecker(allowNativeType, typeChecker) {
-	  return createChainableTypeChecker(function (props, propName, componentName, location, propFullName) {
-	    for (var _len2 = arguments.length, rest = Array(_len2 > 5 ? _len2 - 5 : 0), _key2 = 5; _key2 < _len2; _key2++) {
-	      rest[_key2 - 5] = arguments[_key2];
-	    }
+	    return createChainableTypeChecker(function (props, propName, componentName, location, propFullName) {
+	        for (var _len2 = arguments.length, rest = Array(_len2 > 5 ? _len2 - 5 : 0), _key2 = 5; _key2 < _len2; _key2++) {
+	            rest[_key2 - 5] = arguments[_key2];
+	        }
 	
-	    return mobx.untracked(function () {
-	      if (typeof typeChecker !== 'function') {
-	        return new Error('Property `' + propFullName + '` of component `' + componentName + '` has ' + 'invalid PropType notation.');
-	      }
-	      var error = createObservableTypeCheckerCreator(allowNativeType, 'Array')(props, propName, componentName);
-	      if (error instanceof Error) return error;
-	      var propValue = props[propName];
-	      for (var i = 0; i < propValue.length; i++) {
-	        error = typeChecker.apply(undefined, [propValue, i, componentName, location, propFullName + '[' + i + ']'].concat(rest));
-	        if (error instanceof Error) return error;
-	      }
-	      return null;
+	        return mobx.untracked(function () {
+	            if (typeof typeChecker !== "function") {
+	                return new Error("Property `" + propFullName + "` of component `" + componentName + "` has " + "invalid PropType notation.");
+	            }
+	            var error = createObservableTypeCheckerCreator(allowNativeType, "Array")(props, propName, componentName);
+	            if (error instanceof Error) return error;
+	            var propValue = props[propName];
+	            for (var i = 0; i < propValue.length; i++) {
+	                error = typeChecker.apply(undefined, [propValue, i, componentName, location, propFullName + "[" + i + "]"].concat(rest));
+	                if (error instanceof Error) return error;
+	            }
+	            return null;
+	        });
 	    });
-	  });
 	}
 	
-	var observableArray = createObservableTypeCheckerCreator(false, 'Array');
+	var observableArray = createObservableTypeCheckerCreator(false, "Array");
 	var observableArrayOf = createObservableArrayOfTypeChecker.bind(null, false);
-	var observableMap = createObservableTypeCheckerCreator(false, 'Map');
-	var observableObject = createObservableTypeCheckerCreator(false, 'Object');
-	var arrayOrObservableArray = createObservableTypeCheckerCreator(true, 'Array');
+	var observableMap = createObservableTypeCheckerCreator(false, "Map");
+	var observableObject = createObservableTypeCheckerCreator(false, "Object");
+	var arrayOrObservableArray = createObservableTypeCheckerCreator(true, "Array");
 	var arrayOrObservableArrayOf = createObservableArrayOfTypeChecker.bind(null, true);
-	var objectOrObservableObject = createObservableTypeCheckerCreator(true, 'Object');
+	var objectOrObservableObject = createObservableTypeCheckerCreator(true, "Object");
 	
 	
 	
@@ -23356,157 +23270,109 @@
 		objectOrObservableObject: objectOrObservableObject
 	});
 	
-	/**
-	 * Copyright 2015, Yahoo! Inc.
-	 * Copyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.
-	 */
-	var REACT_STATICS = {
-	    childContextTypes: true,
-	    contextTypes: true,
-	    defaultProps: true,
-	    displayName: true,
-	    getDefaultProps: true,
-	    mixins: true,
-	    propTypes: true,
-	    type: true
-	};
-	
-	var KNOWN_STATICS = {
-	    name: true,
-	    length: true,
-	    prototype: true,
-	    caller: true,
-	    arguments: true,
-	    arity: true
-	};
-	
-	var isGetOwnPropertySymbolsAvailable = typeof Object.getOwnPropertySymbols === 'function';
-	
-	var index = function hoistNonReactStatics(targetComponent, sourceComponent, customStatics) {
-	    if (typeof sourceComponent !== 'string') { // don't hoist over string (html) components
-	        var keys = Object.getOwnPropertyNames(sourceComponent);
-	
-	        /* istanbul ignore else */
-	        if (isGetOwnPropertySymbolsAvailable) {
-	            keys = keys.concat(Object.getOwnPropertySymbols(sourceComponent));
-	        }
-	
-	        for (var i = 0; i < keys.length; ++i) {
-	            if (!REACT_STATICS[keys[i]] && !KNOWN_STATICS[keys[i]] && (!customStatics || !customStatics[keys[i]])) {
-	                try {
-	                    targetComponent[keys[i]] = sourceComponent[keys[i]];
-	                } catch (error) {
-	
-	                }
-	            }
-	        }
-	    }
-	
-	    return targetComponent;
-	};
-	
 	function isStateless(component) {
-	  return !component.prototype.render;
+	    // `function() {}` has prototype, but `() => {}` doesn't
+	    // `() => {}` via Babel has prototype too.
+	    return !(component.prototype && component.prototype.render);
 	}
 	
 	var injectorContextTypes = {
-	  mobxStores: objectOrObservableObject
+	    mobxStores: objectOrObservableObject
 	};
 	Object.seal(injectorContextTypes);
 	
 	var proxiedInjectorProps = {
-	  contextTypes: {
-	    get: function get$$1() {
-	      return injectorContextTypes;
+	    contextTypes: {
+	        get: function get$$1() {
+	            return injectorContextTypes;
+	        },
+	        set: function set$$1(_) {
+	            console.warn("Mobx Injector: you are trying to attach `contextTypes` on an component decorated with `inject` (or `observer`) HOC. Please specify the contextTypes on the wrapped component instead. It is accessible through the `wrappedComponent`");
+	        },
+	        configurable: true,
+	        enumerable: false
 	    },
-	    set: function set$$1(_) {
-	      console.warn("Mobx Injector: you are trying to attach `contextTypes` on an component decorated with `inject` (or `observer`) HOC. Please specify the contextTypes on the wrapped component instead. It is accessible through the `wrappedComponent`");
-	    },
-	    configurable: true,
-	    enumerable: false
-	  },
-	  isMobxInjector: {
-	    value: true,
-	    writable: true,
-	    configurable: true,
-	    enumerable: true
-	  }
-	};
-	
-	/**
-	 * Store Injection
-	 */
-	function createStoreInjector(grabStoresFn, component, injectNames) {
-	  var _class, _temp2;
-	
-	  var displayName = "inject-" + (component.displayName || component.name || component.constructor && component.constructor.name || "Unknown");
-	  if (injectNames) displayName += "-with-" + injectNames;
-	
-	  var Injector = (_temp2 = _class = function (_Component) {
-	    inherits(Injector, _Component);
-	
-	    function Injector() {
-	      var _ref;
-	
-	      var _temp, _this, _ret;
-	
-	      classCallCheck(this, Injector);
-	
-	      for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-	        args[_key] = arguments[_key];
-	      }
-	
-	      return _ret = (_temp = (_this = possibleConstructorReturn(this, (_ref = Injector.__proto__ || Object.getPrototypeOf(Injector)).call.apply(_ref, [this].concat(args))), _this), _this.storeRef = function (instance) {
-	        _this.wrappedInstance = instance;
-	      }, _temp), possibleConstructorReturn(_this, _ret);
+	    isMobxInjector: {
+	        value: true,
+	        writable: true,
+	        configurable: true,
+	        enumerable: true
 	    }
 	
-	    createClass(Injector, [{
-	      key: 'render',
-	      value: function render() {
-	        // Optimization: it might be more efficient to apply the mapper function *outside* the render method
-	        // (if the mapper is a function), that could avoid expensive(?) re-rendering of the injector component
-	        // See this test: 'using a custom injector is not too reactive' in inject.js
-	        var newProps = {};
-	        for (var key in this.props) {
-	          if (this.props.hasOwnProperty(key)) {
-	            newProps[key] = this.props[key];
-	          }
-	        }var additionalProps = grabStoresFn(this.context.mobxStores || {}, newProps, this.context) || {};
-	        for (var _key2 in additionalProps) {
-	          newProps[_key2] = additionalProps[_key2];
+	    /**
+	     * Store Injection
+	     */
+	};function createStoreInjector(grabStoresFn, component, injectNames) {
+	    var _class, _temp2;
+	
+	    var displayName = "inject-" + (component.displayName || component.name || component.constructor && component.constructor.name || "Unknown");
+	    if (injectNames) displayName += "-with-" + injectNames;
+	
+	    var Injector = (_temp2 = _class = function (_Component) {
+	        inherits(Injector, _Component);
+	
+	        function Injector() {
+	            var _ref;
+	
+	            var _temp, _this, _ret;
+	
+	            classCallCheck(this, Injector);
+	
+	            for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+	                args[_key] = arguments[_key];
+	            }
+	
+	            return _ret = (_temp = (_this = possibleConstructorReturn(this, (_ref = Injector.__proto__ || Object.getPrototypeOf(Injector)).call.apply(_ref, [this].concat(args))), _this), _this.storeRef = function (instance) {
+	                _this.wrappedInstance = instance;
+	            }, _temp), possibleConstructorReturn(_this, _ret);
 	        }
 	
-	        if (!isStateless(component)) {
-	          newProps.ref = this.storeRef;
-	        }
+	        createClass(Injector, [{
+	            key: "render",
+	            value: function render() {
+	                // Optimization: it might be more efficient to apply the mapper function *outside* the render method
+	                // (if the mapper is a function), that could avoid expensive(?) re-rendering of the injector component
+	                // See this test: 'using a custom injector is not too reactive' in inject.js
+	                var newProps = {};
+	                for (var key in this.props) {
+	                    if (this.props.hasOwnProperty(key)) {
+	                        newProps[key] = this.props[key];
+	                    }
+	                }var additionalProps = grabStoresFn(this.context.mobxStores || {}, newProps, this.context) || {};
+	                for (var _key2 in additionalProps) {
+	                    newProps[_key2] = additionalProps[_key2];
+	                }
 	
-	        return React__default.createElement(component, newProps);
-	      }
-	    }]);
+	                if (!isStateless(component)) {
+	                    newProps.ref = this.storeRef;
+	                }
+	
+	                return React.createElement(component, newProps);
+	            }
+	        }]);
+	        return Injector;
+	    }(React.Component), _class.displayName = displayName, _temp2);
+	
+	    // Static fields from component should be visible on the generated Injector
+	
+	    hoistNonReactStatics(Injector, component);
+	
+	    Injector.wrappedComponent = component;
+	    Object.defineProperties(Injector, proxiedInjectorProps);
+	
 	    return Injector;
-	  }(React.Component), _class.displayName = displayName, _temp2);
-	
-	  // Static fields from component should be visible on the generated Injector
-	
-	  index(Injector, component);
-	
-	  Injector.wrappedComponent = component;
-	  Object.defineProperties(Injector, proxiedInjectorProps);
-	
-	  return Injector;
 	}
 	
 	function grabStoresByName(storeNames) {
-	  return function (baseStores, nextProps) {
-	    storeNames.forEach(function (storeName) {
-	      if (storeName in nextProps) // prefer props over stores
-	        return;
-	      if (!(storeName in baseStores)) throw new Error("MobX injector: Store '" + storeName + "' is not available! Make sure it is provided by some Provider");
-	      nextProps[storeName] = baseStores[storeName];
-	    });
-	    return nextProps;
-	  };
+	    return function (baseStores, nextProps) {
+	        storeNames.forEach(function (storeName) {
+	            if (storeName in nextProps // prefer props over stores
+	            ) return;
+	            if (!(storeName in baseStores)) throw new Error("MobX injector: Store '" + storeName + "' is not available! Make sure it is provided by some Provider");
+	            nextProps[storeName] = baseStores[storeName];
+	        });
+	        return nextProps;
+	    };
 	}
 	
 	/**
@@ -23516,27 +23382,27 @@
 	 * storesToProps(mobxStores, props, context) => newProps
 	 */
 	function inject() /* fn(stores, nextProps) or ...storeNames */{
-	  var grabStoresFn = void 0;
-	  if (typeof arguments[0] === "function") {
-	    grabStoresFn = arguments[0];
-	    return function (componentClass) {
-	      var injected = createStoreInjector(grabStoresFn, componentClass);
-	      injected.isMobxInjector = false; // supress warning
-	      // mark the Injector as observer, to make it react to expressions in `grabStoresFn`,
-	      // see #111
-	      injected = observer(injected);
-	      injected.isMobxInjector = true; // restore warning
-	      return injected;
-	    };
-	  } else {
-	    var storeNames = [];
-	    for (var i = 0; i < arguments.length; i++) {
-	      storeNames[i] = arguments[i];
-	    }grabStoresFn = grabStoresByName(storeNames);
-	    return function (componentClass) {
-	      return createStoreInjector(grabStoresFn, componentClass, storeNames.join("-"));
-	    };
-	  }
+	    var grabStoresFn = void 0;
+	    if (typeof arguments[0] === "function") {
+	        grabStoresFn = arguments[0];
+	        return function (componentClass) {
+	            var injected = createStoreInjector(grabStoresFn, componentClass);
+	            injected.isMobxInjector = false; // supress warning
+	            // mark the Injector as observer, to make it react to expressions in `grabStoresFn`,
+	            // see #111
+	            injected = observer(injected);
+	            injected.isMobxInjector = true; // restore warning
+	            return injected;
+	        };
+	    } else {
+	        var storeNames = [];
+	        for (var i = 0; i < arguments.length; i++) {
+	            storeNames[i] = arguments[i];
+	        }grabStoresFn = grabStoresByName(storeNames);
+	        return function (componentClass) {
+	            return createStoreInjector(grabStoresFn, componentClass, storeNames.join("-"));
+	        };
+	    }
 	}
 	
 	/**
@@ -23552,40 +23418,40 @@
 	var componentByNodeRegistery = typeof WeakMap !== "undefined" ? new WeakMap() : undefined;
 	var renderReporter = new EventEmitter();
 	
-	function findDOMNode(component) {
-	  if (ReactDOM__default) {
-	    try {
-	      return ReactDOM__default.findDOMNode(component);
-	    } catch (e) {
-	      // findDOMNode will throw in react-test-renderer, see:
-	      // See https://github.com/mobxjs/mobx-react/issues/216
-	      // Is there a better heuristic?
-	      return null;
+	function findDOMNode$2(component) {
+	    if (reactDom.findDOMNode) {
+	        try {
+	            return reactDom.findDOMNode(component);
+	        } catch (e) {
+	            // findDOMNode will throw in react-test-renderer, see:
+	            // See https://github.com/mobxjs/mobx-react/issues/216
+	            // Is there a better heuristic?
+	            return null;
+	        }
 	    }
-	  }
-	  return null;
+	    return null;
 	}
 	
 	function reportRendering(component) {
-	  var node = findDOMNode(component);
-	  if (node && componentByNodeRegistery) componentByNodeRegistery.set(node, component);
+	    var node = findDOMNode$2(component);
+	    if (node && componentByNodeRegistery) componentByNodeRegistery.set(node, component);
 	
-	  renderReporter.emit({
-	    event: 'render',
-	    renderTime: component.__$mobRenderEnd - component.__$mobRenderStart,
-	    totalTime: Date.now() - component.__$mobRenderStart,
-	    component: component,
-	    node: node
-	  });
+	    renderReporter.emit({
+	        event: "render",
+	        renderTime: component.__$mobRenderEnd - component.__$mobRenderStart,
+	        totalTime: Date.now() - component.__$mobRenderStart,
+	        component: component,
+	        node: node
+	    });
 	}
 	
 	function trackComponents() {
-	  if (typeof WeakMap === "undefined") throw new Error("[mobx-react] tracking components is not supported in this browser.");
-	  if (!isDevtoolsEnabled) isDevtoolsEnabled = true;
+	    if (typeof WeakMap === "undefined") throw new Error("[mobx-react] tracking components is not supported in this browser.");
+	    if (!isDevtoolsEnabled) isDevtoolsEnabled = true;
 	}
 	
 	function useStaticRendering(useStaticRendering) {
-	  isUsingStaticRendering = useStaticRendering;
+	    isUsingStaticRendering = useStaticRendering;
 	}
 	
 	/**
@@ -23599,278 +23465,311 @@
 	 */
 	
 	function patch(target, funcName) {
-	  var runMixinFirst = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
+	    var runMixinFirst = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
 	
-	  var base = target[funcName];
-	  var mixinFunc = reactiveMixin[funcName];
-	  var f = !base ? mixinFunc : runMixinFirst === true ? function () {
-	    mixinFunc.apply(this, arguments);
-	    base.apply(this, arguments);
-	  } : function () {
-	    base.apply(this, arguments);
-	    mixinFunc.apply(this, arguments);
-	  };
+	    var base = target[funcName];
+	    var mixinFunc = reactiveMixin[funcName];
+	    var f = !base ? mixinFunc : runMixinFirst === true ? function () {
+	        mixinFunc.apply(this, arguments);
+	        base.apply(this, arguments);
+	    } : function () {
+	        base.apply(this, arguments);
+	        mixinFunc.apply(this, arguments);
+	    };
 	
-	  // MWE: ideally we freeze here to protect against accidental overwrites in component instances, see #195
-	  // ...but that breaks react-hot-loader, see #231...
-	  target[funcName] = f;
+	    // MWE: ideally we freeze here to protect against accidental overwrites in component instances, see #195
+	    // ...but that breaks react-hot-loader, see #231...
+	    target[funcName] = f;
 	}
 	
-	function isObjectShallowModified(prev, next) {
-	  if (null == prev || null == next || (typeof prev === 'undefined' ? 'undefined' : _typeof(prev)) !== "object" || (typeof next === 'undefined' ? 'undefined' : _typeof(next)) !== "object") {
-	    return prev !== next;
-	  }
-	  var keys = Object.keys(prev);
-	  if (keys.length !== Object.keys(next).length) {
-	    return true;
-	  }
-	  var key = void 0;
-	  for (var i = keys.length - 1; i >= 0, key = keys[i]; i--) {
-	    if (next[key] !== prev[key]) {
-	      return true;
+	function shallowEqual(objA, objB) {
+	    //From: https://github.com/facebook/fbjs/blob/c69904a511b900266935168223063dd8772dfc40/packages/fbjs/src/core/shallowEqual.js
+	    if (is(objA, objB)) return true;
+	    if ((typeof objA === "undefined" ? "undefined" : _typeof(objA)) !== "object" || objA === null || (typeof objB === "undefined" ? "undefined" : _typeof(objB)) !== "object" || objB === null) {
+	        return false;
 	    }
-	  }
-	  return false;
+	    var keysA = Object.keys(objA);
+	    var keysB = Object.keys(objB);
+	    if (keysA.length !== keysB.length) return false;
+	    for (var i = 0; i < keysA.length; i++) {
+	        if (!hasOwnProperty.call(objB, keysA[i]) || !is(objA[keysA[i]], objB[keysA[i]])) {
+	            return false;
+	        }
+	    }
+	    return true;
+	}
+	
+	function is(x, y) {
+	    // From: https://github.com/facebook/fbjs/blob/c69904a511b900266935168223063dd8772dfc40/packages/fbjs/src/core/shallowEqual.js
+	    if (x === y) {
+	        return x !== 0 || 1 / x === 1 / y;
+	    } else {
+	        return x !== x && y !== y;
+	    }
 	}
 	
 	/**
 	 * ReactiveMixin
 	 */
 	var reactiveMixin = {
-	  componentWillMount: function componentWillMount() {
-	    var _this = this;
+	    componentWillMount: function componentWillMount() {
+	        var _this = this;
 	
-	    if (isUsingStaticRendering === true) return;
-	    // Generate friendly name for debugging
-	    var initialName = this.displayName || this.name || this.constructor && (this.constructor.displayName || this.constructor.name) || "<component>";
-	    var rootNodeID = this._reactInternalInstance && this._reactInternalInstance._rootNodeID;
+	        if (isUsingStaticRendering === true) return;
+	        // Generate friendly name for debugging
+	        var initialName = this.displayName || this.name || this.constructor && (this.constructor.displayName || this.constructor.name) || "<component>";
+	        var rootNodeID = this._reactInternalInstance && this._reactInternalInstance._rootNodeID || this._reactInternalFiber && this._reactInternalFiber._debugID;
 	
-	    /**
-	     * If props are shallowly modified, react will render anyway,
-	     * so atom.reportChanged() should not result in yet another re-render
-	     */
-	    var skipRender = false;
-	    /**
-	     * forceUpdate will re-assign this.props. We don't want that to cause a loop,
-	     * so detect these changes
-	     */
-	    var isForcingUpdate = false;
+	        /**
+	         * If props are shallowly modified, react will render anyway,
+	         * so atom.reportChanged() should not result in yet another re-render
+	         */
+	        var skipRender = false;
+	        /**
+	         * forceUpdate will re-assign this.props. We don't want that to cause a loop,
+	         * so detect these changes
+	         */
+	        var isForcingUpdate = false;
 	
-	    function makePropertyObservableReference(propName) {
-	      var valueHolder = this[propName];
-	      var atom = new mobx.Atom("reactive " + propName);
-	      Object.defineProperty(this, propName, {
-	        configurable: true, enumerable: true,
-	        get: function get$$1() {
-	          atom.reportObserved();
-	          return valueHolder;
-	        },
-	        set: function set$$1(v) {
-	          if (!isForcingUpdate && isObjectShallowModified(valueHolder, v)) {
-	            valueHolder = v;
-	            skipRender = true;
-	            atom.reportChanged();
-	            skipRender = false;
-	          } else {
-	            valueHolder = v;
-	          }
+	        function makePropertyObservableReference(propName) {
+	            var valueHolder = this[propName];
+	            var atom = new mobx.Atom("reactive " + propName);
+	            Object.defineProperty(this, propName, {
+	                configurable: true,
+	                enumerable: true,
+	                get: function get$$1() {
+	                    atom.reportObserved();
+	                    return valueHolder;
+	                },
+	                set: function set$$1(v) {
+	                    if (!isForcingUpdate && !shallowEqual(valueHolder, v)) {
+	                        valueHolder = v;
+	                        skipRender = true;
+	                        atom.reportChanged();
+	                        skipRender = false;
+	                    } else {
+	                        valueHolder = v;
+	                    }
+	                }
+	            });
 	        }
-	      });
-	    }
 	
-	    // make this.props an observable reference, see #124
-	    makePropertyObservableReference.call(this, "props");
-	    // make state an observable reference
-	    makePropertyObservableReference.call(this, "state");
+	        // make this.props an observable reference, see #124
+	        makePropertyObservableReference.call(this, "props");
+	        // make state an observable reference
+	        makePropertyObservableReference.call(this, "state");
 	
-	    // wire up reactive render
-	    var baseRender = this.render.bind(this);
-	    var reaction = null;
-	    var isRenderingPending = false;
+	        // wire up reactive render
+	        var baseRender = this.render.bind(this);
+	        var reaction = null;
+	        var isRenderingPending = false;
 	
-	    var initialRender = function initialRender() {
-	      reaction = new mobx.Reaction(initialName + '#' + rootNodeID + '.render()', function () {
-	        if (!isRenderingPending) {
-	          // N.B. Getting here *before mounting* means that a component constructor has side effects (see the relevant test in misc.js)
-	          // This unidiomatic React usage but React will correctly warn about this so we continue as usual
-	          // See #85 / Pull #44
-	          isRenderingPending = true;
-	          if (typeof _this.componentWillReact === "function") _this.componentWillReact(); // TODO: wrap in action?
-	          if (_this.__$mobxIsUnmounted !== true) {
-	            // If we are unmounted at this point, componentWillReact() had a side effect causing the component to unmounted
-	            // TODO: remove this check? Then react will properly warn about the fact that this should not happen? See #73
-	            // However, people also claim this migth happen during unit tests..
-	            var hasError = true;
-	            try {
-	              isForcingUpdate = true;
-	              if (!skipRender) React__default.Component.prototype.forceUpdate.call(_this);
-	              hasError = false;
-	            } finally {
-	              isForcingUpdate = false;
-	              if (hasError) reaction.dispose();
+	        var initialRender = function initialRender() {
+	            reaction = new mobx.Reaction(initialName + "#" + rootNodeID + ".render()", function () {
+	                if (!isRenderingPending) {
+	                    // N.B. Getting here *before mounting* means that a component constructor has side effects (see the relevant test in misc.js)
+	                    // This unidiomatic React usage but React will correctly warn about this so we continue as usual
+	                    // See #85 / Pull #44
+	                    isRenderingPending = true;
+	                    if (typeof _this.componentWillReact === "function") _this.componentWillReact(); // TODO: wrap in action?
+	                    if (_this.__$mobxIsUnmounted !== true) {
+	                        // If we are unmounted at this point, componentWillReact() had a side effect causing the component to unmounted
+	                        // TODO: remove this check? Then react will properly warn about the fact that this should not happen? See #73
+	                        // However, people also claim this migth happen during unit tests..
+	                        var hasError = true;
+	                        try {
+	                            isForcingUpdate = true;
+	                            if (!skipRender) React.Component.prototype.forceUpdate.call(_this);
+	                            hasError = false;
+	                        } finally {
+	                            isForcingUpdate = false;
+	                            if (hasError) reaction.dispose();
+	                        }
+	                    }
+	                }
+	            });
+	            reaction.reactComponent = _this;
+	            reactiveRender.$mobx = reaction;
+	            _this.render = reactiveRender;
+	            return reactiveRender();
+	        };
+	
+	        var reactiveRender = function reactiveRender() {
+	            isRenderingPending = false;
+	            var exception = undefined;
+	            var rendering = undefined;
+	            reaction.track(function () {
+	                if (isDevtoolsEnabled) {
+	                    _this.__$mobRenderStart = Date.now();
+	                }
+	                try {
+	                    rendering = mobx.extras.allowStateChanges(false, baseRender);
+	                } catch (e) {
+	                    exception = e;
+	                }
+	                if (isDevtoolsEnabled) {
+	                    _this.__$mobRenderEnd = Date.now();
+	                }
+	            });
+	            if (exception) {
+	                errorsReporter.emit(exception);
+	                throw exception;
 	            }
-	          }
-	        }
-	      });
-	      reactiveRender.$mobx = reaction;
-	      _this.render = reactiveRender;
-	      return reactiveRender();
-	    };
+	            return rendering;
+	        };
 	
-	    var reactiveRender = function reactiveRender() {
-	      isRenderingPending = false;
-	      var exception = undefined;
-	      var rendering = undefined;
-	      reaction.track(function () {
+	        this.render = initialRender;
+	    },
+	
+	    componentWillUnmount: function componentWillUnmount() {
+	        if (isUsingStaticRendering === true) return;
+	        this.render.$mobx && this.render.$mobx.dispose();
+	        this.__$mobxIsUnmounted = true;
 	        if (isDevtoolsEnabled) {
-	          _this.__$mobRenderStart = Date.now();
+	            var node = findDOMNode$2(this);
+	            if (node && componentByNodeRegistery) {
+	                componentByNodeRegistery.delete(node);
+	            }
+	            renderReporter.emit({
+	                event: "destroy",
+	                component: this,
+	                node: node
+	            });
 	        }
-	        try {
-	          rendering = mobx.extras.allowStateChanges(false, baseRender);
-	        } catch (e) {
-	          exception = e;
-	        }
+	    },
+	
+	    componentDidMount: function componentDidMount() {
 	        if (isDevtoolsEnabled) {
-	          _this.__$mobRenderEnd = Date.now();
+	            reportRendering(this);
 	        }
-	      });
-	      if (exception) {
-	        errorsReporter.emit(exception);
-	        throw exception;
-	      }
-	      return rendering;
-	    };
+	    },
 	
-	    this.render = initialRender;
-	  },
-	
-	  componentWillUnmount: function componentWillUnmount() {
-	    if (isUsingStaticRendering === true) return;
-	    this.render.$mobx && this.render.$mobx.dispose();
-	    this.__$mobxIsUnmounted = true;
-	    if (isDevtoolsEnabled) {
-	      var node = findDOMNode(this);
-	      if (node && componentByNodeRegistery) {
-	        componentByNodeRegistery.delete(node);
-	      }
-	      renderReporter.emit({
-	        event: 'destroy',
-	        component: this,
-	        node: node
-	      });
-	    }
-	  },
-	
-	  componentDidMount: function componentDidMount() {
-	    if (isDevtoolsEnabled) {
-	      reportRendering(this);
-	    }
-	  },
-	
-	  componentDidUpdate: function componentDidUpdate() {
-	    if (isDevtoolsEnabled) {
-	      reportRendering(this);
-	    }
-	  },
-	
-	  shouldComponentUpdate: function shouldComponentUpdate(nextProps, nextState) {
-	    if (isUsingStaticRendering) {
-	      console.warn("[mobx-react] It seems that a re-rendering of a React component is triggered while in static (server-side) mode. Please make sure components are rendered only once server-side.");
-	    }
-	    // update on any state changes (as is the default)
-	    if (this.state !== nextState) {
-	      return true;
-	    }
-	    // update if props are shallowly not equal, inspired by PureRenderMixin
-	    // we could return just 'false' here, and avoid the `skipRender` checks etc
-	    // however, it is nicer if lifecycle events are triggered like usually,
-	    // so we return true here if props are shallowly modified.
-	    return isObjectShallowModified(this.props, nextProps);
-	  }
-	};
-	
-	/**
-	 * Observer function / decorator
-	 */
-	function observer(arg1, arg2) {
-	  if (typeof arg1 === "string") {
-	    throw new Error("Store names should be provided as array");
-	  }
-	  if (Array.isArray(arg1)) {
-	    // component needs stores
-	    if (!warnedAboutObserverInjectDeprecation) {
-	      warnedAboutObserverInjectDeprecation = true;
-	      console.warn('Mobx observer: Using observer to inject stores is deprecated since 4.0. Use `@inject("store1", "store2") @observer ComponentClass` or `inject("store1", "store2")(observer(componentClass))` instead of `@observer(["store1", "store2"]) ComponentClass`');
-	    }
-	    if (!arg2) {
-	      // invoked as decorator
-	      return function (componentClass) {
-	        return observer(arg1, componentClass);
-	      };
-	    } else {
-	      return inject.apply(null, arg1)(observer(arg2));
-	    }
-	  }
-	  var componentClass = arg1;
-	
-	  if (componentClass.isMobxInjector === true) {
-	    console.warn('Mobx observer: You are trying to use \'observer\' on a component that already has \'inject\'. Please apply \'observer\' before applying \'inject\'');
-	  }
-	
-	  // Stateless function component:
-	  // If it is function but doesn't seem to be a react class constructor,
-	  // wrap it to a react class automatically
-	  if (typeof componentClass === "function" && (!componentClass.prototype || !componentClass.prototype.render) && !componentClass.isReactClass && !React__default.Component.isPrototypeOf(componentClass)) {
-	    var _class, _temp;
-	
-	    return observer((_temp = _class = function (_Component) {
-	      inherits(_class, _Component);
-	
-	      function _class() {
-	        classCallCheck(this, _class);
-	        return possibleConstructorReturn(this, (_class.__proto__ || Object.getPrototypeOf(_class)).apply(this, arguments));
-	      }
-	
-	      createClass(_class, [{
-	        key: 'render',
-	        value: function render() {
-	          return componentClass.call(this, this.props, this.context);
+	    componentDidUpdate: function componentDidUpdate() {
+	        if (isDevtoolsEnabled) {
+	            reportRendering(this);
 	        }
-	      }]);
-	      return _class;
-	    }(React.Component), _class.displayName = componentClass.displayName || componentClass.name, _class.contextTypes = componentClass.contextTypes, _class.propTypes = componentClass.propTypes, _class.defaultProps = componentClass.defaultProps, _temp));
-	  }
+	    },
 	
-	  if (!componentClass) {
-	    throw new Error("Please pass a valid component to 'observer'");
-	  }
+	    shouldComponentUpdate: function shouldComponentUpdate(nextProps, nextState) {
+	        if (isUsingStaticRendering) {
+	            console.warn("[mobx-react] It seems that a re-rendering of a React component is triggered while in static (server-side) mode. Please make sure components are rendered only once server-side.");
+	        }
+	        // update on any state changes (as is the default)
+	        if (this.state !== nextState) {
+	            return true;
+	        }
+	        // update if props are shallowly not equal, inspired by PureRenderMixin
+	        // we could return just 'false' here, and avoid the `skipRender` checks etc
+	        // however, it is nicer if lifecycle events are triggered like usually,
+	        // so we return true here if props are shallowly modified.
+	        return !shallowEqual(this.props, nextProps);
+	    }
 	
-	  var target = componentClass.prototype || componentClass;
-	  mixinLifecycleEvents(target);
-	  componentClass.isMobXReactObserver = true;
-	  return componentClass;
+	    /**
+	     * Observer function / decorator
+	     */
+	};function observer(arg1, arg2) {
+	    if (typeof arg1 === "string") {
+	        throw new Error("Store names should be provided as array");
+	    }
+	    if (Array.isArray(arg1)) {
+	        // component needs stores
+	        if (!warnedAboutObserverInjectDeprecation) {
+	            warnedAboutObserverInjectDeprecation = true;
+	            console.warn('Mobx observer: Using observer to inject stores is deprecated since 4.0. Use `@inject("store1", "store2") @observer ComponentClass` or `inject("store1", "store2")(observer(componentClass))` instead of `@observer(["store1", "store2"]) ComponentClass`');
+	        }
+	        if (!arg2) {
+	            // invoked as decorator
+	            return function (componentClass) {
+	                return observer(arg1, componentClass);
+	            };
+	        } else {
+	            return inject.apply(null, arg1)(observer(arg2));
+	        }
+	    }
+	    var componentClass = arg1;
+	
+	    if (componentClass.isMobxInjector === true) {
+	        console.warn("Mobx observer: You are trying to use 'observer' on a component that already has 'inject'. Please apply 'observer' before applying 'inject'");
+	    }
+	
+	    // Stateless function component:
+	    // If it is function but doesn't seem to be a react class constructor,
+	    // wrap it to a react class automatically
+	    if (typeof componentClass === "function" && (!componentClass.prototype || !componentClass.prototype.render) && !componentClass.isReactClass && !React.Component.isPrototypeOf(componentClass)) {
+	        var _class, _temp;
+	
+	        return observer((_temp = _class = function (_Component) {
+	            inherits(_class, _Component);
+	
+	            function _class() {
+	                classCallCheck(this, _class);
+	                return possibleConstructorReturn(this, (_class.__proto__ || Object.getPrototypeOf(_class)).apply(this, arguments));
+	            }
+	
+	            createClass(_class, [{
+	                key: "render",
+	                value: function render() {
+	                    return componentClass.call(this, this.props, this.context);
+	                }
+	            }]);
+	            return _class;
+	        }(React.Component), _class.displayName = componentClass.displayName || componentClass.name, _class.contextTypes = componentClass.contextTypes, _class.propTypes = componentClass.propTypes, _class.defaultProps = componentClass.defaultProps, _temp));
+	    }
+	
+	    if (!componentClass) {
+	        throw new Error("Please pass a valid component to 'observer'");
+	    }
+	
+	    var target = componentClass.prototype || componentClass;
+	    mixinLifecycleEvents(target);
+	    componentClass.isMobXReactObserver = true;
+	    return componentClass;
 	}
 	
 	function mixinLifecycleEvents(target) {
-	  patch(target, "componentWillMount", true);
-	  ["componentDidMount", "componentWillUnmount", "componentDidUpdate"].forEach(function (funcName) {
-	    patch(target, funcName);
-	  });
-	  if (!target.shouldComponentUpdate) {
-	    target.shouldComponentUpdate = reactiveMixin.shouldComponentUpdate;
-	  }
+	    patch(target, "componentWillMount", true);["componentDidMount", "componentWillUnmount", "componentDidUpdate"].forEach(function (funcName) {
+	        patch(target, funcName);
+	    });
+	    if (!target.shouldComponentUpdate) {
+	        target.shouldComponentUpdate = reactiveMixin.shouldComponentUpdate;
+	    }
 	}
 	
 	// TODO: support injection somehow as well?
 	var Observer = observer(function (_ref) {
-	  var children = _ref.children;
-	  return children();
+	    var children = _ref.children,
+	        observerInject = _ref.inject,
+	        render = _ref.render;
+	
+	    var component = children || render;
+	    if (typeof component === "undefined") {
+	        return null;
+	    }
+	    if (!observerInject) {
+	        return component();
+	    }
+	    var InjectComponent = inject(observerInject)(component);
+	    return React__default.createElement(InjectComponent, null);
 	});
 	
+	Observer.displayName = "Observer";
+	
+	var ObserverPropsCheck = function ObserverPropsCheck(props, key, componentName, location, propFullName) {
+	    var extraKey = key === "children" ? "render" : "children";
+	    if (typeof props[key] === "function" && typeof props[extraKey] === "function") {
+	        return new Error("Invalid prop,do not use children and render in the same time in`" + componentName);
+	    }
+	
+	    if (typeof props[key] === "function" || typeof props[extraKey] === "function") {
+	        return;
+	    }
+	    return new Error("Invalid prop `" + propFullName + "` of type `" + _typeof(props[key]) + "` supplied to" + " `" + componentName + "`, expected `function`.");
+	};
+	
 	Observer.propTypes = {
-	  children: function children(propValue, key, componentName, location, propFullName) {
-	    if (typeof propValue[key] !== 'function') return new Error('Invalid prop `' + propFullName + '` of type `' + _typeof(propValue[key]) + '` supplied to' + ' `' + componentName + '`, expected `function`.');
-	  }
+	    render: ObserverPropsCheck,
+	    children: ObserverPropsCheck
 	};
 	
 	var _class;
@@ -23879,72 +23778,72 @@
 	var specialReactKeys = { children: true, key: true, ref: true };
 	
 	var Provider = (_temp = _class = function (_Component) {
-	  inherits(Provider, _Component);
+	    inherits(Provider, _Component);
 	
-	  function Provider() {
-	    classCallCheck(this, Provider);
-	    return possibleConstructorReturn(this, (Provider.__proto__ || Object.getPrototypeOf(Provider)).apply(this, arguments));
-	  }
+	    function Provider() {
+	        classCallCheck(this, Provider);
+	        return possibleConstructorReturn(this, (Provider.__proto__ || Object.getPrototypeOf(Provider)).apply(this, arguments));
+	    }
 	
-	  createClass(Provider, [{
-	    key: 'render',
-	    value: function render() {
-	      return React__default.Children.only(this.props.children);
-	    }
-	  }, {
-	    key: 'getChildContext',
-	    value: function getChildContext() {
-	      var stores = {};
-	      // inherit stores
-	      var baseStores = this.context.mobxStores;
-	      if (baseStores) for (var key in baseStores) {
-	        stores[key] = baseStores[key];
-	      }
-	      // add own stores
-	      for (var _key in this.props) {
-	        if (!specialReactKeys[_key] && _key !== "suppressChangedStoreWarning") stores[_key] = this.props[_key];
-	      }return {
-	        mobxStores: stores
-	      };
-	    }
-	  }, {
-	    key: 'componentWillReceiveProps',
-	    value: function componentWillReceiveProps(nextProps) {
-	      // Maybe this warning is too aggressive?
-	      if (Object.keys(nextProps).length !== Object.keys(this.props).length) console.warn("MobX Provider: The set of provided stores has changed. Please avoid changing stores as the change might not propagate to all children");
-	      if (!nextProps.suppressChangedStoreWarning) for (var key in nextProps) {
-	        if (!specialReactKeys[key] && this.props[key] !== nextProps[key]) console.warn("MobX Provider: Provided store '" + key + "' has changed. Please avoid replacing stores as the change might not propagate to all children");
-	      }
-	    }
-	  }]);
-	  return Provider;
+	    createClass(Provider, [{
+	        key: "render",
+	        value: function render() {
+	            return React.Children.only(this.props.children);
+	        }
+	    }, {
+	        key: "getChildContext",
+	        value: function getChildContext() {
+	            var stores = {};
+	            // inherit stores
+	            var baseStores = this.context.mobxStores;
+	            if (baseStores) for (var key in baseStores) {
+	                stores[key] = baseStores[key];
+	            }
+	            // add own stores
+	            for (var _key in this.props) {
+	                if (!specialReactKeys[_key] && _key !== "suppressChangedStoreWarning") stores[_key] = this.props[_key];
+	            }return {
+	                mobxStores: stores
+	            };
+	        }
+	    }, {
+	        key: "componentWillReceiveProps",
+	        value: function componentWillReceiveProps(nextProps) {
+	            // Maybe this warning is too aggressive?
+	            if (Object.keys(nextProps).length !== Object.keys(this.props).length) console.warn("MobX Provider: The set of provided stores has changed. Please avoid changing stores as the change might not propagate to all children");
+	            if (!nextProps.suppressChangedStoreWarning) for (var key in nextProps) {
+	                if (!specialReactKeys[key] && this.props[key] !== nextProps[key]) console.warn("MobX Provider: Provided store '" + key + "' has changed. Please avoid replacing stores as the change might not propagate to all children");
+	            }
+	        }
+	    }]);
+	    return Provider;
 	}(React.Component), _class.contextTypes = {
-	  mobxStores: objectOrObservableObject
+	    mobxStores: objectOrObservableObject
 	}, _class.childContextTypes = {
-	  mobxStores: objectOrObservableObject.isRequired
+	    mobxStores: objectOrObservableObject.isRequired
 	}, _temp);
 	
-	var TARGET_LIB_NAME = void 0;
-	TARGET_LIB_NAME = 'mobx-react';
-	if (!mobx) throw new Error(TARGET_LIB_NAME + ' requires the MobX package');
-	if (!React__default) throw new Error(TARGET_LIB_NAME + ' requires React to be available');
+	if (!React.Component) throw new Error("mobx-react requires React to be available");
+	if (!mobx.extras) throw new Error("mobx-react requires mobx to be available");
 	
-	if ("browser" === 'browser' && typeof ReactDOM.unstable_batchedUpdates === "function") mobx.extras.setReactionScheduler(ReactDOM.unstable_batchedUpdates);
-	if (false) mobx.extras.setReactionScheduler(empty_1);
+	if (typeof reactDom.unstable_batchedUpdates === "function") mobx.extras.setReactionScheduler(reactDom.unstable_batchedUpdates);else if (typeof unstable_batchedUpdates$1 === "function") mobx.extras.setReactionScheduler(unstable_batchedUpdates$1);
 	
 	var onError = function onError(fn) {
-	  return errorsReporter.on(fn);
+	    return errorsReporter.on(fn);
 	};
 	
 	/* DevTool support */
-	if ((typeof __MOBX_DEVTOOLS_GLOBAL_HOOK__ === 'undefined' ? 'undefined' : _typeof(__MOBX_DEVTOOLS_GLOBAL_HOOK__)) === 'object') {
-	  __MOBX_DEVTOOLS_GLOBAL_HOOK__.injectMobxReact(exports, mobx);
+	// See: https://github.com/andykog/mobx-devtools/blob/d8976c24b8cb727ed59f9a0bc905a009df79e221/src/backend/installGlobalHook.js
+	
+	if ((typeof __MOBX_DEVTOOLS_GLOBAL_HOOK__ === "undefined" ? "undefined" : _typeof(__MOBX_DEVTOOLS_GLOBAL_HOOK__)) === "object") {
+	    var mobx$1 = { spy: mobx.spy, extras: mobx.extras };
+	    var mobxReact = { renderReporter: renderReporter, componentByNodeRegistery: componentByNodeRegistery, trackComponents: trackComponents };
+	    __MOBX_DEVTOOLS_GLOBAL_HOOK__.injectMobxReact(mobxReact, mobx$1);
 	}
 	
 	exports.propTypes = propTypes;
 	exports.PropTypes = propTypes;
 	exports.onError = onError;
-	exports['default'] = exports;
 	exports.observer = observer;
 	exports.Observer = Observer;
 	exports.renderReporter = renderReporter;
@@ -24079,7 +23978,7 @@
 	var isAtom = createInstanceofPredicate("Atom", BaseAtom);
 	
 	function hasInterceptors(interceptable) {
-	    return (interceptable.interceptors && interceptable.interceptors.length > 0);
+	    return interceptable.interceptors && interceptable.interceptors.length > 0;
 	}
 	function registerInterceptor(interceptable, handler) {
 	    var interceptors = interceptable.interceptors || (interceptable.interceptors = []);
@@ -24191,7 +24090,11 @@
 	var safariPrototypeSetterInheritanceBug = (function () {
 	    var v = false;
 	    var p = {};
-	    Object.defineProperty(p, "0", { set: function () { v = true; } });
+	    Object.defineProperty(p, "0", {
+	        set: function () {
+	            v = true;
+	        }
+	    });
 	    Object.create(p)["0"] = 1;
 	    return v === false;
 	})();
@@ -24219,6 +24122,32 @@
 	    }
 	}
 	inherit(StubArray, Array.prototype);
+	// Weex freeze Array.prototype
+	// Make them writeable and configurable in prototype chain
+	// https://github.com/alibaba/weex/pull/1529
+	if (Object.isFrozen(Array)) {
+	    
+	    [
+	        "constructor",
+	        "push",
+	        "shift",
+	        "concat",
+	        "pop",
+	        "unshift",
+	        "replace",
+	        "find",
+	        "findIndex",
+	        "splice",
+	        "reverse",
+	        "sort"
+	    ].forEach(function (key) {
+	        Object.defineProperty(StubArray.prototype, key, {
+	            configurable: true,
+	            writable: true,
+	            value: Array.prototype[key]
+	        });
+	    });
+	}
 	var ObservableArrayAdministration = (function () {
 	    function ObservableArrayAdministration(name, enhancer, array, owned) {
 	        this.array = array;
@@ -24227,7 +24156,7 @@
 	        this.lastKnownLength = 0;
 	        this.interceptors = null;
 	        this.changeListeners = null;
-	        this.atom = new BaseAtom(name || ("ObservableArray@" + getNextId()));
+	        this.atom = new BaseAtom(name || "ObservableArray@" + getNextId());
 	        this.enhancer = function (newV, oldV) { return enhancer(newV, oldV, name + "[..]"); };
 	    }
 	    ObservableArrayAdministration.prototype.dehanceValue = function (value) {
@@ -24330,7 +24259,9 @@
 	        }
 	        else {
 	            var res = this.values.slice(index, index + deleteCount);
-	            this.values = this.values.slice(0, index).concat(newItems, this.values.slice(index + deleteCount));
+	            this.values = this.values
+	                .slice(0, index)
+	                .concat(newItems, this.values.slice(index + deleteCount));
 	            return res;
 	        }
 	        var _a;
@@ -24338,11 +24269,15 @@
 	    ObservableArrayAdministration.prototype.notifyArrayChildUpdate = function (index, newValue, oldValue) {
 	        var notifySpy = !this.owned && isSpyEnabled();
 	        var notify = hasListeners(this);
-	        var change = notify || notifySpy ? {
-	            object: this.array,
-	            type: "update",
-	            index: index, newValue: newValue, oldValue: oldValue
-	        } : null;
+	        var change = notify || notifySpy
+	            ? {
+	                object: this.array,
+	                type: "update",
+	                index: index,
+	                newValue: newValue,
+	                oldValue: oldValue
+	            }
+	            : null;
 	        if (notifySpy)
 	            spyReportStart(change);
 	        this.atom.reportChanged();
@@ -24354,13 +24289,17 @@
 	    ObservableArrayAdministration.prototype.notifyArraySplice = function (index, added, removed) {
 	        var notifySpy = !this.owned && isSpyEnabled();
 	        var notify = hasListeners(this);
-	        var change = notify || notifySpy ? {
-	            object: this.array,
-	            type: "splice",
-	            index: index, removed: removed, added: added,
-	            removedCount: removed.length,
-	            addedCount: added.length
-	        } : null;
+	        var change = notify || notifySpy
+	            ? {
+	                object: this.array,
+	                type: "splice",
+	                index: index,
+	                removed: removed,
+	                added: added,
+	                removedCount: removed.length,
+	                addedCount: added.length
+	            }
+	            : null;
 	        if (notifySpy)
 	            spyReportStart(change);
 	        this.atom.reportChanged();
@@ -24406,7 +24345,7 @@
 	            arrays[_i] = arguments[_i];
 	        }
 	        this.$mobx.atom.reportObserved();
-	        return Array.prototype.concat.apply(this.peek(), arrays.map(function (a) { return isObservableArray(a) ? a.peek() : a; }));
+	        return Array.prototype.concat.apply(this.peek(), arrays.map(function (a) { return (isObservableArray(a) ? a.peek() : a); }));
 	    };
 	    ObservableArray.prototype.replace = function (newItems) {
 	        return this.$mobx.spliceWithArray(0, this.$mobx.values.length, newItems);
@@ -24442,11 +24381,11 @@
 	        return -1;
 	    };
 	    /*
-	        functions that do alter the internal structure of the array, (based on lib.es6.d.ts)
-	        since these functions alter the inner structure of the array, the have side effects.
-	        Because the have side effects, they should not be used in computed function,
-	        and for that reason the do not call dependencyState.notifyObserved
-	        */
+	     * functions that do alter the internal structure of the array, (based on lib.es6.d.ts)
+	     * since these functions alter the inner structure of the array, the have side effects.
+	     * Because the have side effects, they should not be used in computed function,
+	     * and for that reason the do not call dependencyState.notifyObserved
+	     */
 	    ObservableArray.prototype.splice = function (index, deleteCount) {
 	        var newItems = [];
 	        for (var _i = 2; _i < arguments.length; _i++) {
@@ -24528,10 +24467,15 @@
 	        var oldItems = this.$mobx.values;
 	        var newItems;
 	        if (fromIndex < toIndex) {
-	            newItems = oldItems.slice(0, fromIndex).concat(oldItems.slice(fromIndex + 1, toIndex + 1), [oldItems[fromIndex]], oldItems.slice(toIndex + 1));
+	            newItems = oldItems.slice(0, fromIndex).concat(oldItems.slice(fromIndex + 1, toIndex + 1), [
+	                oldItems[fromIndex]
+	            ], oldItems.slice(toIndex + 1));
 	        }
 	        else {
-	            newItems = oldItems.slice(0, toIndex).concat([oldItems[fromIndex]], oldItems.slice(toIndex, fromIndex), oldItems.slice(fromIndex + 1));
+	            // toIndex < fromIndex
+	            newItems = oldItems.slice(0, toIndex).concat([
+	                oldItems[fromIndex]
+	            ], oldItems.slice(toIndex, fromIndex), oldItems.slice(fromIndex + 1));
 	        }
 	        this.replace(newItems);
 	    };
@@ -24543,7 +24487,9 @@
 	                impl.atom.reportObserved();
 	                return impl.dehanceValue(impl.values[index]);
 	            }
-	            console.warn("[mobx.array] Attempt to read an array index (" + index + ") that is out of bounds (" + impl.values.length + "). Please check length first. Out of bound indices will not be tracked by MobX");
+	            console.warn("[mobx.array] Attempt to read an array index (" + index + ") that is out of bounds (" + impl
+	                .values
+	                .length + "). Please check length first. Out of bound indices will not be tracked by MobX");
 	        }
 	        return undefined;
 	    };
@@ -24559,7 +24505,8 @@
 	                var change = interceptChange(adm, {
 	                    type: "update",
 	                    object: this,
-	                    index: index, newValue: newValue
+	                    index: index,
+	                    newValue: newValue
 	                });
 	                if (!change)
 	                    return;
@@ -24596,9 +24543,6 @@
 	        this.$mobx.setArrayLength(newLength);
 	    }
 	});
-	/**
-	 * Wrap function from prototype
-	 */
 	[
 	    "every",
 	    "filter",
@@ -24710,7 +24654,8 @@
 	                spyReportStart({
 	                    type: "update",
 	                    object: this,
-	                    newValue: newValue, oldValue: oldValue
+	                    newValue: newValue,
+	                    oldValue: oldValue
 	                });
 	            }
 	            this.setNewValue(newValue);
@@ -24721,16 +24666,18 @@
 	    ObservableValue.prototype.prepareNewValue = function (newValue) {
 	        checkIfStateModificationsAreAllowed(this);
 	        if (hasInterceptors(this)) {
-	            var change = interceptChange(this, { object: this, type: "update", newValue: newValue });
+	            var change = interceptChange(this, {
+	                object: this,
+	                type: "update",
+	                newValue: newValue
+	            });
 	            if (!change)
 	                return UNCHANGED;
 	            newValue = change.newValue;
 	        }
 	        // apply modifier
 	        newValue = this.enhancer(newValue, this.value, this.name);
-	        return this.value !== newValue
-	            ? newValue
-	            : UNCHANGED;
+	        return this.value !== newValue ? newValue : UNCHANGED;
 	    };
 	    ObservableValue.prototype.setNewValue = function (newValue) {
 	        var oldValue = this.value;
@@ -24740,7 +24687,8 @@
 	            notifyListeners(this, {
 	                type: "update",
 	                object: this,
-	                newValue: newValue, oldValue: oldValue
+	                newValue: newValue,
+	                oldValue: oldValue
 	            });
 	        }
 	    };
@@ -24776,44 +24724,43 @@
 	var isObservableValue = createInstanceofPredicate("ObservableValue", ObservableValue);
 	
 	var messages = {
-	    "m001": "It is not allowed to assign new values to @action fields",
-	    "m002": "`runInAction` expects a function",
-	    "m003": "`runInAction` expects a function without arguments",
-	    "m004": "autorun expects a function",
-	    "m005": "Warning: attempted to pass an action to autorun. Actions are untracked and will not trigger on state changes. Use `reaction` or wrap only your state modification code in an action.",
-	    "m006": "Warning: attempted to pass an action to autorunAsync. Actions are untracked and will not trigger on state changes. Use `reaction` or wrap only your state modification code in an action.",
-	    "m007": "reaction only accepts 2 or 3 arguments. If migrating from MobX 2, please provide an options object",
-	    "m008": "wrapping reaction expression in `asReference` is no longer supported, use options object instead",
-	    "m009": "@computed can only be used on getter functions, like: '@computed get myProps() { return ...; }'. It looks like it was used on a property.",
-	    "m010": "@computed can only be used on getter functions, like: '@computed get myProps() { return ...; }'",
-	    "m011": "First argument to `computed` should be an expression. If using computed as decorator, don't pass it arguments",
-	    "m012": "computed takes one or two arguments if used as function",
-	    "m013": "[mobx.expr] 'expr' should only be used inside other reactive functions.",
-	    "m014": "extendObservable expected 2 or more arguments",
-	    "m015": "extendObservable expects an object as first argument",
-	    "m016": "extendObservable should not be used on maps, use map.merge instead",
-	    "m017": "all arguments of extendObservable should be objects",
-	    "m018": "extending an object with another observable (object) is not supported. Please construct an explicit propertymap, using `toJS` if need. See issue #540",
-	    "m019": "[mobx.isObservable] isObservable(object, propertyName) is not supported for arrays and maps. Use map.has or array.length instead.",
-	    "m020": "modifiers can only be used for individual object properties",
-	    "m021": "observable expects zero or one arguments",
-	    "m022": "@observable can not be used on getters, use @computed instead",
-	    "m023": "Using `transaction` is deprecated, use `runInAction` or `(@)action` instead.",
-	    "m024": "whyRun() can only be used if a derivation is active, or by passing an computed value / reaction explicitly. If you invoked whyRun from inside a computation; the computation is currently suspended but re-evaluating because somebody requested its value.",
-	    "m025": "whyRun can only be used on reactions and computed values",
-	    "m026": "`action` can only be invoked on functions",
-	    "m028": "It is not allowed to set `useStrict` when a derivation is running",
-	    "m029": "INTERNAL ERROR only onBecomeUnobserved shouldn't be called twice in a row",
-	    "m030a": "Since strict-mode is enabled, changing observed observable values outside actions is not allowed. Please wrap the code in an `action` if this change is intended. Tried to modify: ",
-	    "m030b": "Side effects like changing state are not allowed at this point. Are you trying to modify state from, for example, the render function of a React component? Tried to modify: ",
-	    "m031": "Computed values are not allowed to cause side effects by changing observables that are already being observed. Tried to modify: ",
-	    "m032": "* This computation is suspended (not in use by any reaction) and won't run automatically.\n	Didn't expect this computation to be suspended at this point?\n	  1. Make sure this computation is used by a reaction (reaction, autorun, observer).\n	  2. Check whether you are using this computation synchronously (in the same stack as they reaction that needs it).",
-	    "m033": "`observe` doesn't support the fire immediately property for observable maps.",
-	    "m034": "`mobx.map` is deprecated, use `new ObservableMap` or `mobx.observable.map` instead",
-	    "m035": "Cannot make the designated object observable; it is not extensible",
-	    "m036": "It is not possible to get index atoms from arrays",
-	    "m037": "Hi there! I'm sorry you have just run into an exception.\nIf your debugger ends up here, know that some reaction (like the render() of an observer component, autorun or reaction)\nthrew an exception and that mobx caught it, to avoid that it brings the rest of your application down.\nThe original cause of the exception (the code that caused this reaction to run (again)), is still in the stack.\n\nHowever, more interesting is the actual stack trace of the error itself.\nHopefully the error is an instanceof Error, because in that case you can inspect the original stack of the error from where it was thrown.\nSee `error.stack` property, or press the very subtle \"(...)\" link you see near the console.error message that probably brought you here.\nThat stack is more interesting than the stack of this console.error itself.\n\nIf the exception you see is an exception you created yourself, make sure to use `throw new Error(\"Oops\")` instead of `throw \"Oops\"`,\nbecause the javascript environment will only preserve the original stack trace in the first form.\n\nYou can also make sure the debugger pauses the next time this very same exception is thrown by enabling \"Pause on caught exception\".\n(Note that it might pause on many other, unrelated exception as well).\n\nIf that all doesn't help you out, feel free to open an issue https://github.com/mobxjs/mobx/issues!\n",
-	    "m038": "Missing items in this list?\n    1. Check whether all used values are properly marked as observable (use isObservable to verify)\n    2. Make sure you didn't dereference values too early. MobX observes props, not primitives. E.g: use 'person.name' instead of 'name' in your computation.\n"
+	    m001: "It is not allowed to assign new values to @action fields",
+	    m002: "`runInAction` expects a function",
+	    m003: "`runInAction` expects a function without arguments",
+	    m004: "autorun expects a function",
+	    m005: "Warning: attempted to pass an action to autorun. Actions are untracked and will not trigger on state changes. Use `reaction` or wrap only your state modification code in an action.",
+	    m006: "Warning: attempted to pass an action to autorunAsync. Actions are untracked and will not trigger on state changes. Use `reaction` or wrap only your state modification code in an action.",
+	    m007: "reaction only accepts 2 or 3 arguments. If migrating from MobX 2, please provide an options object",
+	    m008: "wrapping reaction expression in `asReference` is no longer supported, use options object instead",
+	    m009: "@computed can only be used on getter functions, like: '@computed get myProps() { return ...; }'. It looks like it was used on a property.",
+	    m010: "@computed can only be used on getter functions, like: '@computed get myProps() { return ...; }'",
+	    m011: "First argument to `computed` should be an expression. If using computed as decorator, don't pass it arguments",
+	    m012: "computed takes one or two arguments if used as function",
+	    m013: "[mobx.expr] 'expr' should only be used inside other reactive functions.",
+	    m014: "extendObservable expected 2 or more arguments",
+	    m015: "extendObservable expects an object as first argument",
+	    m016: "extendObservable should not be used on maps, use map.merge instead",
+	    m017: "all arguments of extendObservable should be objects",
+	    m018: "extending an object with another observable (object) is not supported. Please construct an explicit propertymap, using `toJS` if need. See issue #540",
+	    m019: "[mobx.isObservable] isObservable(object, propertyName) is not supported for arrays and maps. Use map.has or array.length instead.",
+	    m020: "modifiers can only be used for individual object properties",
+	    m021: "observable expects zero or one arguments",
+	    m022: "@observable can not be used on getters, use @computed instead",
+	    m024: "whyRun() can only be used if a derivation is active, or by passing an computed value / reaction explicitly. If you invoked whyRun from inside a computation; the computation is currently suspended but re-evaluating because somebody requested its value.",
+	    m025: "whyRun can only be used on reactions and computed values",
+	    m026: "`action` can only be invoked on functions",
+	    m028: "It is not allowed to set `useStrict` when a derivation is running",
+	    m029: "INTERNAL ERROR only onBecomeUnobserved shouldn't be called twice in a row",
+	    m030a: "Since strict-mode is enabled, changing observed observable values outside actions is not allowed. Please wrap the code in an `action` if this change is intended. Tried to modify: ",
+	    m030b: "Side effects like changing state are not allowed at this point. Are you trying to modify state from, for example, the render function of a React component? Tried to modify: ",
+	    m031: "Computed values are not allowed to cause side effects by changing observables that are already being observed. Tried to modify: ",
+	    m032: "* This computation is suspended (not in use by any reaction) and won't run automatically.\n	Didn't expect this computation to be suspended at this point?\n	  1. Make sure this computation is used by a reaction (reaction, autorun, observer).\n	  2. Check whether you are using this computation synchronously (in the same stack as they reaction that needs it).",
+	    m033: "`observe` doesn't support the fire immediately property for observable maps.",
+	    m034: "`mobx.map` is deprecated, use `new ObservableMap` or `mobx.observable.map` instead",
+	    m035: "Cannot make the designated object observable; it is not extensible",
+	    m036: "It is not possible to get index atoms from arrays",
+	    m037: "Hi there! I'm sorry you have just run into an exception.\nIf your debugger ends up here, know that some reaction (like the render() of an observer component, autorun or reaction)\nthrew an exception and that mobx caught it, to avoid that it brings the rest of your application down.\nThe original cause of the exception (the code that caused this reaction to run (again)), is still in the stack.\n\nHowever, more interesting is the actual stack trace of the error itself.\nHopefully the error is an instanceof Error, because in that case you can inspect the original stack of the error from where it was thrown.\nSee `error.stack` property, or press the very subtle \"(...)\" link you see near the console.error message that probably brought you here.\nThat stack is more interesting than the stack of this console.error itself.\n\nIf the exception you see is an exception you created yourself, make sure to use `throw new Error(\"Oops\")` instead of `throw \"Oops\"`,\nbecause the javascript environment will only preserve the original stack trace in the first form.\n\nYou can also make sure the debugger pauses the next time this very same exception is thrown by enabling \"Pause on caught exception\".\n(Note that it might pause on many other, unrelated exception as well).\n\nIf that all doesn't help you out, feel free to open an issue https://github.com/mobxjs/mobx/issues!\n",
+	    m038: "Missing items in this list?\n    1. Check whether all used values are properly marked as observable (use isObservable to verify)\n    2. Make sure you didn't dereference values too early. MobX observes props, not primitives. E.g: use 'person.name' instead of 'name' in your computation.\n"
 	};
 	function getMessage(id) {
 	    return messages[id];
@@ -24952,7 +24899,7 @@
 	                    }
 	                }
 	            };
-	            if (arguments.length < 3 || arguments.length === 5 && argLen < 3) {
+	            if (arguments.length < 3 || (arguments.length === 5 && argLen < 3)) {
 	                // Typescript target is ES3, so it won't define property for us
 	                // or using Reflect.decorate polyfill, which will return no descriptor
 	                // (see https://github.com/mobxjs/mobx/issues/333)
@@ -24968,10 +24915,11 @@
 	            }
 	            var value_1 = descriptor.value, initializer_1 = descriptor.initializer;
 	            target.__mobxLazyInitializers.push(function (instance) {
-	                onInitialize(instance, key, (initializer_1 ? initializer_1.call(instance) : value_1), customArgs, descriptor);
+	                onInitialize(instance, key, initializer_1 ? initializer_1.call(instance) : value_1, customArgs, descriptor);
 	            });
 	            return {
-	                enumerable: enumerable, configurable: true,
+	                enumerable: enumerable,
+	                configurable: true,
 	                get: function () {
 	                    if (this.__mobxDidRunLazyInitializers !== true)
 	                        runLazyInitializers(this);
@@ -24994,7 +24942,9 @@
 	            /** Indirect invocation: @decorator(args) bla */
 	            var outerArgs = arguments;
 	            var argLen = arguments.length;
-	            return function (target, key, descriptor) { return classPropertyDecorator(target, key, descriptor, outerArgs, argLen); };
+	            return function (target, key, descriptor) {
+	                return classPropertyDecorator(target, key, descriptor, outerArgs, argLen);
+	            };
 	        };
 	    }
 	    return classPropertyDecorator;
@@ -25010,7 +24960,8 @@
 	        return;
 	    if (instance.__mobxLazyInitializers) {
 	        addHiddenProp(instance, "__mobxDidRunLazyInitializers", true);
-	        instance.__mobxDidRunLazyInitializers && instance.__mobxLazyInitializers.forEach(function (initializer) { return initializer(instance); });
+	        instance.__mobxDidRunLazyInitializers &&
+	            instance.__mobxLazyInitializers.forEach(function (initializer) { return initializer(instance); });
 	    }
 	}
 	function quacksLikeADecorator(args) {
@@ -25018,7 +24969,7 @@
 	}
 	
 	var actionFieldDecorator = createClassPropertyDecorator(function (target, key, value, args, originalDescriptor) {
-	    var actionName = (args && args.length === 1) ? args[0] : (value.name || key || "<unnamed action>");
+	    var actionName = args && args.length === 1 ? args[0] : value.name || key || "<unnamed action>";
 	    var wrappedAction = action(actionName, value);
 	    addHiddenProp(target, key, wrappedAction);
 	}, function (key) {
@@ -25060,6 +25011,9 @@
 	            descriptor.configurable = true;
 	            return descriptor;
 	        }
+	        if (descriptor !== undefined && descriptor.get !== undefined) {
+	            throw new Error("[mobx] action is not expected to be used with getters");
+	        }
 	        // bound instance methods
 	        return actionFieldDecorator(name).apply(this, arguments);
 	    };
@@ -25084,6 +25038,153 @@
 	    addHiddenProp(target, propertyName, res);
 	}
 	
+	// Copied from https://github.com/jashkenas/underscore/blob/5c237a7c682fb68fd5378203f0bf22dce1624854/underscore.js#L1186-L1289
+	function deepEqual(a, b) {
+	    return eq(a, b);
+	}
+	// Internal recursive comparison function for `isEqual`.
+	function eq(a, b, aStack, bStack) {
+	    // Identical objects are equal. `0 === -0`, but they aren't identical.
+	    // See the [Harmony `egal` proposal](http://wiki.ecmascript.org/doku.php?id=harmony:egal).
+	    if (a === b)
+	        return a !== 0 || 1 / a === 1 / b;
+	    // `null` or `undefined` only equal to itself (strict comparison).
+	    if (a == null || b == null)
+	        return false;
+	    // `NaN`s are equivalent, but non-reflexive.
+	    if (a !== a)
+	        return b !== b;
+	    // Exhaust primitive checks
+	    var type = typeof a;
+	    if (type !== "function" && type !== "object" && typeof b != "object")
+	        return false;
+	    return deepEq(a, b, aStack, bStack);
+	}
+	var toString = Object.prototype.toString;
+	// Internal recursive comparison function for `isEqual`.
+	function deepEq(a, b, aStack, bStack) {
+	    // Unwrap any wrapped objects.
+	    a = unwrap(a);
+	    b = unwrap(b);
+	    // Compare `[[Class]]` names.
+	    var className = toString.call(a);
+	    if (className !== toString.call(b))
+	        return false;
+	    switch (className) {
+	        // Strings, numbers, regular expressions, dates, and booleans are compared by value.
+	        case "[object RegExp]":
+	        // RegExps are coerced to strings for comparison (Note: '' + /a/i === '/a/i')
+	        case "[object String]":
+	            // Primitives and their corresponding object wrappers are equivalent; thus, `"5"` is
+	            // equivalent to `new String("5")`.
+	            return "" + a === "" + b;
+	        case "[object Number]":
+	            // `NaN`s are equivalent, but non-reflexive.
+	            // Object(NaN) is equivalent to NaN.
+	            if (+a !== +a)
+	                return +b !== +b;
+	            // An `egal` comparison is performed for other numeric values.
+	            return +a === 0 ? 1 / +a === 1 / b : +a === +b;
+	        case "[object Date]":
+	        case "[object Boolean]":
+	            // Coerce dates and booleans to numeric primitive values. Dates are compared by their
+	            // millisecond representations. Note that invalid dates with millisecond representations
+	            // of `NaN` are not equivalent.
+	            return +a === +b;
+	        case "[object Symbol]":
+	            return (typeof Symbol !== "undefined" && Symbol.valueOf.call(a) === Symbol.valueOf.call(b));
+	    }
+	    var areArrays = className === "[object Array]";
+	    if (!areArrays) {
+	        if (typeof a != "object" || typeof b != "object")
+	            return false;
+	        // Objects with different constructors are not equivalent, but `Object`s or `Array`s
+	        // from different frames are.
+	        var aCtor = a.constructor, bCtor = b.constructor;
+	        if (aCtor !== bCtor &&
+	            !(typeof aCtor === "function" &&
+	                aCtor instanceof aCtor &&
+	                typeof bCtor === "function" &&
+	                bCtor instanceof bCtor) &&
+	            ("constructor" in a && "constructor" in b)) {
+	            return false;
+	        }
+	    }
+	    // Assume equality for cyclic structures. The algorithm for detecting cyclic
+	    // structures is adapted from ES 5.1 section 15.12.3, abstract operation `JO`.
+	    // Initializing stack of traversed objects.
+	    // It's done here since we only need them for objects and arrays comparison.
+	    aStack = aStack || [];
+	    bStack = bStack || [];
+	    var length = aStack.length;
+	    while (length--) {
+	        // Linear search. Performance is inversely proportional to the number of
+	        // unique nested structures.
+	        if (aStack[length] === a)
+	            return bStack[length] === b;
+	    }
+	    // Add the first object to the stack of traversed objects.
+	    aStack.push(a);
+	    bStack.push(b);
+	    // Recursively compare objects and arrays.
+	    if (areArrays) {
+	        // Compare array lengths to determine if a deep comparison is necessary.
+	        length = a.length;
+	        if (length !== b.length)
+	            return false;
+	        // Deep compare the contents, ignoring non-numeric properties.
+	        while (length--) {
+	            if (!eq(a[length], b[length], aStack, bStack))
+	                return false;
+	        }
+	    }
+	    else {
+	        // Deep compare objects.
+	        var keys = Object.keys(a), key;
+	        length = keys.length;
+	        // Ensure that both objects contain the same number of properties before comparing deep equality.
+	        if (Object.keys(b).length !== length)
+	            return false;
+	        while (length--) {
+	            // Deep compare each member
+	            key = keys[length];
+	            if (!(has(b, key) && eq(a[key], b[key], aStack, bStack)))
+	                return false;
+	        }
+	    }
+	    // Remove the first object from the stack of traversed objects.
+	    aStack.pop();
+	    bStack.pop();
+	    return true;
+	}
+	function unwrap(a) {
+	    if (isObservableArray(a))
+	        return a.peek();
+	    if (isObservableMap(a))
+	        return a.entries();
+	    if (isES6Map(a))
+	        return iteratorToArray(a.entries());
+	    return a;
+	}
+	function has(a, key) {
+	    return Object.prototype.hasOwnProperty.call(a, key);
+	}
+	
+	function identityComparer(a, b) {
+	    return a === b;
+	}
+	function structuralComparer(a, b) {
+	    return deepEqual(a, b);
+	}
+	function defaultComparer(a, b) {
+	    return areBothNaN(a, b) || identityComparer(a, b);
+	}
+	var comparer = {
+	    identity: identityComparer,
+	    structural: structuralComparer,
+	    default: defaultComparer
+	};
+	
 	function autorun(arg1, arg2, arg3) {
 	    var name, view, scope;
 	    if (typeof arg1 === "string") {
@@ -25092,7 +25193,7 @@
 	        scope = arg3;
 	    }
 	    else {
-	        name = arg1.name || ("Autorun@" + getNextId());
+	        name = arg1.name || "Autorun@" + getNextId();
 	        view = arg1;
 	        scope = arg2;
 	    }
@@ -25118,7 +25219,7 @@
 	        scope = arg4;
 	    }
 	    else {
-	        name = ("When@" + getNextId());
+	        name = "When@" + getNextId();
 	        predicate = arg1;
 	        effect = arg2;
 	        scope = arg3;
@@ -25142,7 +25243,7 @@
 	        scope = arg4;
 	    }
 	    else {
-	        name = arg1.name || ("AutorunAsync@" + getNextId());
+	        name = arg1.name || "AutorunAsync@" + getNextId();
 	        func = arg1;
 	        delay = arg2;
 	        scope = arg3;
@@ -25163,7 +25264,9 @@
 	            }, delay);
 	        }
 	    });
-	    function reactionRunner() { func(r); }
+	    function reactionRunner() {
+	        func(r);
+	    }
 	    r.schedule();
 	    return r.getDisposer();
 	}
@@ -25181,17 +25284,22 @@
 	    else {
 	        opts = {};
 	    }
-	    opts.name = opts.name || expression.name || effect.name || ("Reaction@" + getNextId());
+	    opts.name =
+	        opts.name || expression.name || effect.name || "Reaction@" + getNextId();
 	    opts.fireImmediately = arg3 === true || opts.fireImmediately === true;
 	    opts.delay = opts.delay || 0;
 	    opts.compareStructural = opts.compareStructural || opts.struct || false;
+	    // TODO: creates ugly spy events, use `effect = (r) => runInAction(opts.name, () => effect(r))` instead
 	    effect = action(opts.name, opts.context ? effect.bind(opts.context) : effect);
 	    if (opts.context) {
 	        expression = expression.bind(opts.context);
 	    }
 	    var firstTime = true;
 	    var isScheduled = false;
-	    var nextValue;
+	    var value;
+	    var equals = opts.equals
+	        ? opts.equals
+	        : opts.compareStructural || opts.struct ? comparer.structural : comparer.default;
 	    var r = new Reaction(opts.name, function () {
 	        if (firstTime || opts.delay < 1) {
 	            reactionRunner();
@@ -25209,14 +25317,14 @@
 	            return;
 	        var changed = false;
 	        r.track(function () {
-	            var v = expression(r);
-	            changed = valueDidChange(opts.compareStructural, nextValue, v);
-	            nextValue = v;
+	            var nextValue = expression(r);
+	            changed = firstTime || !equals(value, nextValue);
+	            value = nextValue;
 	        });
 	        if (firstTime && opts.fireImmediately)
-	            effect(nextValue, r);
+	            effect(value, r);
 	        if (!firstTime && changed === true)
-	            effect(nextValue, r);
+	            effect(value, r);
 	        if (firstTime)
 	            firstTime = false;
 	    }
@@ -25227,7 +25335,9 @@
 	/**
 	 * A node in the state dependency root that observes other nodes, and can be observed itself.
 	 *
-	 * ComputedValue will remember result of the computation for duration of a batch, or being observed
+	 * ComputedValue will remember the result of the computation for the duration of the batch, or
+	 * while being observed.
+	 *
 	 * During this time it will recompute only when one of its direct dependencies changed,
 	 * but only when it is being accessed with `ComputedValue.get()`.
 	 *
@@ -25247,15 +25357,17 @@
 	     *
 	     * The `name` property is for debug purposes only.
 	     *
-	     * The `compareStructural` property indicates whether the return values should be compared structurally.
-	     * Normally, a computed value will not notify an upstream observer if a newly produced value is strictly equal to the previously produced value.
-	     * However, enabling compareStructural can be convenient if you always produce an new aggregated object and don't want to notify observers if it is structurally the same.
+	     * The `equals` property specifies the comparer function to use to determine if a newly produced
+	     * value differs from the previous value. Two comparers are provided in the library; `defaultComparer`
+	     * compares based on identity comparison (===), and `structualComparer` deeply compares the structure.
+	     * Structural comparison can be convenient if you always produce an new aggregated object and
+	     * don't want to notify observers if it is structurally the same.
 	     * This is useful for working with vectors, mouse coordinates etc.
 	     */
-	    function ComputedValue(derivation, scope, compareStructural, name, setter) {
+	    function ComputedValue(derivation, scope, equals, name, setter) {
 	        this.derivation = derivation;
 	        this.scope = scope;
-	        this.compareStructural = compareStructural;
+	        this.equals = equals;
 	        this.dependenciesState = exports.IDerivationState.NOT_TRACKING;
 	        this.observing = []; // nodes we are looking at. Our value depends on these nodes
 	        this.newObserving = null; // during tracking it's an array with new observed observers
@@ -25268,9 +25380,10 @@
 	        this.lowestObserverState = exports.IDerivationState.UP_TO_DATE;
 	        this.unboundDepsCount = 0;
 	        this.__mapid = "#" + getNextId();
-	        this.value = undefined;
+	        this.value = new CaughtException(null);
 	        this.isComputing = false; // to check for cycles
 	        this.isRunningSetter = false;
+	        this.isTracing = TraceMode.NONE;
 	        this.name = name || "ComputedValue@" + getNextId();
 	        if (setter)
 	            this.setter = createAction(name + "-setter", setter);
@@ -25289,12 +25402,17 @@
 	    ComputedValue.prototype.get = function () {
 	        invariant(!this.isComputing, "Cycle detected in computation " + this.name, this.derivation);
 	        if (globalState.inBatch === 0) {
-	            // just for small optimization, can be droped for simplicity
-	            // computed called outside of any mobx stuff. batch observing shuold be enough, don't need tracking
-	            // because it will never be called again inside this batch
+	            // This is an minor optimization which could be omitted to simplify the code
+	            // The computedValue is accessed outside of any mobx stuff. Batch observing should be enough and don't need
+	            // tracking as it will never be called again inside this batch.
 	            startBatch();
-	            if (shouldCompute(this))
+	            if (shouldCompute(this)) {
+	                if (this.isTracing !== TraceMode.NONE) {
+	                    console.log("[mobx.trace] '" + this
+	                        .name + "' is being read outside a reactive context and doing a full recompute");
+	                }
 	                this.value = this.computeValue(false);
+	            }
 	            endBatch();
 	        }
 	        else {
@@ -25316,7 +25434,8 @@
 	    };
 	    ComputedValue.prototype.set = function (value) {
 	        if (this.setter) {
-	            invariant(!this.isRunningSetter, "The setter of computed value '" + this.name + "' is trying to update itself. Did you intend to update an _observable_ value, instead of the computed property?");
+	            invariant(!this.isRunningSetter, "The setter of computed value '" + this
+	                .name + "' is trying to update itself. Did you intend to update an _observable_ value, instead of the computed property?");
 	            this.isRunningSetter = true;
 	            try {
 	                this.setter.call(this.scope, value);
@@ -25326,7 +25445,8 @@
 	            }
 	        }
 	        else
-	            invariant(false, "[ComputedValue '" + this.name + "'] It is not possible to assign a new value to a computed value.");
+	            invariant(false, "[ComputedValue '" + this
+	                .name + "'] It is not possible to assign a new value to a computed value.");
 	    };
 	    ComputedValue.prototype.trackAndCompute = function () {
 	        if (isSpyEnabled()) {
@@ -25337,8 +25457,13 @@
 	            });
 	        }
 	        var oldValue = this.value;
-	        var newValue = this.value = this.computeValue(true);
-	        return isCaughtException(newValue) || valueDidChange(this.compareStructural, newValue, oldValue);
+	        var wasSuspended = 
+	        /* see #1208 */ this.dependenciesState === exports.IDerivationState.NOT_TRACKING;
+	        var newValue = (this.value = this.computeValue(true));
+	        return (wasSuspended ||
+	            isCaughtException(oldValue) ||
+	            isCaughtException(newValue) ||
+	            !this.equals(oldValue, newValue));
 	    };
 	    ComputedValue.prototype.computeValue = function (track) {
 	        this.isComputing = true;
@@ -25359,7 +25484,6 @@
 	        this.isComputing = false;
 	        return res;
 	    };
-	    
 	    ComputedValue.prototype.observe = function (listener, fireImmediately) {
 	        var _this = this;
 	        var firstTime = true;
@@ -25389,14 +25513,20 @@
 	    ComputedValue.prototype.valueOf = function () {
 	        return toPrimitive(this.get());
 	    };
-	    
 	    ComputedValue.prototype.whyRun = function () {
 	        var isTracking = Boolean(globalState.trackingDerivation);
 	        var observing = unique(this.isComputing ? this.newObserving : this.observing).map(function (dep) { return dep.name; });
 	        var observers = unique(getObservers(this).map(function (dep) { return dep.name; }));
-	        return ("\nWhyRun? computation '" + this.name + "':\n * Running because: " + (isTracking ? "[active] the value of this computation is needed by a reaction" : this.isComputing ? "[get] The value of this computed was requested outside a reaction" : "[idle] not running at the moment") + "\n" +
-	            (this.dependenciesState === exports.IDerivationState.NOT_TRACKING ? getMessage("m032") :
-	                " * This computation will re-run if any of the following observables changes:\n    " + joinStrings(observing) + "\n    " + ((this.isComputing && isTracking) ? " (... or any observable accessed during the remainder of the current run)" : "") + "\n\t" + getMessage("m038") + "\n\n  * If the outcome of this computation changes, the following observers will be re-run:\n    " + joinStrings(observers) + "\n"));
+	        return ("\nWhyRun? computation '" + this.name + "':\n * Running because: " + (isTracking
+	            ? "[active] the value of this computation is needed by a reaction"
+	            : this.isComputing
+	                ? "[get] The value of this computed was requested outside a reaction"
+	                : "[idle] not running at the moment") + "\n" +
+	            (this.dependenciesState === exports.IDerivationState.NOT_TRACKING
+	                ? getMessage("m032")
+	                : " * This computation will re-run if any of the following observables changes:\n    " + joinStrings(observing) + "\n    " + (this.isComputing && isTracking
+	                    ? " (... or any observable accessed during the remainder of the current run)"
+	                    : "") + "\n    " + getMessage("m038") + "\n\n  * If the outcome of this computation changes, the following observers will be re-run:\n    " + joinStrings(observers) + "\n"));
 	    };
 	    return ComputedValue;
 	}());
@@ -25412,10 +25542,10 @@
 	        this.interceptors = null;
 	    }
 	    /**
-	        * Observes this object. Triggers for the events 'add', 'update' and 'delete'.
-	        * See: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/observe
-	        * for callback details
-	        */
+	     * Observes this object. Triggers for the events 'add', 'update' and 'delete'.
+	     * See: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/observe
+	     * for callback details
+	     */
 	    ObservableObjectAdministration.prototype.observe = function (callback, fireImmediately) {
 	        invariant(fireImmediately !== true, "`observe` doesn't support the fire immediately property for observable objects.");
 	        return registerListener(this, callback);
@@ -25426,7 +25556,7 @@
 	    return ObservableObjectAdministration;
 	}());
 	function asObservableObject(target, name) {
-	    if (isObservableObject(target))
+	    if (isObservableObject(target) && target.hasOwnProperty("$mobx"))
 	        return target.$mobx;
 	    invariant(Object.isExtensible(target), getMessage("m035"));
 	    if (!isPlainObject(target))
@@ -25438,7 +25568,7 @@
 	    return adm;
 	}
 	function defineObservablePropertyFromDescriptor(adm, propName, descriptor, defaultEnhancer) {
-	    if (adm.values[propName]) {
+	    if (adm.values[propName] && !isComputedValue(adm.values[propName])) {
 	        // already observable property
 	        invariant("value" in descriptor, "The property " + propName + " in " + adm.name + " is already observable, cannot redefine it as computed property");
 	        adm.target[propName] = descriptor.value; // the property setter will make 'value' reactive if needed.
@@ -25466,7 +25596,7 @@
 	    }
 	    else {
 	        // get x() { return 3 } set x(v) { }
-	        defineComputedProperty(adm, propName, descriptor.get, descriptor.set, false, true);
+	        defineComputedProperty(adm, propName, descriptor.get, descriptor.set, comparer.default, true);
 	    }
 	}
 	function defineObservableProperty(adm, propName, newValue, enhancer) {
@@ -25482,15 +25612,15 @@
 	            return;
 	        newValue = change.newValue;
 	    }
-	    var observable = adm.values[propName] = new ObservableValue(newValue, enhancer, adm.name + "." + propName, false);
+	    var observable = (adm.values[propName] = new ObservableValue(newValue, enhancer, adm.name + "." + propName, false));
 	    newValue = observable.value; // observableValue might have changed it
 	    Object.defineProperty(adm.target, propName, generateObservablePropConfig(propName));
 	    notifyPropertyAddition(adm, adm.target, propName, newValue);
 	}
-	function defineComputedProperty(adm, propName, getter, setter, compareStructural, asInstanceProperty) {
+	function defineComputedProperty(adm, propName, getter, setter, equals, asInstanceProperty) {
 	    if (asInstanceProperty)
 	        assertPropertyConfigurable(adm.target, propName);
-	    adm.values[propName] = new ComputedValue(getter, adm.target, compareStructural, adm.name + "." + propName, setter);
+	    adm.values[propName] = new ComputedValue(getter, adm.target, equals, adm.name + "." + propName, setter);
 	    if (asInstanceProperty) {
 	        Object.defineProperty(adm.target, propName, generateComputedPropConfig(propName));
 	    }
@@ -25506,28 +25636,30 @@
 	var observablePropertyConfigs = {};
 	var computedPropertyConfigs = {};
 	function generateObservablePropConfig(propName) {
-	    return observablePropertyConfigs[propName] || (observablePropertyConfigs[propName] = {
-	        configurable: true,
-	        enumerable: true,
-	        get: function () {
-	            return this.$mobx.values[propName].get();
-	        },
-	        set: function (v) {
-	            setPropertyValue(this, propName, v);
-	        }
-	    });
+	    return (observablePropertyConfigs[propName] ||
+	        (observablePropertyConfigs[propName] = {
+	            configurable: true,
+	            enumerable: true,
+	            get: function () {
+	                return this.$mobx.values[propName].get();
+	            },
+	            set: function (v) {
+	                setPropertyValue(this, propName, v);
+	            }
+	        }));
 	}
 	function generateComputedPropConfig(propName) {
-	    return computedPropertyConfigs[propName] || (computedPropertyConfigs[propName] = {
-	        configurable: true,
-	        enumerable: false,
-	        get: function () {
-	            return this.$mobx.values[propName].get();
-	        },
-	        set: function (v) {
-	            return this.$mobx.values[propName].set(v);
-	        }
-	    });
+	    return (computedPropertyConfigs[propName] ||
+	        (computedPropertyConfigs[propName] = {
+	            configurable: true,
+	            enumerable: false,
+	            get: function () {
+	                return this.$mobx.values[propName].get();
+	            },
+	            set: function (v) {
+	                return this.$mobx.values[propName].set(v);
+	            }
+	        }));
 	}
 	function setPropertyValue(instance, name, newValue) {
 	    var adm = instance.$mobx;
@@ -25537,7 +25669,8 @@
 	        var change = interceptChange(adm, {
 	            type: "update",
 	            object: instance,
-	            name: name, newValue: newValue
+	            name: name,
+	            newValue: newValue
 	        });
 	        if (!change)
 	            return;
@@ -25548,12 +25681,15 @@
 	    if (newValue !== UNCHANGED) {
 	        var notify = hasListeners(adm);
 	        var notifySpy = isSpyEnabled();
-	        var change = notify || notifySpy ? {
-	            type: "update",
-	            object: instance,
-	            oldValue: observable.value,
-	            name: name, newValue: newValue
-	        } : null;
+	        var change = notify || notifySpy
+	            ? {
+	                type: "update",
+	                object: instance,
+	                oldValue: observable.value,
+	                name: name,
+	                newValue: newValue
+	            }
+	            : null;
 	        if (notifySpy)
 	            spyReportStart(change);
 	        observable.setNewValue(newValue);
@@ -25566,10 +25702,14 @@
 	function notifyPropertyAddition(adm, object, name, newValue) {
 	    var notify = hasListeners(adm);
 	    var notifySpy = isSpyEnabled();
-	    var change = notify || notifySpy ? {
-	        type: "add",
-	        object: object, name: name, newValue: newValue
-	    } : null;
+	    var change = notify || notifySpy
+	        ? {
+	            type: "add",
+	            object: object,
+	            name: name,
+	            newValue: newValue
+	        }
+	        : null;
 	    if (notifySpy)
 	        spyReportStart(change);
 	    if (notify)
@@ -25588,10 +25728,10 @@
 	}
 	
 	/**
-	    * Returns true if the provided value is reactive.
-	    * @param value object, function or array
-	    * @param propertyName if propertyName is specified, checkes whether value.propertyName is reactive.
-	    */
+	 * Returns true if the provided value is reactive.
+	 * @param value object, function or array
+	 * @param property if property is specified, checks whether value.property is reactive.
+	 */
 	function isObservable(value, property) {
 	    if (value === null || value === undefined)
 	        return false;
@@ -25605,7 +25745,11 @@
 	        return false;
 	    }
 	    // For first check, see #701
-	    return isObservableObject(value) || !!value.$mobx || isAtom(value) || isReaction(value) || isComputedValue(value);
+	    return (isObservableObject(value) ||
+	        !!value.$mobx ||
+	        isAtom(value) ||
+	        isReaction(value) ||
+	        isComputedValue(value));
 	}
 	
 	function createDecoratorForEnhancer(enhancer) {
@@ -25617,7 +25761,8 @@
 	        defineObservableProperty(adm, name, baseValue, enhancer);
 	    }, function (name) {
 	        var observable = this.$mobx.values[name];
-	        if (observable === undefined)
+	        if (observable === undefined // See #505
+	        )
 	            return undefined;
 	        return observable.get();
 	    }, function (name, value) {
@@ -25642,7 +25787,7 @@
 	function extendObservableHelper(target, defaultEnhancer, properties) {
 	    invariant(arguments.length >= 2, getMessage("m014"));
 	    invariant(typeof target === "object", getMessage("m015"));
-	    invariant(!(isObservableMap(target)), getMessage("m016"));
+	    invariant(!isObservableMap(target), getMessage("m016"));
 	    properties.forEach(function (propSet) {
 	        invariant(typeof propSet === "object", getMessage("m017"));
 	        invariant(!isObservable(propSet), getMessage("m018"));
@@ -25671,7 +25816,7 @@
 	var refStructDecorator = createDecoratorForEnhancer(refStructEnhancer);
 	/**
 	 * Turns an object, array or function into a reactive structure.
-	 * @param value the value which should become observable.
+	 * @param v the value which should become observable.
 	 */
 	function createObservable(v) {
 	    if (v === void 0) { v = undefined; }
@@ -25691,40 +25836,38 @@
 	    // otherwise, just box it
 	    return observable.box(v);
 	}
-	var IObservableFactories = (function () {
-	    function IObservableFactories() {
-	    }
-	    IObservableFactories.prototype.box = function (value, name) {
+	var observableFactories = {
+	    box: function (value, name) {
 	        if (arguments.length > 2)
 	            incorrectlyUsedAsDecorator("box");
 	        return new ObservableValue(value, deepEnhancer, name);
-	    };
-	    IObservableFactories.prototype.shallowBox = function (value, name) {
+	    },
+	    shallowBox: function (value, name) {
 	        if (arguments.length > 2)
 	            incorrectlyUsedAsDecorator("shallowBox");
 	        return new ObservableValue(value, referenceEnhancer, name);
-	    };
-	    IObservableFactories.prototype.array = function (initialValues, name) {
+	    },
+	    array: function (initialValues, name) {
 	        if (arguments.length > 2)
 	            incorrectlyUsedAsDecorator("array");
 	        return new ObservableArray(initialValues, deepEnhancer, name);
-	    };
-	    IObservableFactories.prototype.shallowArray = function (initialValues, name) {
+	    },
+	    shallowArray: function (initialValues, name) {
 	        if (arguments.length > 2)
 	            incorrectlyUsedAsDecorator("shallowArray");
 	        return new ObservableArray(initialValues, referenceEnhancer, name);
-	    };
-	    IObservableFactories.prototype.map = function (initialValues, name) {
+	    },
+	    map: function (initialValues, name) {
 	        if (arguments.length > 2)
 	            incorrectlyUsedAsDecorator("map");
 	        return new ObservableMap(initialValues, deepEnhancer, name);
-	    };
-	    IObservableFactories.prototype.shallowMap = function (initialValues, name) {
+	    },
+	    shallowMap: function (initialValues, name) {
 	        if (arguments.length > 2)
 	            incorrectlyUsedAsDecorator("shallowMap");
 	        return new ObservableMap(initialValues, referenceEnhancer, name);
-	    };
-	    IObservableFactories.prototype.object = function (props, name) {
+	    },
+	    object: function (props, name) {
 	        if (arguments.length > 2)
 	            incorrectlyUsedAsDecorator("object");
 	        var res = {};
@@ -25733,16 +25876,16 @@
 	        // add properties
 	        extendObservable(res, props);
 	        return res;
-	    };
-	    IObservableFactories.prototype.shallowObject = function (props, name) {
+	    },
+	    shallowObject: function (props, name) {
 	        if (arguments.length > 2)
 	            incorrectlyUsedAsDecorator("shallowObject");
 	        var res = {};
 	        asObservableObject(res, name);
 	        extendShallowObservable(res, props);
 	        return res;
-	    };
-	    IObservableFactories.prototype.ref = function () {
+	    },
+	    ref: function () {
 	        if (arguments.length < 2) {
 	            // although ref creates actually a modifier descriptor, the type of the resultig properties
 	            // of the object is `T` in the end, when the descriptors are interpreted
@@ -25751,8 +25894,8 @@
 	        else {
 	            return refDecorator.apply(null, arguments);
 	        }
-	    };
-	    IObservableFactories.prototype.shallow = function () {
+	    },
+	    shallow: function () {
 	        if (arguments.length < 2) {
 	            // although ref creates actually a modifier descriptor, the type of the resultig properties
 	            // of the object is `T` in the end, when the descriptors are interpreted
@@ -25761,8 +25904,8 @@
 	        else {
 	            return shallowDecorator.apply(null, arguments);
 	        }
-	    };
-	    IObservableFactories.prototype.deep = function () {
+	    },
+	    deep: function () {
 	        if (arguments.length < 2) {
 	            // although ref creates actually a modifier descriptor, the type of the resultig properties
 	            // of the object is `T` in the end, when the descriptors are interpreted
@@ -25771,8 +25914,8 @@
 	        else {
 	            return deepDecorator.apply(null, arguments);
 	        }
-	    };
-	    IObservableFactories.prototype.struct = function () {
+	    },
+	    struct: function () {
 	        if (arguments.length < 2) {
 	            // although ref creates actually a modifier descriptor, the type of the resultig properties
 	            // of the object is `T` in the end, when the descriptors are interpreted
@@ -25781,15 +25924,11 @@
 	        else {
 	            return deepStructDecorator.apply(null, arguments);
 	        }
-	    };
-	    return IObservableFactories;
-	}());
+	    }
+	};
 	var observable = createObservable;
 	// weird trick to keep our typings nicely with our funcs, and still extend the observable function
-	// ES6 class methods aren't enumerable, can't use Object.keys
-	Object.getOwnPropertyNames(IObservableFactories.prototype)
-	    .filter(function (name) { return name !== "constructor"; })
-	    .forEach(function (name) { return observable[name] = IObservableFactories.prototype[name]; });
+	Object.keys(observableFactories).forEach(function (name) { return (observable[name] = observableFactories[name]); });
 	observable.deep.struct = observable.struct;
 	observable.ref.struct = function () {
 	    if (arguments.length < 2) {
@@ -25876,23 +26015,21 @@
 	}
 	
 	/**
-	 * @deprecated
 	 * During a transaction no views are updated until the end of the transaction.
 	 * The transaction will be run synchronously nonetheless.
-	 *
-	 * Deprecated to simplify api; transactions offer no real benefit above actions.
 	 *
 	 * @param action a function that updates some reactive state
 	 * @returns any value that was returned by the 'action' parameter.
 	 */
 	function transaction(action, thisArg) {
 	    if (thisArg === void 0) { thisArg = undefined; }
-	    deprecated(getMessage("m023"));
-	    return runInTransaction.apply(undefined, arguments);
-	}
-	function runInTransaction(action, thisArg) {
-	    if (thisArg === void 0) { thisArg = undefined; }
-	    return executeAction("", action);
+	    startBatch();
+	    try {
+	        return action.apply(thisArg);
+	    }
+	    finally {
+	        endBatch();
+	    }
 	}
 	
 	var ObservableMapMarker = {};
@@ -25961,15 +26098,17 @@
 	        if (this._has(key)) {
 	            var notifySpy = isSpyEnabled();
 	            var notify = hasListeners(this);
-	            var change = notify || notifySpy ? {
-	                type: "delete",
-	                object: this,
-	                oldValue: this._data[key].value,
-	                name: key
-	            } : null;
+	            var change = notify || notifySpy
+	                ? {
+	                    type: "delete",
+	                    object: this,
+	                    oldValue: this._data[key].value,
+	                    name: key
+	                }
+	                : null;
 	            if (notifySpy)
 	                spyReportStart(change);
-	            runInTransaction(function () {
+	            transaction(function () {
 	                _this._keys.remove(key);
 	                _this._updateHasMapEntry(key, false);
 	                var observable$$1 = _this._data[key];
@@ -26001,12 +26140,15 @@
 	        if (newValue !== UNCHANGED) {
 	            var notifySpy = isSpyEnabled();
 	            var notify = hasListeners(this);
-	            var change = notify || notifySpy ? {
-	                type: "update",
-	                object: this,
-	                oldValue: observable$$1.value,
-	                name: name, newValue: newValue
-	            } : null;
+	            var change = notify || notifySpy
+	                ? {
+	                    type: "update",
+	                    object: this,
+	                    oldValue: observable$$1.value,
+	                    name: name,
+	                    newValue: newValue
+	                }
+	                : null;
 	            if (notifySpy)
 	                spyReportStart(change);
 	            observable$$1.setNewValue(newValue);
@@ -26018,20 +26160,22 @@
 	    };
 	    ObservableMap.prototype._addValue = function (name, newValue) {
 	        var _this = this;
-	        runInTransaction(function () {
-	            var observable$$1 = _this._data[name] = new ObservableValue(newValue, _this.enhancer, _this.name + "." + name, false);
+	        transaction(function () {
+	            var observable$$1 = (_this._data[name] = new ObservableValue(newValue, _this.enhancer, _this.name + "." + name, false));
 	            newValue = observable$$1.value; // value might have been changed
 	            _this._updateHasMapEntry(name, true);
 	            _this._keys.push(name);
 	        });
 	        var notifySpy = isSpyEnabled();
 	        var notify = hasListeners(this);
-	        var change = notify || notifySpy ? {
-	            type: "add",
-	            object: this,
-	            name: name,
-	            newValue: newValue
-	        } : null;
+	        var change = notify || notifySpy
+	            ? {
+	                type: "add",
+	                object: this,
+	                name: name,
+	                newValue: newValue
+	            }
+	            : null;
 	        if (notifySpy)
 	            spyReportStart(change);
 	        if (notify)
@@ -26071,7 +26215,7 @@
 	        if (isObservableMap(other)) {
 	            other = other.toJS();
 	        }
-	        runInTransaction(function () {
+	        transaction(function () {
 	            if (isPlainObject(other))
 	                Object.keys(other).forEach(function (key) { return _this.set(key, other[key]); });
 	            else if (Array.isArray(other))
@@ -26088,7 +26232,7 @@
 	    };
 	    ObservableMap.prototype.clear = function () {
 	        var _this = this;
-	        runInTransaction(function () {
+	        transaction(function () {
 	            untracked(function () {
 	                _this.keys().forEach(_this.delete, _this);
 	            });
@@ -26096,8 +26240,14 @@
 	    };
 	    ObservableMap.prototype.replace = function (values) {
 	        var _this = this;
-	        runInTransaction(function () {
-	            _this.clear();
+	        transaction(function () {
+	            // grab all the keys that are present in the new map but not present in the current map
+	            // and delete them from the map, then merge the new map
+	            // this will cause reactions only on changed values
+	            var newKeys = getMapLikeKeys(values);
+	            var oldKeys = _this.keys();
+	            var missingKeys = oldKeys.filter(function (k) { return newKeys.indexOf(k) === -1; });
+	            missingKeys.forEach(function (k) { return _this.delete(k); });
 	            _this.merge(values);
 	        });
 	        return this;
@@ -26111,12 +26261,12 @@
 	    });
 	    /**
 	     * Returns a shallow non observable object clone of this map.
-	     * Note that the values migth still be observable. For a deep clone use mobx.toJS.
+	     * Note that the values might still be observable. For a deep clone use mobx.toJS.
 	     */
 	    ObservableMap.prototype.toJS = function () {
 	        var _this = this;
 	        var res = {};
-	        this.keys().forEach(function (key) { return res[key] = _this.get(key); });
+	        this.keys().forEach(function (key) { return (res[key] = _this.get(key)); });
 	        return res;
 	    };
 	    ObservableMap.prototype.toJSON = function () {
@@ -26136,7 +26286,10 @@
 	    };
 	    ObservableMap.prototype.toString = function () {
 	        var _this = this;
-	        return this.name + "[{ " + this.keys().map(function (key) { return key + ": " + ("" + _this.get(key)); }).join(", ") + " }]";
+	        return (this.name +
+	            "[{ " +
+	            this.keys().map(function (key) { return key + ": " + ("" + _this.get(key)); }).join(", ") +
+	            " }]");
 	    };
 	    /**
 	     * Observes this object. Triggers for the events 'add', 'update' and 'delete'.
@@ -26165,7 +26318,7 @@
 	var EMPTY_ARRAY = [];
 	Object.freeze(EMPTY_ARRAY);
 	function getGlobal() {
-	    return global;
+	    return typeof window !== "undefined" ? window : global;
 	}
 	function getNextId() {
 	    return ++globalState.mobxGuid;
@@ -26217,7 +26370,9 @@
 	    if (!things)
 	        return "";
 	    var sliced = things.slice(0, limit);
-	    return "" + sliced.join(separator) + (things.length > limit ? " (... and " + (things.length - limit) + "more)" : "");
+	    return "" + sliced.join(separator) + (things.length > limit
+	        ? " (... and " + (things.length - limit) + "more)"
+	        : "");
 	}
 	function isObject(value) {
 	    return value !== null && typeof value === "object";
@@ -26238,14 +26393,6 @@
 	            }
 	    }
 	    return res;
-	}
-	function valueDidChange(compareStructural, oldValue, newValue) {
-	    if (typeof oldValue === 'number' && isNaN(oldValue)) {
-	        return typeof newValue !== 'number' || !isNaN(newValue);
-	    }
-	    return compareStructural
-	        ? !deepEqual(oldValue, newValue)
-	        : oldValue !== newValue;
 	}
 	var prototypeHasOwnProperty = Object.prototype.hasOwnProperty;
 	function hasOwnProperty(object, propName) {
@@ -26279,69 +26426,6 @@
 	function assertPropertyConfigurable(object, prop) {
 	    invariant(isPropertyConfigurable(object, prop), "Cannot make property '" + prop + "' observable, it is not configurable and writable in the target object");
 	}
-	function getEnumerableKeys(obj) {
-	    var res = [];
-	    for (var key in obj)
-	        res.push(key);
-	    return res;
-	}
-	/**
-	 * Naive deepEqual. Doesn't check for prototype, non-enumerable or out-of-range properties on arrays.
-	 * If you have such a case, you probably should use this function but something fancier :).
-	 */
-	function deepEqual(a, b) {
-	    if (a === null && b === null)
-	        return true;
-	    if (a === undefined && b === undefined)
-	        return true;
-	    if (typeof a !== "object")
-	        return a === b;
-	    var aIsArray = isArrayLike(a);
-	    var aIsMap = isMapLike(a);
-	    if (aIsArray !== isArrayLike(b)) {
-	        return false;
-	    }
-	    else if (aIsMap !== isMapLike(b)) {
-	        return false;
-	    }
-	    else if (aIsArray) {
-	        if (a.length !== b.length)
-	            return false;
-	        for (var i = a.length - 1; i >= 0; i--)
-	            if (!deepEqual(a[i], b[i]))
-	                return false;
-	        return true;
-	    }
-	    else if (aIsMap) {
-	        if (a.size !== b.size)
-	            return false;
-	        var equals_1 = true;
-	        a.forEach(function (value, key) {
-	            equals_1 = equals_1 && deepEqual(b.get(key), value);
-	        });
-	        return equals_1;
-	    }
-	    else if (typeof a === "object" && typeof b === "object") {
-	        if (a === null || b === null)
-	            return false;
-	        if (isMapLike(a) && isMapLike(b)) {
-	            if (a.size !== b.size)
-	                return false;
-	            // Freaking inefficient.... Create PR if you run into this :) Much appreciated!
-	            return deepEqual(observable.shallowMap(a).entries(), observable.shallowMap(b).entries());
-	        }
-	        if (getEnumerableKeys(a).length !== getEnumerableKeys(b).length)
-	            return false;
-	        for (var prop in a) {
-	            if (!(prop in b))
-	                return false;
-	            if (!deepEqual(a[prop], b[prop]))
-	                return false;
-	        }
-	        return true;
-	    }
-	    return false;
-	}
 	function createInstanceofPredicate(name, clazz) {
 	    var propName = "isMobX" + name;
 	    clazz.prototype[propName] = true;
@@ -26349,25 +26433,49 @@
 	        return isObject(x) && x[propName] === true;
 	    };
 	}
+	function areBothNaN(a, b) {
+	    return typeof a === "number" && typeof b === "number" && isNaN(a) && isNaN(b);
+	}
 	/**
 	 * Returns whether the argument is an array, disregarding observability.
 	 */
 	function isArrayLike(x) {
 	    return Array.isArray(x) || isObservableArray(x);
 	}
-	function isMapLike(x) {
-	    return isES6Map(x) || isObservableMap(x);
-	}
 	function isES6Map(thing) {
 	    if (getGlobal().Map !== undefined && thing instanceof getGlobal().Map)
 	        return true;
 	    return false;
 	}
+	function getMapLikeKeys(map$$1) {
+	    if (isPlainObject(map$$1))
+	        return Object.keys(map$$1);
+	    if (Array.isArray(map$$1))
+	        return map$$1.map(function (_a) {
+	            var key = _a[0];
+	            return key;
+	        });
+	    if (isES6Map(map$$1))
+	        return Array.from(map$$1.keys());
+	    if (isObservableMap(map$$1))
+	        return map$$1.keys();
+	    return fail("Cannot get keys from " + map$$1);
+	}
+	function iteratorToArray(it) {
+	    var res = [];
+	    while (true) {
+	        var r = it.next();
+	        if (r.done)
+	            break;
+	        res.push(r.value);
+	    }
+	    return res;
+	}
 	function primitiveSymbol() {
 	    return (typeof Symbol === "function" && Symbol.toPrimitive) || "@@toPrimitive";
 	}
 	function toPrimitive(value) {
-	    return value === null ? null : typeof value === "object" ? ("" + value) : value;
+	    return value === null ? null : typeof value === "object" ? "" + value : value;
 	}
 	
 	/**
@@ -26443,7 +26551,32 @@
 	    return MobXGlobals;
 	}());
 	var globalState = new MobXGlobals();
+	var shareGlobalStateCalled = false;
+	var runInIsolationCalled = false;
+	var warnedAboutMultipleInstances = false;
+	{
+	    var global_1 = getGlobal();
+	    if (!global_1.__mobxInstanceCount) {
+	        global_1.__mobxInstanceCount = 1;
+	    }
+	    else {
+	        global_1.__mobxInstanceCount++;
+	        setTimeout(function () {
+	            if (!shareGlobalStateCalled && !runInIsolationCalled && !warnedAboutMultipleInstances) {
+	                warnedAboutMultipleInstances = true;
+	                console.warn("[mobx] Warning: there are multiple mobx instances active. This might lead to unexpected results. See https://github.com/mobxjs/mobx/issues/1082 for details.");
+	            }
+	        });
+	    }
+	}
+	function isolateGlobalState() {
+	    runInIsolationCalled = true;
+	    getGlobal().__mobxInstanceCount--;
+	}
 	function shareGlobalState() {
+	    // TODO: remove in 4.0; just use peer dependencies instead.
+	    deprecated("Using `shareGlobalState` is not recommended, use peer dependencies instead. See https://github.com/mobxjs/mobx/issues/1082 for details.");
+	    shareGlobalStateCalled = true;
 	    var global = getGlobal();
 	    var ownState = globalState;
 	    /**
@@ -26475,6 +26608,91 @@
 	    globalState.allowStateChanges = !globalState.strictMode;
 	}
 	
+	function getAtom(thing, property) {
+	    if (typeof thing === "object" && thing !== null) {
+	        if (isObservableArray(thing)) {
+	            invariant(property === undefined, getMessage("m036"));
+	            return thing.$mobx.atom;
+	        }
+	        if (isObservableMap(thing)) {
+	            var anyThing = thing;
+	            if (property === undefined)
+	                return getAtom(anyThing._keys);
+	            var observable = anyThing._data[property] || anyThing._hasMap[property];
+	            invariant(!!observable, "the entry '" + property + "' does not exist in the observable map '" + getDebugName(thing) + "'");
+	            return observable;
+	        }
+	        // Initializers run lazily when transpiling to babel, so make sure they are run...
+	        runLazyInitializers(thing);
+	        if (property && !thing.$mobx)
+	            thing[property]; // See #1072 // TODO: remove in 4.0
+	        if (isObservableObject(thing)) {
+	            if (!property)
+	                return fail("please specify a property");
+	            var observable = thing.$mobx.values[property];
+	            invariant(!!observable, "no observable property '" + property + "' found on the observable object '" + getDebugName(thing) + "'");
+	            return observable;
+	        }
+	        if (isAtom(thing) || isComputedValue(thing) || isReaction(thing)) {
+	            return thing;
+	        }
+	    }
+	    else if (typeof thing === "function") {
+	        if (isReaction(thing.$mobx)) {
+	            // disposer function
+	            return thing.$mobx;
+	        }
+	    }
+	    return fail("Cannot obtain atom from " + thing);
+	}
+	function getAdministration(thing, property) {
+	    invariant(thing, "Expecting some object");
+	    if (property !== undefined)
+	        return getAdministration(getAtom(thing, property));
+	    if (isAtom(thing) || isComputedValue(thing) || isReaction(thing))
+	        return thing;
+	    if (isObservableMap(thing))
+	        return thing;
+	    // Initializers run lazily when transpiling to babel, so make sure they are run...
+	    runLazyInitializers(thing);
+	    if (thing.$mobx)
+	        return thing.$mobx;
+	    invariant(false, "Cannot obtain administration from " + thing);
+	}
+	function getDebugName(thing, property) {
+	    var named;
+	    if (property !== undefined)
+	        named = getAtom(thing, property);
+	    else if (isObservableObject(thing) || isObservableMap(thing))
+	        named = getAdministration(thing);
+	    else
+	        named = getAtom(thing); // valid for arrays as well
+	    return named.name;
+	}
+	
+	function getDependencyTree(thing, property) {
+	    return nodeToDependencyTree(getAtom(thing, property));
+	}
+	function nodeToDependencyTree(node) {
+	    var result = {
+	        name: node.name
+	    };
+	    if (node.observing && node.observing.length > 0)
+	        result.dependencies = unique(node.observing).map(nodeToDependencyTree);
+	    return result;
+	}
+	function getObserverTree(thing, property) {
+	    return nodeToObserverTree(getAtom(thing, property));
+	}
+	function nodeToObserverTree(node) {
+	    var result = {
+	        name: node.name
+	    };
+	    if (hasObservers(node))
+	        result.observers = getObservers(node).map(nodeToObserverTree);
+	    return result;
+	}
+	
 	function hasObservers(observable) {
 	    return observable.observers && observable.observers.length > 0;
 	}
@@ -26487,13 +26705,14 @@
 	    // invariantObservers(observable);
 	    var l = observable.observers.length;
 	    if (l) {
+	        // because object assignment is relatively expensive, let's not store data about index 0.
 	        observable.observersIndexes[node.__mapid] = l;
 	    }
 	    observable.observers[l] = node;
 	    if (observable.lowestObserverState > node.dependenciesState)
 	        observable.lowestObserverState = node.dependenciesState;
 	    // invariantObservers(observable);
-	    // invariant(observable._observers.indexOf(node) !== -1, "INTERNAL ERROR didnt add node");
+	    // invariant(observable._observers.indexOf(node) !== -1, "INTERNAL ERROR didn't add node");
 	}
 	function removeObserver(observable, node) {
 	    // invariant(globalState.inBatch > 0, "INTERNAL ERROR, remove should be called only inside batch");
@@ -26508,10 +26727,12 @@
 	        // deleting from _observersIndexes is straight forward, to delete from _observers, let's swap `node` with last element
 	        var list = observable.observers;
 	        var map = observable.observersIndexes;
-	        var filler = list.pop(); // get last element, which should fill the place of `node`, so the array doesnt have holes
+	        var filler = list.pop(); // get last element, which should fill the place of `node`, so the array doesn't have holes
 	        if (filler !== node) {
+	            // otherwise node was the last element, which already got removed from array
 	            var index = map[node.__mapid] || 0; // getting index of `node`. this is the only place we actually use map.
 	            if (index) {
+	                // map store all indexes but 0, see comment in `addObserver`
 	                map[filler.__mapid] = index;
 	            }
 	            else {
@@ -26527,7 +26748,7 @@
 	function queueForUnobservation(observable) {
 	    if (!observable.isPendingUnobservation) {
 	        // invariant(globalState.inBatch > 0, "INTERNAL ERROR, remove should be called only inside batch");
-	        // invariant(observable._observers.length === 0, "INTERNAL ERROR, shuold only queue for unobservation unobserved observables");
+	        // invariant(observable._observers.length === 0, "INTERNAL ERROR, should only queue for unobservation unobserved observables");
 	        observable.isPendingUnobservation = true;
 	        globalState.pendingUnobservations.push(observable);
 	    }
@@ -26590,8 +26811,12 @@
 	    var i = observers.length;
 	    while (i--) {
 	        var d = observers[i];
-	        if (d.dependenciesState === exports.IDerivationState.UP_TO_DATE)
+	        if (d.dependenciesState === exports.IDerivationState.UP_TO_DATE) {
+	            if (d.isTracing !== TraceMode.NONE) {
+	                logTraceInfo(d, observable);
+	            }
 	            d.onBecomeStale();
+	        }
 	        d.dependenciesState = exports.IDerivationState.STALE;
 	    }
 	    // invariantLOS(observable, "changed end");
@@ -26608,7 +26833,8 @@
 	        var d = observers[i];
 	        if (d.dependenciesState === exports.IDerivationState.POSSIBLY_STALE)
 	            d.dependenciesState = exports.IDerivationState.STALE;
-	        else if (d.dependenciesState === exports.IDerivationState.UP_TO_DATE)
+	        else if (d.dependenciesState === exports.IDerivationState.UP_TO_DATE // this happens during computing of `d`, just keep lowestObserverState up to date.
+	        )
 	            observable.lowestObserverState = exports.IDerivationState.UP_TO_DATE;
 	    }
 	    // invariantLOS(observable, "confirmed end");
@@ -26625,10 +26851,31 @@
 	        var d = observers[i];
 	        if (d.dependenciesState === exports.IDerivationState.UP_TO_DATE) {
 	            d.dependenciesState = exports.IDerivationState.POSSIBLY_STALE;
+	            if (d.isTracing !== TraceMode.NONE) {
+	                logTraceInfo(d, observable);
+	            }
 	            d.onBecomeStale();
 	        }
 	    }
 	    // invariantLOS(observable, "maybe end");
+	}
+	function logTraceInfo(derivation, observable) {
+	    console.log("[mobx.trace] '" + derivation.name + "' is invalidated due to a change in: '" + observable.name + "'");
+	    if (derivation.isTracing === TraceMode.BREAK) {
+	        var lines = [];
+	        printDepTree(getDependencyTree(derivation), lines, 1);
+	        // prettier-ignore
+	        new Function("debugger;\n/*\nTracing '" + derivation.name + "'\n\nYou are entering this break point because derivation '" + derivation.name + "' is being traced and '" + observable.name + "' is now forcing it to update.\nJust follow the stacktrace you should now see in the devtools to see precisely what piece of your code is causing this update\nThe stackframe you are looking for is at least ~6-8 stack-frames up.\n\n" + (derivation instanceof ComputedValue ? derivation.derivation.toString() : "") + "\n\nThe dependencies for this derivation are:\n\n" + lines.join("\n") + "\n*/\n    ")();
+	    }
+	}
+	function printDepTree(tree, lines, depth) {
+	    if (lines.length >= 1000) {
+	        lines.push("(and many more)");
+	        return;
+	    }
+	    lines.push("" + new Array(depth).join("\t") + tree.name); // MWE: not the fastest, but the easiest way :)
+	    if (tree.dependencies)
+	        tree.dependencies.forEach(function (child) { return printDepTree(child, lines, depth + 1); });
 	}
 	
 	(function (IDerivationState) {
@@ -26646,10 +26893,16 @@
 	    // having this state is second big optimization:
 	    // don't have to recompute on every dependency change, but only when it's needed
 	    IDerivationState[IDerivationState["POSSIBLY_STALE"] = 1] = "POSSIBLY_STALE";
-	    // shallow dependency changed
-	    // will need to recompute when it's needed
+	    // A shallow dependency has changed since last computation and the derivation
+	    // will need to recompute when it's needed next.
 	    IDerivationState[IDerivationState["STALE"] = 2] = "STALE";
 	})(exports.IDerivationState || (exports.IDerivationState = {}));
+	var TraceMode;
+	(function (TraceMode) {
+	    TraceMode[TraceMode["NONE"] = 0] = "NONE";
+	    TraceMode[TraceMode["LOG"] = 1] = "LOG";
+	    TraceMode[TraceMode["BREAK"] = 2] = "BREAK";
+	})(TraceMode || (TraceMode = {}));
 	var CaughtException = (function () {
 	    function CaughtException(cause) {
 	        this.cause = cause;
@@ -26661,20 +26914,23 @@
 	    return e instanceof CaughtException;
 	}
 	/**
-	 * Finds out wether any dependency of derivation actually changed
-	 * If dependenciesState is 1 it will recalculate dependencies,
+	 * Finds out whether any dependency of the derivation has actually changed.
+	 * If dependenciesState is 1 then it will recalculate dependencies,
 	 * if any dependency changed it will propagate it by changing dependenciesState to 2.
 	 *
-	 * By iterating over dependencies in the same order they were reported and stoping on first change
-	 * all recalculations are called only for ComputedValues that will be tracked anyway by derivation.
-	 * That is because we assume that if first x dependencies of derivation doesn't change
-	 * than derivation shuold run the same way up until accessing x-th dependency.
+	 * By iterating over the dependencies in the same order that they were reported and
+	 * stopping on the first change, all the recalculations are only called for ComputedValues
+	 * that will be tracked by derivation. That is because we assume that if the first x
+	 * dependencies of the derivation doesn't change then the derivation should run the same way
+	 * up until accessing x-th dependency.
 	 */
 	function shouldCompute(derivation) {
 	    switch (derivation.dependenciesState) {
-	        case exports.IDerivationState.UP_TO_DATE: return false;
+	        case exports.IDerivationState.UP_TO_DATE:
+	            return false;
 	        case exports.IDerivationState.NOT_TRACKING:
-	        case exports.IDerivationState.STALE: return true;
+	        case exports.IDerivationState.STALE:
+	            return true;
 	        case exports.IDerivationState.POSSIBLY_STALE: {
 	            var prevUntracked = untrackedStart(); // no need for those computeds to be reported, they will be picked up in trackDerivedFunction.
 	            var obs = derivation.observing, l = obs.length;
@@ -26748,12 +27004,11 @@
 	function bindDependencies(derivation) {
 	    // invariant(derivation.dependenciesState !== IDerivationState.NOT_TRACKING, "INTERNAL ERROR bindDependencies expects derivation.dependenciesState !== -1");
 	    var prevObserving = derivation.observing;
-	    var observing = derivation.observing = derivation.newObserving;
+	    var observing = (derivation.observing = derivation.newObserving);
 	    var lowestNewObservingDerivationState = exports.IDerivationState.UP_TO_DATE;
-	    derivation.newObserving = null; // newObserving shouldn't be needed outside tracking
 	    // Go through all new observables and check diffValue: (this list can contain duplicates):
-	    //   0: first occurence, change to 1 and keep it
-	    //   1: extra occurence, drop it
+	    //   0: first occurrence, change to 1 and keep it
+	    //   1: extra occurrence, drop it
 	    var i0 = 0, l = derivation.unboundDepsCount;
 	    for (var i = 0; i < l; i++) {
 	        var dep = observing[i];
@@ -26770,6 +27025,7 @@
 	        }
 	    }
 	    observing.length = i0;
+	    derivation.newObserving = null; // newObserving shouldn't be needed outside tracking (statement moved down to work around FF bug, see #614)
 	    // Go through all old observables and check diffValue: (it is unique after last bindDependencies)
 	    //   0: it's not in new observables, unobserve it
 	    //   1: it keeps being observed, don't want to notify it. change to 0
@@ -26791,8 +27047,8 @@
 	            addObserver(dep, derivation);
 	        }
 	    }
-	    // Some new observed derivations might become stale during this derivation computation
-	    // so say had no chance to propagate staleness (#916)
+	    // Some new observed derivations may become stale during this derivation computation
+	    // so they have had no chance to propagate staleness (#916)
 	    if (lowestNewObservingDerivationState !== exports.IDerivationState.UP_TO_DATE) {
 	        derivation.dependenciesState = lowestNewObservingDerivationState;
 	        derivation.onBecomeStale();
@@ -26835,6 +27091,47 @@
 	        obs[i].lowestObserverState = exports.IDerivationState.UP_TO_DATE;
 	}
 	
+	function log(msg) {
+	    console.log(msg);
+	    return msg;
+	}
+	function whyRun(thing, prop) {
+	    deprecated("`whyRun` is deprecated in favor of `trace`");
+	    thing = getAtomFromArgs(arguments);
+	    if (!thing)
+	        return log(getMessage("m024"));
+	    if (isComputedValue(thing) || isReaction(thing))
+	        return log(thing.whyRun());
+	    return fail(getMessage("m025"));
+	}
+	function trace() {
+	    var args = [];
+	    for (var _i = 0; _i < arguments.length; _i++) {
+	        args[_i] = arguments[_i];
+	    }
+	    var enterBreakPoint = false;
+	    if (typeof args[args.length - 1] === "boolean")
+	        enterBreakPoint = args.pop();
+	    var derivation = getAtomFromArgs(args);
+	    if (!derivation) {
+	        return fail("'trace(break?)' can only be used inside a tracked computed value or a Reaction. Consider passing in the computed value or reaction explicitly");
+	    }
+	    if (derivation.isTracing === TraceMode.NONE) {
+	        console.log("[mobx.trace] '" + derivation.name + "' tracing enabled");
+	    }
+	    derivation.isTracing = enterBreakPoint ? TraceMode.BREAK : TraceMode.LOG;
+	}
+	function getAtomFromArgs(args) {
+	    switch (args.length) {
+	        case 0:
+	            return globalState.trackingDerivation;
+	        case 1:
+	            return getAtom(args[0]);
+	        case 2:
+	            return getAtom(args[0], args[1]);
+	    }
+	}
+	
 	var Reaction = (function () {
 	    function Reaction(name, onInvalidate) {
 	        if (name === void 0) { name = "Reaction@" + getNextId(); }
@@ -26851,6 +27148,7 @@
 	        this._isScheduled = false;
 	        this._isTrackPending = false;
 	        this._isRunning = false;
+	        this.isTracing = TraceMode.NONE;
 	    }
 	    Reaction.prototype.onBecomeStale = function () {
 	        this.schedule();
@@ -26924,7 +27222,7 @@
 	        var message = "[mobx] Encountered an uncaught exception that was thrown by a reaction or observer component, in: '" + this;
 	        var messageToUser = getMessage("m037");
 	        console.error(message || messageToUser /* latter will not be true, make sure uglify doesn't remove */, error);
-	        /** If debugging brough you here, please, read the above message :-). Tnx! */
+	        /** If debugging brought you here, please, read the above message :-). Tnx! */
 	        if (isSpyEnabled()) {
 	            spyReport({
 	                type: "error",
@@ -26939,8 +27237,9 @@
 	        if (!this.isDisposed) {
 	            this.isDisposed = true;
 	            if (!this._isRunning) {
+	                // if disposed while running, clean up later. Maybe not optimal, but rare case
 	                startBatch();
-	                clearObserving(this); // if disposed while running, clean up later. Maybe not optimal, but rare case
+	                clearObserving(this);
 	                endBatch();
 	            }
 	        }
@@ -26956,7 +27255,15 @@
 	    };
 	    Reaction.prototype.whyRun = function () {
 	        var observing = unique(this._isRunning ? this.newObserving : this.observing).map(function (dep) { return dep.name; });
-	        return ("\nWhyRun? reaction '" + this.name + "':\n * Status: [" + (this.isDisposed ? "stopped" : this._isRunning ? "running" : this.isScheduled() ? "scheduled" : "idle") + "]\n * This reaction will re-run if any of the following observables changes:\n    " + joinStrings(observing) + "\n    " + ((this._isRunning) ? " (... or any observable accessed during the remainder of the current run)" : "") + "\n\t" + getMessage("m038") + "\n");
+	        return "\nWhyRun? reaction '" + this.name + "':\n * Status: [" + (this.isDisposed
+	            ? "stopped"
+	            : this._isRunning ? "running" : this.isScheduled() ? "scheduled" : "idle") + "]\n * This reaction will re-run if any of the following observables changes:\n    " + joinStrings(observing) + "\n    " + (this._isRunning
+	            ? " (... or any observable accessed during the remainder of the current run)"
+	            : "") + "\n\t" + getMessage("m038") + "\n";
+	    };
+	    Reaction.prototype.trace = function (enterBreakPoint) {
+	        if (enterBreakPoint === void 0) { enterBreakPoint = false; }
+	        trace(this, enterBreakPoint);
 	    };
 	    return Reaction;
 	}());
@@ -26995,8 +27302,8 @@
 	    // we converge to no remaining reactions after a while.
 	    while (allReactions.length > 0) {
 	        if (++iterations === MAX_REACTION_ITERATIONS) {
-	            console.error("Reaction doesn't converge to a stable state after " + MAX_REACTION_ITERATIONS + " iterations."
-	                + (" Probably there is a cycle in the reactive function: " + allReactions[0]));
+	            console.error("Reaction doesn't converge to a stable state after " + MAX_REACTION_ITERATIONS + " iterations." +
+	                (" Probably there is a cycle in the reactive function: " + allReactions[0]));
 	            allReactions.splice(0); // clear reactions
 	        }
 	        var remainingReactions = allReactions.splice(0);
@@ -27028,28 +27335,29 @@
 	    return observable.map(data || {});
 	}
 	
-	function createComputedDecorator(compareStructural) {
+	function createComputedDecorator(equals) {
 	    return createClassPropertyDecorator(function (target, name, _, __, originalDescriptor) {
 	        invariant(typeof originalDescriptor !== "undefined", getMessage("m009"));
 	        invariant(typeof originalDescriptor.get === "function", getMessage("m010"));
 	        var adm = asObservableObject(target, "");
-	        defineComputedProperty(adm, name, originalDescriptor.get, originalDescriptor.set, compareStructural, false);
+	        defineComputedProperty(adm, name, originalDescriptor.get, originalDescriptor.set, equals, false);
 	    }, function (name) {
 	        var observable = this.$mobx.values[name];
-	        if (observable === undefined)
+	        if (observable === undefined // See #505
+	        )
 	            return undefined;
 	        return observable.get();
 	    }, function (name, value) {
 	        this.$mobx.values[name].set(value);
 	    }, false, false);
 	}
-	var computedDecorator = createComputedDecorator(false);
-	var computedStructDecorator = createComputedDecorator(true);
+	var computedDecorator = createComputedDecorator(comparer.default);
+	var computedStructDecorator = createComputedDecorator(comparer.structural);
 	/**
 	 * Decorator for class properties: @computed get value() { return expr; }.
 	 * For legacy purposes also invokable as ES5 observable created: `computed(() => expr)`;
 	 */
-	var computed = (function computed(arg1, arg2, arg3) {
+	var computed = function computed(arg1, arg2, arg3) {
 	    if (typeof arg2 === "string") {
 	        return computedDecorator.apply(null, arguments);
 	    }
@@ -27057,75 +27365,21 @@
 	    invariant(arguments.length < 3, getMessage("m012"));
 	    var opts = typeof arg2 === "object" ? arg2 : {};
 	    opts.setter = typeof arg2 === "function" ? arg2 : opts.setter;
-	    return new ComputedValue(arg1, opts.context, opts.compareStructural || opts.struct || false, opts.name || arg1.name || "", opts.setter);
-	});
+	    var equals = opts.equals
+	        ? opts.equals
+	        : opts.compareStructural || opts.struct ? comparer.structural : comparer.default;
+	    return new ComputedValue(arg1, opts.context, equals, opts.name || arg1.name || "", opts.setter);
+	};
 	computed.struct = computedStructDecorator;
-	
-	function getAtom(thing, property) {
-	    if (typeof thing === "object" && thing !== null) {
-	        if (isObservableArray(thing)) {
-	            invariant(property === undefined, getMessage("m036"));
-	            return thing.$mobx.atom;
-	        }
-	        if (isObservableMap(thing)) {
-	            var anyThing = thing;
-	            if (property === undefined)
-	                return getAtom(anyThing._keys);
-	            var observable = anyThing._data[property] || anyThing._hasMap[property];
-	            invariant(!!observable, "the entry '" + property + "' does not exist in the observable map '" + getDebugName(thing) + "'");
-	            return observable;
-	        }
-	        // Initializers run lazily when transpiling to babel, so make sure they are run...
-	        runLazyInitializers(thing);
-	        if (isObservableObject(thing)) {
-	            if (!property)
-	                return fail("please specify a property");
-	            var observable = thing.$mobx.values[property];
-	            invariant(!!observable, "no observable property '" + property + "' found on the observable object '" + getDebugName(thing) + "'");
-	            return observable;
-	        }
-	        if (isAtom(thing) || isComputedValue(thing) || isReaction(thing)) {
-	            return thing;
-	        }
-	    }
-	    else if (typeof thing === "function") {
-	        if (isReaction(thing.$mobx)) {
-	            // disposer function
-	            return thing.$mobx;
-	        }
-	    }
-	    return fail("Cannot obtain atom from " + thing);
-	}
-	function getAdministration(thing, property) {
-	    invariant(thing, "Expecting some object");
-	    if (property !== undefined)
-	        return getAdministration(getAtom(thing, property));
-	    if (isAtom(thing) || isComputedValue(thing) || isReaction(thing))
-	        return thing;
-	    if (isObservableMap(thing))
-	        return thing;
-	    // Initializers run lazily when transpiling to babel, so make sure they are run...
-	    runLazyInitializers(thing);
-	    if (thing.$mobx)
-	        return thing.$mobx;
-	    invariant(false, "Cannot obtain administration from " + thing);
-	}
-	function getDebugName(thing, property) {
-	    var named;
-	    if (property !== undefined)
-	        named = getAtom(thing, property);
-	    else if (isObservableObject(thing) || isObservableMap(thing))
-	        named = getAdministration(thing);
-	    else
-	        named = getAtom(thing); // valid for arrays as well
-	    return named.name;
-	}
+	computed.equals = createComputedDecorator;
 	
 	function isComputed(value, property) {
 	    if (value === null || value === undefined)
 	        return false;
 	    if (property !== undefined) {
 	        if (isObservableObject(value) === false)
+	            return false;
+	        if (!value.$mobx.values[property])
 	            return false;
 	        var atom = getAtom(value, property);
 	        return isComputedValue(atom);
@@ -27160,19 +27414,19 @@
 	}
 	
 	/**
-	    * expr can be used to create temporarily views inside views.
-	    * This can be improved to improve performance if a value changes often, but usually doesn't affect the outcome of an expression.
-	    *
-	    * In the following example the expression prevents that a component is rerender _each time_ the selection changes;
-	    * instead it will only rerenders when the current todo is (de)selected.
-	    *
-	    * reactiveComponent((props) => {
-	    *     const todo = props.todo;
-	    *     const isSelected = mobx.expr(() => props.viewState.selection === todo);
-	    *     return <div className={isSelected ? "todo todo-selected" : "todo"}>{todo.title}</div>
-	    * });
-	    *
-	    */
+	 * expr can be used to create temporarily views inside views.
+	 * This can be improved to improve performance if a value changes often, but usually doesn't affect the outcome of an expression.
+	 *
+	 * In the following example the expression prevents that a component is rerender _each time_ the selection changes;
+	 * instead it will only rerenders when the current todo is (de)selected.
+	 *
+	 * reactiveComponent((props) => {
+	 *     const todo = props.todo;
+	 *     const isSelected = mobx.expr(() => props.viewState.selection === todo);
+	 *     return <div className={isSelected ? "todo todo-selected" : "todo"}>{todo.title}</div>
+	 * });
+	 *
+	 */
 	function expr(expr, scope) {
 	    if (!isComputingDerivation())
 	        console.warn(getMessage("m013"));
@@ -27180,7 +27434,6 @@
 	    return computed(expr, { context: scope }).get();
 	}
 	
-	// internal overload
 	function toJS(source, detectCycles, __alreadySeen) {
 	    if (detectCycles === void 0) { detectCycles = true; }
 	    if (__alreadySeen === void 0) { __alreadySeen = []; }
@@ -27215,7 +27468,7 @@
 	        }
 	        if (isObservableMap(source)) {
 	            var res_1 = cache({});
-	            source.forEach(function (value, key) { return res_1[key] = toJS(value, detectCycles, __alreadySeen); });
+	            source.forEach(function (value, key) { return (res_1[key] = toJS(value, detectCycles, __alreadySeen)); });
 	            return res_1;
 	        }
 	        if (isObservableValue(source))
@@ -27235,7 +27488,7 @@
 	    var Transformer = (function (_super) {
 	        __extends(Transformer, _super);
 	        function Transformer(sourceIdentifier, sourceObject) {
-	            var _this = _super.call(this, function () { return transformer(sourceObject); }, undefined, false, "Transformer-" + transformer.name + "-" + sourceIdentifier, undefined) || this;
+	            var _this = _super.call(this, function () { return transformer(sourceObject); }, undefined, comparer.default, "Transformer-" + transformer.name + "-" + sourceIdentifier, undefined) || this;
 	            _this.sourceIdentifier = sourceIdentifier;
 	            _this.sourceObject = sourceObject;
 	            return _this;
@@ -27264,7 +27517,7 @@
 	    };
 	}
 	function getMemoizationId(object) {
-	    if (typeof object === 'string' || typeof object === 'number')
+	    if (typeof object === "string" || typeof object === "number")
 	        return object;
 	    if (object === null || typeof object !== "object")
 	        throw new Error("[mobx] transform expected some kind of object or primitive value, got: " + object);
@@ -27274,52 +27527,6 @@
 	        addHiddenProp(object, "$transformId", tid);
 	    }
 	    return tid;
-	}
-	
-	function log(msg) {
-	    console.log(msg);
-	    return msg;
-	}
-	function whyRun(thing, prop) {
-	    switch (arguments.length) {
-	        case 0:
-	            thing = globalState.trackingDerivation;
-	            if (!thing)
-	                return log(getMessage("m024"));
-	            break;
-	        case 2:
-	            thing = getAtom(thing, prop);
-	            break;
-	    }
-	    thing = getAtom(thing);
-	    if (isComputedValue(thing))
-	        return log(thing.whyRun());
-	    else if (isReaction(thing))
-	        return log(thing.whyRun());
-	    return fail(getMessage("m025"));
-	}
-	
-	function getDependencyTree(thing, property) {
-	    return nodeToDependencyTree(getAtom(thing, property));
-	}
-	function nodeToDependencyTree(node) {
-	    var result = {
-	        name: node.name
-	    };
-	    if (node.observing && node.observing.length > 0)
-	        result.dependencies = unique(node.observing).map(nodeToDependencyTree);
-	    return result;
-	}
-	function getObserverTree(thing, property) {
-	    return nodeToObserverTree(getAtom(thing, property));
-	}
-	function nodeToObserverTree(node) {
-	    var result = {
-	        name: node.name
-	    };
-	    if (hasObservers(node))
-	        result.observers = getObservers(node).map(nodeToObserverTree);
-	    return result;
 	}
 	
 	function interceptReads(thing, propOrHandler, handler) {
@@ -27375,6 +27582,7 @@
 	    onReactionError: onReactionError,
 	    reserveArrayBuffer: reserveArrayBuffer,
 	    resetGlobalState: resetGlobalState,
+	    isolateGlobalState: isolateGlobalState,
 	    shareGlobalState: shareGlobalState,
 	    spyReport: spyReport,
 	    spyReportEnd: spyReportEnd,
@@ -27384,31 +27592,45 @@
 	var everything = {
 	    Reaction: Reaction,
 	    untracked: untracked,
-	    Atom: Atom, BaseAtom: BaseAtom,
-	    useStrict: useStrict, isStrictModeEnabled: isStrictModeEnabled,
+	    Atom: Atom,
+	    BaseAtom: BaseAtom,
+	    useStrict: useStrict,
+	    isStrictModeEnabled: isStrictModeEnabled,
 	    spy: spy,
-	    asReference: asReference, asFlat: asFlat, asStructure: asStructure, asMap: asMap,
+	    comparer: comparer,
+	    asReference: asReference,
+	    asFlat: asFlat,
+	    asStructure: asStructure,
+	    asMap: asMap,
 	    isModifierDescriptor: isModifierDescriptor,
 	    isObservableObject: isObservableObject,
 	    isBoxedObservable: isObservableValue,
 	    isObservableArray: isObservableArray,
-	    ObservableMap: ObservableMap, isObservableMap: isObservableMap, map: map,
+	    ObservableMap: ObservableMap,
+	    isObservableMap: isObservableMap,
+	    map: map,
 	    transaction: transaction,
 	    observable: observable,
 	    computed: computed,
 	    isObservable: isObservable,
 	    isComputed: isComputed,
-	    extendObservable: extendObservable, extendShallowObservable: extendShallowObservable,
+	    extendObservable: extendObservable,
+	    extendShallowObservable: extendShallowObservable,
 	    observe: observe,
 	    intercept: intercept,
-	    autorun: autorun, autorunAsync: autorunAsync, when: when, reaction: reaction,
-	    action: action, isAction: isAction, runInAction: runInAction,
+	    autorun: autorun,
+	    autorunAsync: autorunAsync,
+	    when: when,
+	    reaction: reaction,
+	    action: action,
+	    isAction: isAction,
+	    runInAction: runInAction,
 	    expr: expr,
 	    toJS: toJS,
 	    createTransformer: createTransformer,
 	    whyRun: whyRun,
 	    isArrayLike: isArrayLike,
-	    extras: extras,
+	    extras: extras
 	};
 	var warnedAboutDefaultExport = false;
 	var _loop_1 = function (p) {
@@ -27417,9 +27639,9 @@
 	        get: function () {
 	            if (!warnedAboutDefaultExport) {
 	                warnedAboutDefaultExport = true;
-	                console.warn('Using default export (`import mobx from \'mobx\'`) is deprecated ' +
-	                    'and won’t work in mobx@4.0.0\n' +
-	                    'Use `import * as mobx from \'mobx\'` instead');
+	                console.warn("Using default export (`import mobx from 'mobx'`) is deprecated " +
+	                    "and won’t work in mobx@4.0.0\n" +
+	                    "Use `import * as mobx from 'mobx'` instead");
 	            }
 	            return val;
 	        }
@@ -27441,6 +27663,7 @@
 	exports.useStrict = useStrict;
 	exports.isStrictModeEnabled = isStrictModeEnabled;
 	exports.spy = spy;
+	exports.comparer = comparer;
 	exports.asReference = asReference;
 	exports.asFlat = asFlat;
 	exports.asStructure = asStructure;
@@ -27454,7 +27677,6 @@
 	exports.map = map;
 	exports.transaction = transaction;
 	exports.observable = observable;
-	exports.IObservableFactories = IObservableFactories;
 	exports.computed = computed;
 	exports.isObservable = isObservable;
 	exports.isComputed = isComputed;
@@ -27473,6 +27695,7 @@
 	exports.toJS = toJS;
 	exports.createTransformer = createTransformer;
 	exports.whyRun = whyRun;
+	exports.trace = trace;
 	exports.isArrayLike = isArrayLike;
 	
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
@@ -27567,14 +27790,20 @@
 	        _this.timerForecast = null;
 	
 	        console.log('in OWMStore constructor');
-	        _this.fetchCurrentWeather();
-	        _this.timerCurrent = setInterval(function () {
-	            return _this.fetchCurrentWeather();
-	        }, 1000 * 60 * 10); // 10 mins
-	        _this.fetchForecast();
-	        _this.timerForecast = setInterval(function () {
-	            return _this.fetchForecast();
-	        }, 1000 * 60 * 30); // 30 mins
+	
+	        if (navigator.geolocation && usegeoloc) {
+	            navigator.geolocation.getCurrentPosition(_this.gotLocation);
+	        } else {
+	            usegeoloc = false;
+	            _this.fetchCurrentWeather();
+	            _this.timerCurrent = setInterval(function () {
+	                return _this.fetchCurrentWeather();
+	            }, 1000 * 60 * 10); // 10 mins
+	            _this.fetchForecast();
+	            _this.timerForecast = setInterval(function () {
+	                return _this.fetchForecast();
+	            }, 1000 * 60 * 30); // 30 mins
+	        }
 	        return _this;
 	    }
 	
@@ -27584,33 +27813,66 @@
 	            console.log('running owmstore.init');
 	        }
 	    }, {
+	        key: 'gotLocation',
+	        value: function gotLocation(postion) {
+	            var _this2 = this;
+	
+	            foundLat = position.coords.latitude;
+	            foundLon = position.coords.longitude;
+	            console.log("got position of: " + lat + " / " + lon);
+	            this.fetchCurrentWeather();
+	            this.timerCurrent = setInterval(function () {
+	                return _this2.fetchCurrentWeather();
+	            }, 1000 * 60 * 10); // 10 mins
+	            this.fetchForecast();
+	            this.timerForecast = setInterval(function () {
+	                return _this2.fetchForecast();
+	            }, 1000 * 60 * 30); // 30 mins
+	        }
+	    }, {
 	        key: 'fetchCurrentWeather',
 	        value: function fetchCurrentWeather() {
-	            var _this2 = this;
+	            var _this3 = this;
 	
 	            console.log('updating current weather');
 	            var now = new Date();
 	            return this.performOperation(function () {
-	                return fetch(owmurlbase + "weather?q=" + city + "," + country + "&units=imperial&appid=" + owmappid + "&t=" + now.getTime(), { method: 'GET' }).then(function (response) {
-	                    return response.json();
-	                }).then(function (result) {
-	                    return _this2.current = result;
-	                });
+	                if (usegeoloc) {
+	                    return fetch(owmurlbase + "weather?lat=" + foundLat + "&lon" + foundLon + "&units=imperial&appid=" + owmappid + "&t=" + now.getTime(), { method: 'GET' }).then(function (response) {
+	                        return response.json();
+	                    }).then(function (result) {
+	                        return _this3.current = result;
+	                    });
+	                } else {
+	                    return fetch(owmurlbase + "weather?q=" + city + "," + country + "&units=imperial&appid=" + owmappid + "&t=" + now.getTime(), { method: 'GET' }).then(function (response) {
+	                        return response.json();
+	                    }).then(function (result) {
+	                        return _this3.current = result;
+	                    });
+	                }
 	            });
 	        }
 	    }, {
 	        key: 'fetchForecast',
 	        value: function fetchForecast() {
-	            var _this3 = this;
+	            var _this4 = this;
 	
 	            console.log('updating forecast');
 	            var now = new Date();
 	            return this.performOperation(function () {
-	                return fetch(owmurlbase + "forecast/daily?q=" + city + "," + country + "&cnt=4&units=imperial&appid=" + owmappid + "&t=" + now.getTime(), { method: 'GET' }).then(function (response) {
-	                    return response.json();
-	                }).then(function (result) {
-	                    return _this3.forecast = result;
-	                });
+	                if (usegeoloc) {
+	                    return fetch(owmurlbase + "forecast/daily?lat=" + foundLat + "&lon" + foundLon + "&cnt=4&units=imperial&appid=" + owmappid + "&t=" + now.getTime(), { method: 'GET' }).then(function (response) {
+	                        return response.json();
+	                    }).then(function (result) {
+	                        return _this4.forecast = result;
+	                    });
+	                } else {
+	                    return fetch(owmurlbase + "forecast/daily?q=" + city + "," + country + "&cnt=4&units=imperial&appid=" + owmappid + "&t=" + now.getTime(), { method: 'GET' }).then(function (response) {
+	                        return response.json();
+	                    }).then(function (result) {
+	                        return _this4.forecast = result;
+	                    });
+	                }
 	            });
 	        }
 	    }]);
@@ -28076,6 +28338,180 @@
 	
 	    return OWMForecast;
 	}(_react2.default.Component)) || _class;
+
+/***/ }),
+/* 192 */
+/*!***********************************!*\
+  !*** ./src/client/app/newmap.jsx ***!
+  \***********************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(global) {'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.NewMap = undefined;
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _class;
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _mobxReact = __webpack_require__(/*! mobx-react */ 186);
+	
+	var _reactDom = __webpack_require__(/*! react-dom */ 37);
+	
+	var _owm = __webpack_require__(/*! ./stores/owm */ 188);
+	
+	var _owm2 = _interopRequireDefault(_owm);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var NewMap = exports.NewMap = (0, _mobxReact.observer)(_class = function (_React$Component) {
+	    _inherits(NewMap, _React$Component);
+	
+	    function NewMap(props) {
+	        _classCallCheck(this, NewMap);
+	
+	        var _this = _possibleConstructorReturn(this, (NewMap.__proto__ || Object.getPrototypeOf(NewMap)).call(this, props));
+	
+	        _this.state = {
+	            mapsrc: '',
+	            timer: null,
+	            clouds: null,
+	            precipitation: null,
+	            cloudSource: null
+	        };
+	        global.radar = null;
+	        return _this;
+	    }
+	
+	    _createClass(NewMap, [{
+	        key: 'createMap',
+	        value: function createMap() {
+	            if (_owm2.default.current != null) {
+	                var timeStamp = new Date();
+	                var scaleControl = new ol.control.ScaleLine({
+	                    units: 'imperial'
+	                });
+	                var attributionControl = new ol.control.Attribution({
+	                    collapsible: false,
+	                    target: undefined
+	                });
+	                var attribution = new ol.Attribution({
+	                    html: 'Updated at <span id="updatetime">' + timeStamp.toString("h:mm tt") + '</span>'
+	                });
+	                global.map = new ol.Map({
+	                    controls: [scaleControl, attributionControl],
+	                    target: 'map',
+	                    layers: [new ol.layer.Tile({
+	                        source: new ol.source.OSM({
+	                            attributions: [attribution]
+	                        })
+	                    })],
+	                    view: new ol.View({
+	                        center: ol.proj.fromLonLat([_owm2.default.current.coord.lon, _owm2.default.current.coord.lat]),
+	                        zoom: 6.5,
+	                        maxZoom: 6.5,
+	                        minZoom: 6.5
+	                    })
+	                });
+	
+	                global.map.on('moveend', function (event) {
+	                    var frameState = event.frameState;
+	                    global.mapExtent = frameState.extent;
+	                    var bottomLeft = ol.proj.toLonLat([global.mapExtent[0], global.mapExtent[1]]);
+	                    var topRight = ol.proj.toLonLat([global.mapExtent[2], global.mapExtent[3]]);
+	                    var center = ol.proj.toLonLat(map.getView().getCenter());
+	
+	                    global.radarURL = wuurlbase + wukey + "/radar/q/" + center[1] + "," + center[0];
+	                    global.radarURL += ".gif?rainsnow=1";
+	                    global.radarURL += "&noclutter=1";
+	                    global.radarURL += "&smooth=1";
+	                    global.radarURL += "&minlat=" + bottomLeft[1];
+	                    global.radarURL += "&maxlat=" + topRight[1];
+	                    global.radarURL += "&minlng=" + bottomLeft[0];
+	                    global.radarURL += "&maxlng=" + topRight[0];
+	                    global.radarURL += "&width=320";
+	                    global.radarURL += "&height=225";
+	
+	                    global.radarSource = new ol.source.ImageStatic({
+	                        url: global.radarURL,
+	                        imageSize: [320, 225],
+	                        projection: map.getView().getProjection(),
+	                        imageExtent: global.mapExtent
+	                    });
+	
+	                    if (global.radar == null) {
+	                        global.radar = new ol.layer.Image({
+	                            source: global.radarSource
+	                        });
+	                        map.addLayer(global.radar);
+	                    } else {
+	                        global.map.removeLayer(global.radar);
+	                        global.radar.setSource(global.radarSource);
+	                        global.map.addLayer(global.radar);
+	                    }
+	                    global.map.render();
+	                });
+	            }
+	        }
+	    }, {
+	        key: 'updateMap',
+	        value: function updateMap() {
+	            var now = new Date();
+	            var url = global.radarURL + "&t=" + now.getTime();
+	            global.radarSource = new ol.source.ImageStatic({
+	                url: url,
+	                imageSize: [320, 225],
+	                projection: map.getView().getProjection(),
+	                imageExtent: global.mapExtent
+	            });
+	            global.map.removeLayer(global.radar);
+	            global.radar.setSource(global.radarSource);
+	            global.map.addLayer(global.radar);
+	            var stamp = document.getElementById("updatetime");
+	            if (stamp != null) {
+	                stamp.innerHTML = now.toString("h:mm tt");
+	            }
+	        }
+	    }, {
+	        key: 'componentDidMount',
+	        value: function componentDidMount() {
+	            var _this2 = this;
+	
+	            this.setState({ timer: setInterval(function () {
+	                    return _this2.updateMap();
+	                }, 1000 * 60 * 10) });
+	        }
+	    }, {
+	        key: 'componentWillUnmount',
+	        value: function componentWillUnmount() {
+	            clearInterval(this.state.timer);
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            if (_owm2.default.current != null) {
+	                this.createMap();
+	            }
+	            return null;
+	        }
+	    }]);
+	
+	    return NewMap;
+	}(_react2.default.Component)) || _class;
+	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ })
 /******/ ]);

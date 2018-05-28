@@ -4,6 +4,7 @@ import { Clock } from './clock';
 import { OWMMap } from './owmmap';
 import { OWMCurrent } from './owmcurrent'
 import { OWMForecast }  from "./owmforecast"
+import { NewMap } from "./newmap"
 
 class App extends React.Component {
   render() {
@@ -14,7 +15,7 @@ class App extends React.Component {
           <Clock />
           <div id='map' className='map'>
           </div>
-          <OWMMap />
+          <NewMap />
           <div className="clear"></div>
           <OWMCurrent />
           <OWMForecast />

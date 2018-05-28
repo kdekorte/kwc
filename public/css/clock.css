@@ -21,6 +21,7 @@ html,body {
     background-size: cover;
     overflow: hidden;
     -webkit-text-size-adjust: none;
+    touch-action: none;
 }
 
 .hidden {

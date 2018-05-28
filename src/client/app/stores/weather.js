@@ -29,7 +29,7 @@ class WeatherStore extends Store {
             return fetch(wuurlbase + wukey + "/conditions/q/" + state + "/" + city + ".json", {method: 'GET'})
                 .then(response => response.json())
                 .then(result => this.current = result.current_observation)
-        })
+       })
     }
 
     fetchForecast() {
