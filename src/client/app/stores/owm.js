@@ -13,8 +13,11 @@ class OWMStore extends Store {
         super()
         console.log('in OWMStore constructor')
 
-        if (navigator.geolocation && usegeoloc) {
-            navigator.geolocation.getCurrentPosition(this.gotLocation);
+        if (usegeoloc) {
+            // navigator.geolocation.getCurrentPosition(this.gotLocation);
+            fetch("http://api.ipstack.com/check?access_key=" + ipstackkey, {method : 'GET'})
+                .then(response => response.json())
+                .then(result => this.gotLocation(result))
         } else {
             usegeoloc = false;
             this.fetchCurrentWeather()
@@ -29,10 +32,10 @@ class OWMStore extends Store {
         console.log('running owmstore.init')
     }
 
-    gotLocation(postion) {
-            foundLat = position.coords.latitude;
-            foundLon = position.coords.longitude; 
-            console.log("got position of: " + lat + " / " + lon);
+    gotLocation(result) {
+            foundLat = result.latitude;
+            foundLon = result.longitude; 
+            console.log("got position of: " + foundLat + " / " + foundLon);
             this.fetchCurrentWeather()
             this.timerCurrent = setInterval(() => this.fetchCurrentWeather(), 1000 * 60 * 10) // 10 mins
             this.fetchForecast()
@@ -44,7 +47,7 @@ class OWMStore extends Store {
         let now = new Date()
         return this.performOperation(() => {
             if (usegeoloc) {
-                return fetch(owmurlbase + "weather?lat=" + foundLat + "&lon" + foundLon + "&units=imperial&appid=" + owmappid + "&t=" + now.getTime(), {method: 'GET'})
+                return fetch(owmurlbase + "weather?lat=" + foundLat + "&lon=" + foundLon + "&units=imperial&appid=" + owmappid + "&t=" + now.getTime(), {method: 'GET'})
                     .then(response => response.json())
                     .then(result => this.current = result)
             } else {
@@ -60,7 +63,7 @@ class OWMStore extends Store {
         let now = new Date()
         return this.performOperation(() => {
             if (usegeoloc) {
-                return fetch(owmurlbase + "forecast/daily?lat=" + foundLat + "&lon" + foundLon + "&cnt=4&units=imperial&appid=" + owmappid + "&t=" + now.getTime(), {method: 'GET'})
+                return fetch(owmurlbase + "forecast/daily?lat=" + foundLat + "&lon=" + foundLon + "&cnt=4&units=imperial&appid=" + owmappid + "&t=" + now.getTime(), {method: 'GET'})
                     .then(response => response.json())
                     .then(result => this.forecast = result)
             } else {

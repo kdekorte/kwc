@@ -65,7 +65,7 @@
 	
 	var _owmforecast = __webpack_require__(/*! ./owmforecast */ 191);
 	
-	var _newmap = __webpack_require__(/*! ./newmap */ 192);
+	var _nwsmap = __webpack_require__(/*! ./nwsmap */ 192);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -100,7 +100,7 @@
 	          { className: 'content' },
 	          _react2.default.createElement(_clock.Clock, null),
 	          _react2.default.createElement('div', { id: 'map', className: 'map' }),
-	          _react2.default.createElement(_newmap.NewMap, null),
+	          _react2.default.createElement(_nwsmap.NWSMap, null),
 	          _react2.default.createElement('div', { className: 'clear' }),
 	          _react2.default.createElement(_owmcurrent.OWMCurrent, null),
 	          _react2.default.createElement(_owmforecast.OWMForecast, null)
@@ -108,7 +108,7 @@
 	        _react2.default.createElement(
 	          'div',
 	          { className: 'footer' },
-	          'Data provided by OpenWeatherMaps'
+	          'Data provided by OpenWeatherMaps, NOAA and BingMaps \xA9 2018 Microsoft'
 	        )
 	      );
 	    }
@@ -22639,7 +22639,7 @@
 	        value: function render() {
 	            return _react2.default.createElement(
 	                'div',
-	                { className: 'clock', style: { marginRight: '4px', marginBottom: '4px', width: '476px' } },
+	                { className: 'clock', style: { marginRight: '4px', marginBottom: '4px' } },
 	                _react2.default.createElement(
 	                    'div',
 	                    { className: 'digits' },
@@ -27791,8 +27791,13 @@
 	
 	        console.log('in OWMStore constructor');
 	
-	        if (navigator.geolocation && usegeoloc) {
-	            navigator.geolocation.getCurrentPosition(_this.gotLocation);
+	        if (usegeoloc) {
+	            // navigator.geolocation.getCurrentPosition(this.gotLocation);
+	            fetch("http://api.ipstack.com/check?access_key=" + ipstackkey, { method: 'GET' }).then(function (response) {
+	                return response.json();
+	            }).then(function (result) {
+	                return _this.gotLocation(result);
+	            });
 	        } else {
 	            usegeoloc = false;
 	            _this.fetchCurrentWeather();
@@ -27814,12 +27819,12 @@
 	        }
 	    }, {
 	        key: 'gotLocation',
-	        value: function gotLocation(postion) {
+	        value: function gotLocation(result) {
 	            var _this2 = this;
 	
-	            foundLat = position.coords.latitude;
-	            foundLon = position.coords.longitude;
-	            console.log("got position of: " + lat + " / " + lon);
+	            foundLat = result.latitude;
+	            foundLon = result.longitude;
+	            console.log("got position of: " + foundLat + " / " + foundLon);
 	            this.fetchCurrentWeather();
 	            this.timerCurrent = setInterval(function () {
 	                return _this2.fetchCurrentWeather();
@@ -27838,7 +27843,7 @@
 	            var now = new Date();
 	            return this.performOperation(function () {
 	                if (usegeoloc) {
-	                    return fetch(owmurlbase + "weather?lat=" + foundLat + "&lon" + foundLon + "&units=imperial&appid=" + owmappid + "&t=" + now.getTime(), { method: 'GET' }).then(function (response) {
+	                    return fetch(owmurlbase + "weather?lat=" + foundLat + "&lon=" + foundLon + "&units=imperial&appid=" + owmappid + "&t=" + now.getTime(), { method: 'GET' }).then(function (response) {
 	                        return response.json();
 	                    }).then(function (result) {
 	                        return _this3.current = result;
@@ -27861,7 +27866,7 @@
 	            var now = new Date();
 	            return this.performOperation(function () {
 	                if (usegeoloc) {
-	                    return fetch(owmurlbase + "forecast/daily?lat=" + foundLat + "&lon" + foundLon + "&cnt=4&units=imperial&appid=" + owmappid + "&t=" + now.getTime(), { method: 'GET' }).then(function (response) {
+	                    return fetch(owmurlbase + "forecast/daily?lat=" + foundLat + "&lon=" + foundLon + "&cnt=4&units=imperial&appid=" + owmappid + "&t=" + now.getTime(), { method: 'GET' }).then(function (response) {
 	                        return response.json();
 	                    }).then(function (result) {
 	                        return _this4.forecast = result;
@@ -28342,7 +28347,7 @@
 /***/ }),
 /* 192 */
 /*!***********************************!*\
-  !*** ./src/client/app/newmap.jsx ***!
+  !*** ./src/client/app/nwsmap.jsx ***!
   \***********************************/
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -28351,7 +28356,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-	exports.NewMap = undefined;
+	exports.NWSMap = undefined;
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
@@ -28377,26 +28382,26 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var NewMap = exports.NewMap = (0, _mobxReact.observer)(_class = function (_React$Component) {
-	    _inherits(NewMap, _React$Component);
+	var NWSMap = exports.NWSMap = (0, _mobxReact.observer)(_class = function (_React$Component) {
+	    _inherits(NWSMap, _React$Component);
 	
-	    function NewMap(props) {
-	        _classCallCheck(this, NewMap);
+	    function NWSMap(props) {
+	        _classCallCheck(this, NWSMap);
 	
-	        var _this = _possibleConstructorReturn(this, (NewMap.__proto__ || Object.getPrototypeOf(NewMap)).call(this, props));
+	        var _this = _possibleConstructorReturn(this, (NWSMap.__proto__ || Object.getPrototypeOf(NWSMap)).call(this, props));
 	
 	        _this.state = {
 	            mapsrc: '',
 	            timer: null,
 	            clouds: null,
 	            precipitation: null,
-	            cloudSource: null
+	            cloudSource: null,
+	            radar: null
 	        };
-	        global.radar = null;
 	        return _this;
 	    }
 	
-	    _createClass(NewMap, [{
+	    _createClass(NWSMap, [{
 	        key: 'createMap',
 	        value: function createMap() {
 	            if (_owm2.default.current != null) {
@@ -28408,78 +28413,55 @@
 	                    collapsible: false,
 	                    target: undefined
 	                });
+	                var fullscreenControl = new ol.control.FullScreen();
 	                var attribution = new ol.Attribution({
 	                    html: 'Updated at <span id="updatetime">' + timeStamp.toString("h:mm tt") + '</span>'
 	                });
+	                var sourceBing = new ol.source.BingMaps({
+	                    attributions: [attribution],
+	                    key: bingmapskey,
+	                    imagerySet: 'Road'
+	                });
+	                var sourceOSM = new ol.source.OSM({
+	                    attributions: [attribution]
+	                });
+	
 	                global.map = new ol.Map({
-	                    controls: [scaleControl, attributionControl],
+	                    controls: [scaleControl, attributionControl, fullscreenControl],
 	                    target: 'map',
 	                    layers: [new ol.layer.Tile({
-	                        source: new ol.source.OSM({
-	                            attributions: [attribution]
-	                        })
-	                    })],
+	                        source: sourceBing
+	                    }), this.state.radar],
 	                    view: new ol.View({
 	                        center: ol.proj.fromLonLat([_owm2.default.current.coord.lon, _owm2.default.current.coord.lat]),
-	                        zoom: 6.5,
-	                        maxZoom: 6.5,
-	                        minZoom: 6.5
+	                        zoom: 6,
+	                        maxZoom: 9,
+	                        minZoom: 3
 	                    })
 	                });
 	
-	                global.map.on('moveend', function (event) {
-	                    var frameState = event.frameState;
-	                    global.mapExtent = frameState.extent;
-	                    var bottomLeft = ol.proj.toLonLat([global.mapExtent[0], global.mapExtent[1]]);
-	                    var topRight = ol.proj.toLonLat([global.mapExtent[2], global.mapExtent[3]]);
-	                    var center = ol.proj.toLonLat(map.getView().getCenter());
-	
-	                    global.radarURL = wuurlbase + wukey + "/radar/q/" + center[1] + "," + center[0];
-	                    global.radarURL += ".gif?rainsnow=1";
-	                    global.radarURL += "&noclutter=1";
-	                    global.radarURL += "&smooth=1";
-	                    global.radarURL += "&minlat=" + bottomLeft[1];
-	                    global.radarURL += "&maxlat=" + topRight[1];
-	                    global.radarURL += "&minlng=" + bottomLeft[0];
-	                    global.radarURL += "&maxlng=" + topRight[0];
-	                    global.radarURL += "&width=320";
-	                    global.radarURL += "&height=225";
-	
-	                    global.radarSource = new ol.source.ImageStatic({
-	                        url: global.radarURL,
-	                        imageSize: [320, 225],
-	                        projection: map.getView().getProjection(),
-	                        imageExtent: global.mapExtent
-	                    });
-	
-	                    if (global.radar == null) {
-	                        global.radar = new ol.layer.Image({
-	                            source: global.radarSource
-	                        });
-	                        map.addLayer(global.radar);
-	                    } else {
-	                        global.map.removeLayer(global.radar);
-	                        global.radar.setSource(global.radarSource);
-	                        global.map.addLayer(global.radar);
-	                    }
-	                    global.map.render();
+	                var button = document.querySelector(".ol-full-screen button");
+	                button.addEventListener("click", function (event) {
+	                    setTimeout(global.map.getView().animate({
+	                        center: ol.proj.fromLonLat([_owm2.default.current.coord.lon, _owm2.default.current.coord.lat]),
+	                        zoom: 6,
+	                        duration: 500
+	                    }), 1000);
 	                });
+	
+	                var attributionFix = document.querySelector(".ol-attribution.ol-uncollapsible.ol-control");
+	                attributionFix.innerHTML = '<ul><li></li><li>Updated at <span id="updatetime">' + timeStamp.toString("h:mm tt") + '</span></li></ul><button type="button" title="Attribution"><span>i</span></button>';
 	            }
 	        }
 	    }, {
 	        key: 'updateMap',
 	        value: function updateMap() {
 	            var now = new Date();
-	            var url = global.radarURL + "&t=" + now.getTime();
-	            global.radarSource = new ol.source.ImageStatic({
-	                url: url,
-	                imageSize: [320, 225],
-	                projection: map.getView().getProjection(),
-	                imageExtent: global.mapExtent
-	            });
-	            global.map.removeLayer(global.radar);
-	            global.radar.setSource(global.radarSource);
-	            global.map.addLayer(global.radar);
+	
+	            if (this.state.radar != null) {
+	                this.state.radar.getSource().updateParams({ "TIME": now.toISOString() });
+	                this.state.radar.getSource().refresh();
+	            }
 	            var stamp = document.getElementById("updatetime");
 	            if (stamp != null) {
 	                stamp.innerHTML = now.toString("h:mm tt");
@@ -28490,6 +28472,27 @@
 	        value: function componentDidMount() {
 	            var _this2 = this;
 	
+	            var now = new Date();
+	            var radarSource = new ol.source.TileWMS({
+	                url: 'https://idpgis.ncep.noaa.gov/arcgis/services/NWS_Observations/radar_base_reflectivity/MapServer/WmsServer',
+	                params: {
+	                    "SERVICE": "WMS",
+	                    "REQUEST": "GetMap",
+	                    "FORMAT": "image.png",
+	                    "TRANSPARENT": "true",
+	                    "LAYERS": "1",
+	                    "TILED": "TRUE",
+	                    "TIME": now.toISOString()
+	                },
+	                projection: 'EPSG:3857'
+	            });
+	
+	            var radar = new ol.layer.Tile({
+	                opacity: 0.75,
+	                source: radarSource
+	            });
+	
+	            this.setState({ radar: radar });
 	            this.setState({ timer: setInterval(function () {
 	                    return _this2.updateMap();
 	                }, 1000 * 60 * 10) });
@@ -28509,7 +28512,7 @@
 	        }
 	    }]);
 	
-	    return NewMap;
+	    return NWSMap;
 	}(_react2.default.Component)) || _class;
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
