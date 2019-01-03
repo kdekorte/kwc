@@ -28028,7 +28028,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-	exports.OWMCurrent = exports.Precip = exports.Wind = undefined;
+	exports.OWMCurrent = exports.WindChill = exports.Precip = exports.Wind = undefined;
 	
 	var _class;
 	
@@ -28111,8 +28111,44 @@
 	    return Precip;
 	}(_react2.default.Component);
 	
-	var OWMCurrent = exports.OWMCurrent = (0, _mobxReact.observer)(_class = function (_React$Component3) {
-	    _inherits(OWMCurrent, _React$Component3);
+	var WindChill = exports.WindChill = function (_React$Component3) {
+	    _inherits(WindChill, _React$Component3);
+	
+	    function WindChill() {
+	        _classCallCheck(this, WindChill);
+	
+	        return _possibleConstructorReturn(this, (WindChill.__proto__ || Object.getPrototypeOf(WindChill)).apply(this, arguments));
+	    }
+	
+	    _createClass(WindChill, [{
+	        key: 'render',
+	        value: function render() {
+	            if (this.props.current.main.temp < 50 && this.props.current.wind.speed > 3 && this.props.current.wind.speed < 110) {
+	                var F = this.props.current.main.temp;
+	                var mph = this.props.current.wind.speed;
+	                var wChill = 35.74 + .6215 * F - 35.75 * Math.pow(mph, 0.16) + 0.4275 * F * Math.pow(mph, 0.16);
+	                return _react2.default.createElement(
+	                    'div',
+	                    { className: 'wind' },
+	                    'Wind Chill ',
+	                    wChill.toFixed(0),
+	                    _react2.default.createElement(
+	                        'span',
+	                        { className: 'windchillunits' },
+	                        '\xB0F'
+	                    )
+	                );
+	            } else {
+	                return null;
+	            }
+	        }
+	    }]);
+	
+	    return WindChill;
+	}(_react2.default.Component);
+	
+	var OWMCurrent = exports.OWMCurrent = (0, _mobxReact.observer)(_class = function (_React$Component4) {
+	    _inherits(OWMCurrent, _React$Component4);
 	
 	    function OWMCurrent() {
 	        _classCallCheck(this, OWMCurrent);
@@ -28180,7 +28216,8 @@
 	                            'div',
 	                            { style: { float: 'right' } },
 	                            _react2.default.createElement(Wind, { current: _owm2.default.current }),
-	                            _react2.default.createElement(Precip, { current: _owm2.default.current })
+	                            _react2.default.createElement(Precip, { current: _owm2.default.current }),
+	                            _react2.default.createElement(WindChill, { current: _owm2.default.current })
 	                        ),
 	                        _react2.default.createElement('div', { className: 'clear' })
 	                    )

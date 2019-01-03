@@ -222,6 +222,11 @@ html,body {
     font-size: 20px;
 }
 
+.windchillunits {
+    vertical-align: top;
+    font-size: 14px;
+}
+
 .ol-full-screen.ol-unselectable.ol-control button {
     background: rgba(0,60,136,.3);
     color: #eee;

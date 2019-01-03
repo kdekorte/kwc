@@ -29,6 +29,20 @@ export class Precip extends React.Component {
     }
 }
 
+export class WindChill extends React.Component {
+    render () {
+        if (this.props.current.main.temp < 50 && this.props.current.wind.speed > 3 && this.props.current.wind.speed < 110) {
+            var F = this.props.current.main.temp;
+            var mph = this.props.current.wind.speed;
+            var wChill = 35.74 + .6215*F - 35.75*Math.pow(mph, 0.16) + 0.4275*F*Math.pow(mph, 0.16);
+            return (
+                <div className='wind'>Wind Chill {wChill.toFixed(0)}<span className='windchillunits'>&deg;F</span></div>
+            )
+        } else {
+            return null;
+        }
+    }
+}
 
 @observer
 export class OWMCurrent extends React.Component {
@@ -60,6 +74,7 @@ export class OWMCurrent extends React.Component {
                         <div style={{float: 'right'}}>
                             <Wind current={OWMStore.current} />
                             <Precip current={OWMStore.current} /> 
+                            <WindChill current={OWMStore.current} />
                         </div>
                         <div className='clear'></div>
                     </div>
