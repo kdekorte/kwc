@@ -28454,25 +28454,72 @@
 	                var attribution = new ol.Attribution({
 	                    html: 'Updated at <span id="updatetime">' + timeStamp.toString("h:mm tt") + '</span>'
 	                });
+	
+	                /*
 	                var sourceBing = new ol.source.BingMaps({
 	                    attributions: [attribution],
 	                    key: bingmapskey,
 	                    imagerySet: 'Road'
-	                });
+	                })
+	                */
+	
 	                var sourceOSM = new ol.source.OSM({
-	                    attributions: [attribution]
+	                    attributions: [attribution],
+	                    url: "https://maps-cdn.salesboard.biz/styles/osm-bright/{z}/{x}/{y}.png"
+	                    // "https://maps-cdn.salesboard.biz/styles/klokantech-3d-gl-style/{z}/{x}/{y}.png"
+	                    // "https://maps-cdn.salesboard.biz/styles/klokantech-basic/{z}/{x}/{y}.png"
+	                    // "http://{a-c}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"
+	                    // "http://{a-c}.tile.stamen.com/watercolor/{z}/{x}/{y}.png"
+	                    // "http://{a-c}.tile.stamen.com/terrain/{z}/{x}/{y}.png"
+	                    // "https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}.png"
+	                    // "https://tile-{a-c}.openstreetmap.fr/hot/{z}/{x}/{y}.png"
+	                    // "http://{a-c}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"
+	                    // "https://{a-c}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png"
+	
 	                });
+	
+	                var locationStyle = new ol.style.Style({
+	                    image: new ol.style.Circle({
+	                        radius: 2,
+	                        snapToPixel: false,
+	                        fill: new ol.style.Fill({
+	                            color: 'blue'
+	                        }),
+	                        stroke: new ol.style.Stroke({
+	                            color: 'black',
+	                            width: 1
+	                        })
+	                    })
+	                });
+	
+	                var locationSource = new ol.source.Vector({
+	                    wrapX: false,
+	                    loader: function loader() {
+	                        var geo = new ol.geom.Point(ol.proj.fromLonLat([_owm2.default.current.coord.lon, _owm2.default.current.coord.lat]));
+	                        geo.set('style', locationStyle, false);
+	                        locationSource.addFeature(new ol.Feature({ geometry: geo }));
+	                    }
+	                });
+	
+	                var stylePicker = function () {
+	                    return function (feature) {
+	                        return feature.getGeometry().get('style');
+	                    };
+	                }();
 	
 	                global.map = new ol.Map({
 	                    controls: [scaleControl, attributionControl, fullscreenControl],
 	                    target: 'map',
 	                    layers: [new ol.layer.Tile({
-	                        source: sourceBing
+	                        source: sourceOSM
+	                    }), new ol.layer.Vector({
+	                        source: locationSource,
+	                        style: stylePicker
 	                    }), this.state.radar],
 	                    view: new ol.View({
 	                        center: ol.proj.fromLonLat([_owm2.default.current.coord.lon, _owm2.default.current.coord.lat]),
-	                        zoom: 6,
-	                        maxZoom: 9,
+	                        zoom: 6.5,
+	                        maxZoom: 11,
 	                        minZoom: 3
 	                    })
 	                });
