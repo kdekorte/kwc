@@ -17,10 +17,10 @@ class ForecastDay extends React.Component {
                     <i className={"wi wi-owm-"  + this.props.day.weather[0].id} style={{width:'50px', height: '50px', fontSize:'50px', padding:'5px 0'}} />
                 </div>
                 <div style={{fontSize: '20px', padding: '5px 0'}}>
-                    {this.props.day.temp.max.toFixed(0)}<sup>&deg;</sup>
+                    {this.props.day.temp.max.toFixed(0)}<sup>°</sup>
                 </div>
                 <div style={{fontSize: '20px', padding: '5px 0', color: '#666'}}>
-                    {this.props.day.temp.min.toFixed(0)}<sup>&deg;</sup>
+                    {this.props.day.temp.min.toFixed(0)}<sup>°</sup>
                 </div>
             </div>
         )

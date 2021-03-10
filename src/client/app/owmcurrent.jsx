@@ -8,7 +8,7 @@ export class Wind extends React.Component {
     render() {
         if (this.props.current.wind.speed > 0) {
             return (
-                <div className='wind'>{this.props.current.wind.speed.toFixed(1)} mph wind <i style={{fontSize:'36px',verticalAlign:'middle'}} className={"wi wi-wind toward-" + this.props.current.wind.deg.toFixed(0) + "-deg"} /></div>
+                <div className='wind'>{this.props.current.wind.speed.toFixed(1)} mph wind <i style={{fontSize:'36px',verticalAlign:'middle'}} className={"wi wi-wind towards-" + this.props.current.wind.deg.toFixed(0) + "-deg"} /></div>
             )
         } else {
             return null;
@@ -36,7 +36,7 @@ export class WindChill extends React.Component {
             var mph = this.props.current.wind.speed;
             var wChill = 35.74 + .6215*F - 35.75*Math.pow(mph, 0.16) + 0.4275*F*Math.pow(mph, 0.16);
             return (
-                <div className='wind'>Wind Chill {wChill.toFixed(0)}<span className='windchillunits'>&deg;F</span></div>
+                <div className='wind'>Wind Chill {wChill.toFixed(0)}<span className='windchillunits'>°F</span></div>
             )
         } else {
             return null;
@@ -65,7 +65,7 @@ export class OWMCurrent extends React.Component {
                         </div>  
                         <div style={{float: 'right', paddingTop: '4px'}}>
                             <span style={{fontSize: '72px'}}>{OWMStore.current.main.temp.toFixed(1)}</span>
-                            <span style={{fontSize: '20px', verticalAlign: 'top', paddingLeft: '5px'}}>&deg;F</span>
+                            <span style={{fontSize: '20px', verticalAlign: 'top', paddingLeft: '5px'}}>°F</span>
                         </div>  
                         <div style={{float: 'right'}}>
                             <i className={"wi wi-owm-"  + OWMStore.current.weather[0].id} style={{width:'72px', height: '72px', fontSize:'62px', padding:'5px 5px'}} />
